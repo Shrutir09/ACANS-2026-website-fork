@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # INSAC 2026 + Advanced Computing Conference Website
 ### Joint Academic Event: Dr. A.P.J. Abdul Kalam WIT (LNMU) & Indian Nuclear Society (INS)
 
@@ -243,3 +244,7 @@ NODE_ENV=production node src/server.js
    - Enable HTTPS/TLS and set `NODE_ENV=production` so `cookie.secure = true` is enforced.
 3. **Email Delivery**:
    - Configure active SMTP credentials (`SMTP_HOST`, `SMTP_USER`, `SMTP_PASS`) for real-time transactional emails.
+=======
+# insac-2026-website
+INSAC 2026 and Advanced Computing Conference website
+>>>>>>> 6bbfdbf92b356880ab1e1b14ad5fad87811eba67
