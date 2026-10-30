@@ -54,7 +54,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Col 3: Host Venue & Contact */}
+          {/* Col 3: Host Venue, Contact & Campus Map */}
           <div>
             <h4 style={{ color: '#ffffff', fontSize: '0.95rem', marginBottom: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
               Host Venue &amp; Secretariat
@@ -64,9 +64,95 @@ export default function Footer() {
               Lalit Narayan Mithila University Campus,<br />
               Darbhanga, Bihar – 846004, India
             </p>
-            <p style={{ fontSize: '0.825rem', color: '#cbd5e1' }}>
+            <p style={{ fontSize: '0.825rem', color: '#cbd5e1', marginBottom: '0.85rem' }}>
               Email: <a href="mailto:contact@insac2026.org" style={{ color: '#fcd34d' }}>contact@insac2026.org</a>
             </p>
+
+            {/* Find Our Campus Section */}
+            <div style={{ marginTop: '0.85rem' }}>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                marginBottom: '0.45rem',
+              }}>
+                <h5 style={{
+                  color: '#fcd34d',
+                  fontSize: '0.8rem',
+                  fontWeight: 700,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.04em',
+                  margin: 0,
+                }}>
+                  Find Our Campus
+                </h5>
+                <a
+                  href="https://www.google.com/maps/dir/?api=1&destination=Dr.+APJ+Abdul+Kalam+Women%27s+Institute+of+Technology,+Kadirabad,+Darbhanga&destination_place_id=ChIJMx0Smnue05EV2NH6jIpu3_8"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.25rem',
+                    color: '#67e8f9',
+                    fontSize: '0.75rem',
+                    fontWeight: 600,
+                    textDecoration: 'none',
+                  }}
+                  aria-label="Get Directions to WIT Campus on Google Maps"
+                >
+                  <span>Get Directions</span>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" y1="14" x2="21" y2="3" />
+                  </svg>
+                </a>
+              </div>
+
+              {/* Embedded Google Map */}
+              <div style={{
+                width: '100%',
+                borderRadius: '6px',
+                overflow: 'hidden',
+                border: '1px solid #1e3a8a',
+                backgroundColor: '#0a1e38',
+                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.25)',
+              }}>
+                <iframe
+                  title="Dr. APJ Abdul Kalam Women's Institute of Technology (WIT) Campus Location"
+                  src="https://maps.google.com/maps?q=Dr.+APJ+Abdul+Kalam+Women%27s+Institute+of+Technology,+Kadirabad,+Darbhanga,+Bihar+846008&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                  width="100%"
+                  height="145"
+                  style={{
+                    border: 0,
+                    display: 'block',
+                    width: '100%',
+                  }}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+              </div>
+
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                marginTop: '0.35rem',
+                fontSize: '0.72rem',
+                color: '#94a3b8',
+              }}>
+                <span>Raj Kila, Kadirabad, Darbhanga</span>
+                <a
+                  href="https://share.google/sqx0TwT6yvwKnIDEP"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: '#cbd5e1', textDecoration: 'underline' }}
+                >
+                  Open in Maps
+                </a>
+              </div>
+            </div>
           </div>
         </div>
 

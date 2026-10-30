@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '../context/AuthContext';
+import Image from 'next/image';
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -45,83 +46,64 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* 2. Institutional Header / Masthead */}
-      <div style={{
-        backgroundColor: '#ffffff',
-        borderBottom: '2px solid #0f294a',
-        padding: '0.9rem 0',
-      }}>
-        <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem' }}>
-          {/* Left Emblem: INS */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
-            <div style={{
-              width: '54px',
-              height: '54px',
-              borderRadius: '50%',
-              backgroundColor: '#0f294a',
-              border: '2px solid #b45309',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#ffffff',
-              textAlign: 'center',
-              flexShrink: 0,
-            }}>
-              <span style={{ fontSize: '0.95rem', fontWeight: 800, letterSpacing: '0.05em', color: '#fcd34d' }}>INS</span>
-              <span style={{ fontSize: '0.45rem', textTransform: 'uppercase', color: '#cbd5e1' }}>Est. 1988</span>
-            </div>
-          </div>
+{/* 2. Institutional Header / Masthead */}
+<div className="masthead">
+  <div className="container masthead-container">
 
-          {/* Center Titles */}
-          <div style={{ textAlign: 'center', flex: 1, padding: '0 0.5rem' }}>
-            <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#b45309', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.2rem' }}>
-              Joint National Academic Event
-            </div>
-            <h1 style={{
-              fontSize: 'clamp(1.15rem, 2.5vw, 1.55rem)',
-              fontWeight: 800,
-              color: '#0f294a',
-              lineHeight: 1.2,
-              margin: '0 0 0.25rem 0',
-            }}>
-              INDIAN NUCLEAR SOCIETY ANNUAL CONFERENCE (INSAC-2026)
-            </h1>
-            <div style={{
-              fontSize: 'clamp(0.85rem, 1.8vw, 1rem)',
-              fontWeight: 600,
-              color: '#334155',
-              lineHeight: 1.3,
-            }}>
-              National Workshop on &ldquo;Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities&rdquo;
-            </div>
-            <div style={{ fontSize: '0.785rem', color: '#64748b', marginTop: '0.3rem' }}>
-              Organized by <strong>Dr. A.P.J. Abdul Kalam Women&apos;s Institute of Technology (WIT)</strong>, Lalit Narayan Mithila University (LNMU), Darbhanga, Bihar
-            </div>
-          </div>
-
-          {/* Right Emblem: WIT / LNMU */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
-            <div style={{
-              width: '54px',
-              height: '54px',
-              borderRadius: '50%',
-              backgroundColor: '#831843',
-              border: '2px solid #b45309',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#ffffff',
-              textAlign: 'center',
-              flexShrink: 0,
-            }}>
-              <span style={{ fontSize: '0.85rem', fontWeight: 800, letterSpacing: '0.04em', color: '#fcd34d' }}>WIT</span>
-              <span style={{ fontSize: '0.45rem', textTransform: 'uppercase', color: '#fce7f3' }}>LNMU</span>
-            </div>
-          </div>
-        </div>
+    {/* INS Logo */}
+    <div className="masthead-left">
+      <div className="masthead-logo masthead-logo-ins">
+        <img
+          src="/logos/ins logo.jpeg"
+          alt="Indian Nuclear Society Logo"
+        />
       </div>
+    </div>
+
+    {/* Conference Details */}
+    <div className="masthead-center">
+      <div className="masthead-eyebrow">
+        Joint National Academic Event
+      </div>
+
+      <h1 className="masthead-title">
+        INDIAN NUCLEAR SOCIETY ANNUAL CONFERENCE (INSAC-2026)
+      </h1>
+
+      <div className="masthead-subtitle">
+        National Workshop on &ldquo;Advanced Computing and Nuclear Science:
+        Emerging Technologies, Interdisciplinary Applications and Research
+        Opportunities&rdquo;
+      </div>
+
+      <div className="masthead-organizer">
+        Organized by{" "}
+        <strong>
+          Dr. A.P.J. Abdul Kalam Women&apos;s Institute of Technology (WIT)
+        </strong>
+        , Lalit Narayan Mithila University (LNMU), Darbhanga, Bihar
+      </div>
+    </div>
+
+    {/* LNMU and WIT Logos */}
+    <div className="masthead-right">
+      <div className="masthead-logo masthead-logo-lnmu">
+        <img
+          src="/logos/lnmu logo.jpeg"
+          alt="Lalit Narayan Mithila University Logo"
+        />
+      </div>
+
+      <div className="masthead-logo masthead-logo-wit">
+        <img
+          src="/logos/wit logo.jpeg"
+          alt="Women's Institute of Technology Logo"
+        />
+      </div>
+    </div>
+
+  </div>
+</div>
 
       {/* 3. Solid Academic Navigation Bar */}
       <nav style={{
@@ -450,7 +432,264 @@ export default function Navbar() {
             display: none !important;
           }
         }
-      `}</style>
+          /* Institutional Conference Masthead */
+.masthead {
+  background: #ffffff;
+  border-bottom: 2px solid #0f294a;
+  padding: 0.55rem 0;
+}
+
+.masthead-container {
+  display: grid;
+  grid-template-columns: 145px minmax(0, 1fr) 145px;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+/* Left: INS */
+.masthead-left {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* Right: LNMU and WIT */
+.masthead-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+/* Base Logo Container */
+.masthead-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+/* INS Logo: Authoritative Institutional Rounded Badge */
+.masthead-logo-ins {
+  width: 70px;
+  height: 70px;
+  flex: 0 0 70px;
+  background-color: #000000;
+  border-radius: 8px;
+  border: 1px solid rgba(15, 41, 74, 0.18);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  padding: 2px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.masthead-logo-ins:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+}
+
+.masthead-logo-ins img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* LNMU Logo: Official University Circular Seal */
+.masthead-logo-lnmu {
+  width: 64px;
+  height: 64px;
+  flex: 0 0 64px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  border: 1px solid rgba(15, 41, 74, 0.14);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  padding: 2px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.masthead-logo-lnmu:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.masthead-logo-lnmu img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* WIT Logo: Calibrated to match LNMU Circular Seal */
+.masthead-logo-wit {
+  width: 64px;
+  height: 64px;
+  flex: 0 0 64px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  border: 1px solid rgba(15, 41, 74, 0.14);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.masthead-logo-wit:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.masthead-logo-wit img {
+  height: 124px;
+  width: auto;
+  max-width: none;
+  object-fit: contain;
+  display: block;
+  margin-top: -1px;
+}
+
+/* Conference Details */
+.masthead-center {
+  min-width: 0;
+  text-align: center;
+  padding: 0 0.25rem;
+}
+
+.masthead-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #b45309;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.15rem;
+}
+
+.masthead-title {
+  font-size: clamp(1.05rem, 1.85vw, 1.48rem);
+  font-weight: 800;
+  color: #0f294a;
+  line-height: 1.22;
+  margin: 0 0 0.2rem;
+  letter-spacing: -0.01em;
+}
+
+.masthead-subtitle {
+  font-size: clamp(0.78rem, 1.25vw, 0.94rem);
+  font-weight: 600;
+  color: #334155;
+  line-height: 1.32;
+}
+
+.masthead-organizer {
+  font-size: 0.75rem;
+  color: #64748b;
+  line-height: 1.35;
+  margin-top: 0.2rem;
+}
+
+/* Tablet (<= 960px) */
+@media (max-width: 960px) {
+  .masthead-container {
+    grid-template-columns: 120px minmax(0, 1fr) 120px;
+    gap: 0.85rem;
+  }
+
+  .masthead-logo-ins {
+    width: 60px;
+    height: 60px;
+    flex: 0 0 60px;
+    border-radius: 6px;
+  }
+
+  .masthead-logo-lnmu {
+    width: 56px;
+    height: 56px;
+    flex: 0 0 56px;
+  }
+
+  .masthead-logo-wit {
+    width: 56px;
+    height: 56px;
+    flex: 0 0 56px;
+  }
+
+  .masthead-logo-wit img {
+    height: 109px;
+  }
+
+  .masthead-right {
+    gap: 0.5rem;
+  }
+}
+
+/* Mobile (<= 720px) */
+@media (max-width: 720px) {
+  .masthead {
+    padding: 0.65rem 0;
+  }
+
+  .masthead-container {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "left right"
+      "center center";
+    row-gap: 0.65rem;
+    column-gap: 0.75rem;
+  }
+
+  .masthead-left {
+    grid-area: left;
+    justify-content: flex-start;
+  }
+
+  .masthead-right {
+    grid-area: right;
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+
+  .masthead-center {
+    grid-area: center;
+    padding: 0;
+  }
+
+  .masthead-logo-ins {
+    width: 52px;
+    height: 52px;
+    flex: 0 0 52px;
+    border-radius: 6px;
+  }
+
+  .masthead-logo-lnmu {
+    width: 48px;
+    height: 48px;
+    flex: 0 0 48px;
+  }
+
+  .masthead-logo-wit {
+    width: 48px;
+    height: 48px;
+    flex: 0 0 48px;
+  }
+
+  .masthead-logo-wit img {
+    height: 94px;
+  }
+
+  .masthead-title {
+    font-size: 1.05rem;
+    line-height: 1.25;
+  }
+
+  .masthead-subtitle {
+    font-size: 0.82rem;
+  }
+
+  .masthead-organizer {
+    font-size: 0.72rem;
+  }
+}
+`}</style>
     </header>
   );
 }
