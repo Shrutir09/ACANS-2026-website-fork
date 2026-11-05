@@ -83,7 +83,7 @@ export default function ThemesPage() {
               </button>
             </div>
 
-            <div style={{ minWidth: '260px' }}>
+            <div style={{ flex: '1 1 260px', minWidth: 0, maxWidth: '100%' }}>
               <input
                 type="text"
                 placeholder="Search topics by keyword..."

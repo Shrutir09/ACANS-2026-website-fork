@@ -14,7 +14,7 @@ export default function Footer() {
       <div className="container">
         <div className="grid-4" style={{ marginBottom: '2rem' }}>
           {/* Col 1: Joint Event Information */}
-          <div style={{ gridColumn: 'span 2' }}>
+          <div className="footer-event-info">
             <h3 style={{ color: '#ffffff', fontSize: '1.15rem', marginBottom: '0.4rem', fontWeight: 700 }}>
               INSAC 2026 &amp; Advanced Computing Conference
             </h3>
@@ -55,17 +55,23 @@ export default function Footer() {
           </div>
 
           {/* Col 3: Host Venue, Contact & Campus Map */}
-          <div>
+          <div className="footer-secretariat">
             <h4 style={{ color: '#ffffff', fontSize: '0.95rem', marginBottom: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
               Host Venue &amp; Secretariat
             </h4>
             <p style={{ fontSize: '0.825rem', color: '#cbd5e1', lineHeight: '1.6', marginBottom: '0.5rem' }}>
               Dr. A.P.J. Abdul Kalam WIT<br />
+              Kalpana Chawla Auditorium<br />
               Lalit Narayan Mithila University Campus,<br />
               Darbhanga, Bihar – 846004, India
             </p>
             <p style={{ fontSize: '0.825rem', color: '#cbd5e1', marginBottom: '0.85rem' }}>
-              Email: <a href="mailto:contact@insac2026.org" style={{ color: '#fcd34d' }}>contact@insac2026.org</a>
+              <span style={{ display: 'block', overflowWrap: 'anywhere' }}>
+                Email: <a href="mailto:acanc.tech2026@gmail.com" style={{ color: '#fcd34d' }}>acanc.tech2026@gmail.com</a>
+              </span>
+              <span style={{ display: 'block', marginTop: '0.25rem' }}>
+                Phone: <a href="tel:987654321" style={{ color: '#fcd34d' }}>987654321</a>
+              </span>
             </p>
 
             {/* Find Our Campus Section */}
