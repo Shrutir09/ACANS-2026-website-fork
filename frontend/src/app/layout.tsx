@@ -6,7 +6,7 @@ import Footer from '../components/Footer';
 
 export const metadata: Metadata = {
   title: 'INSAC 2026 & Advanced Computing Conference | WIT LNMU & INS',
-  description: "Official portal for INSAC 2026 (Indian Nuclear Society's Annual Conference) and National Workshop on Advanced Computing and Nuclear Science, hosted by Dr. A.P.J. Abdul Kalam Women's Institute of Technology (WIT), LNMU Darbhanga, in collaboration with INS.",
+  description: "Official portal for INSAC 2026 (Indian Nuclear Society's Annual Conference) and National Seminar on Advanced Computing and Nuclear Science, hosted by Dr. A.P.J. Abdul Kalam Women's Institute of Technology (WIT), LNMU Darbhanga, in collaboration with INS.",
   keywords: [
     'INSAC 2026',
     'Indian Nuclear Society',
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   authors: [{ name: 'WIT LNMU & INS' }],
   openGraph: {
     title: 'INSAC 2026 & Advanced Computing Conference',
-    description: "National Workshop & Annual Conference on Advanced Computing and Nuclear Science at Dr. A.P.J. Abdul Kalam WIT, LNMU Darbhanga.",
+    description: "National Seminar & Annual Conference on Advanced Computing and Nuclear Science at Dr. A.P.J. Abdul Kalam WIT, LNMU Darbhanga.",
     type: 'website',
   },
 };

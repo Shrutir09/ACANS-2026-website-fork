@@ -71,7 +71,7 @@ export default function Navbar() {
       </h1>
 
       <div className="masthead-subtitle">
-        National Workshop on &ldquo;Advanced Computing and Nuclear Science:
+        National Seminar on &ldquo;Advanced Computing and Nuclear Science:
         Emerging Technologies, Interdisciplinary Applications and Research
         Opportunities&rdquo;
       </div>
@@ -377,7 +377,7 @@ export default function Navbar() {
           <div style={{ flex: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
             <span>★ Official Extended Abstract Template (.docx) is now available for download.</span>
             <span style={{ margin: '0 0.6rem', color: '#cbd5e1' }}>|</span>
-            <span>★ Proposed Conference Dates: 7–11 December 2026 (Subject to approval).</span>
+            <span>★ Conference Dates: 7–9 December 2026.</span>
             <span style={{ margin: '0 0.6rem', color: '#cbd5e1' }}>|</span>
             <span>★ Registration Fee: Student ₹500, Research Scholar ₹750, Faculty ₹1,000 (Payment via UPI).</span>
           </div>

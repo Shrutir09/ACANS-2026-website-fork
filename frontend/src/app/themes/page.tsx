@@ -73,7 +73,7 @@ export default function ThemesPage() {
                 onClick={() => setFilter('workshop')}
                 className={`btn btn-sm ${filter === 'workshop' ? 'btn-primary' : 'btn-secondary'}`}
               >
-                Workshop Themes ({themes.filter(t => t.category === 'workshop').length})
+                Seminar Themes ({themes.filter(t => t.category === 'workshop').length})
               </button>
               <button
                 onClick={() => setFilter('conference')}
@@ -120,7 +120,7 @@ export default function ThemesPage() {
                       border: '1px solid #e2e8f0',
                       textTransform: 'uppercase',
                     }}>
-                      {theme.category === 'workshop' ? 'National Workshop Theme' : 'INSAC Conference Topic'}
+                      {theme.category === 'workshop' ? 'National Seminar Theme' : 'INSAC Conference Topic'}
                     </span>
                     <span style={{ fontSize: '0.8rem', color: '#94a3b8' }}>
                       #{index + 1}

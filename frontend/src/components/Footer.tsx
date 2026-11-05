@@ -19,7 +19,7 @@ export default function Footer() {
               INSAC 2026 &amp; Advanced Computing Conference
             </h3>
             <div style={{ fontSize: '0.85rem', color: '#fcd34d', marginBottom: '0.75rem', fontWeight: 600 }}>
-              National Workshop on &ldquo;Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities&rdquo;
+              National Seminar on &ldquo;Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities&rdquo;
             </div>
 
             <p style={{ fontSize: '0.825rem', color: '#94a3b8', lineHeight: '1.6', marginBottom: '1rem' }}>
@@ -35,7 +35,7 @@ export default function Footer() {
               fontSize: '0.8rem',
               color: '#fcd34d',
             }}>
-              <strong>Proposed Conference Dates:</strong> 7–11 December 2026 <em>(Subject to approval)</em>
+              <strong>Conference Dates:</strong> 7–9 December 2026
             </div>
           </div>
 

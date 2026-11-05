@@ -51,9 +51,9 @@ const eventSettingsSchema = new mongoose.Schema({
 
   // Dates
   eventStartDate: { type: String, default: '7 December 2026' },
-  eventEndDate: { type: String, default: '11 December 2026' },
-  datesConfirmed: { type: Boolean, default: false },
-  datesNote: { type: String, default: 'Subject to approval' },
+  eventEndDate: { type: String, default: '9 December 2026' },
+  datesConfirmed: { type: Boolean, default: true },
+  datesNote: { type: String, default: '' },
 
   // Venue
   venue: {

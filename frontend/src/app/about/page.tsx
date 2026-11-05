@@ -7,6 +7,7 @@ import { EventSettings } from '../../types';
 
 export default function AboutPage() {
   const [settings, setSettings] = useState<EventSettings | null>(null);
+  const aboutEvent = settings?.aboutEvent?.replace(/national workshop/gi, 'National Seminar');
 
   useEffect(() => {
     api.getPublicSettings()
@@ -47,12 +48,12 @@ export default function AboutPage() {
               <div style={{ borderBottom: '2px solid #0f294a', paddingBottom: '0.4rem', marginBottom: '1rem' }}>
                 <span className="section-tag">Section 1</span>
                 <h2 style={{ fontSize: '1.45rem', color: '#0f294a', fontWeight: 700 }}>
-                  The Joint Academic Event: INSAC 2026 &amp; National Workshop
+                  The Joint Academic Event: INSAC 2026 &amp; National Seminar
                 </h2>
               </div>
               <div className="card" style={{ borderLeft: '4px solid #0f294a', lineHeight: '1.8', color: '#334155' }}>
                 <p style={{ marginBottom: '1rem' }}>
-                  {settings?.aboutEvent || `The joint academic event brings together INSAC 2026 — the Indian Nuclear Society's Annual Conference — and the National Workshop on "Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities." Hosted by Dr. A.P.J. Abdul Kalam Women's Institute of Technology (WIT), a constituent unit of Lalit Narayan Mithila University (LNMU), Darbhanga, Bihar, in collaboration with the Indian Nuclear Society (INS), this landmark gathering unites leading scientists, researchers, faculty, and research scholars to explore synergies between nuclear technologies and cutting-edge computational sciences.`}
+                  {aboutEvent || `The joint academic event brings together INSAC 2026 — the Indian Nuclear Society's Annual Conference — and the National Seminar on "Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities." Hosted by Dr. A.P.J. Abdul Kalam Women's Institute of Technology (WIT), a constituent unit of Lalit Narayan Mithila University (LNMU), Darbhanga, Bihar, in collaboration with the Indian Nuclear Society (INS), this landmark gathering unites leading scientists, researchers, faculty, and research scholars to explore synergies between nuclear technologies and cutting-edge computational sciences.`}
                 </p>
                 <p>
                   The conference serves as a multidisciplinary platform that bridges high-performance computing, artificial intelligence, digital twins, and numerical modeling with nuclear power generation, reactor design, radiation therapy, and nuclear medicine.

@@ -156,7 +156,7 @@ function AbstractSubmissionContent() {
             Extended Abstract Submission
           </h1>
           <p style={{ color: '#cbd5e1', maxWidth: '750px', fontSize: '0.95rem' }}>
-            Submit your research contribution for INSAC 2026 and the National Workshop on Advanced Computing and Nuclear Science.
+            Submit your research contribution for INSAC 2026 and the National Seminar on Advanced Computing and Nuclear Science.
           </p>
         </div>
       </section>
@@ -221,7 +221,7 @@ function AbstractSubmissionContent() {
                   <option value="">-- Select Relevant Research Theme --</option>
                   {themes.map((t, idx) => (
                     <option key={idx} value={t.title}>
-                      [{t.category === 'workshop' ? 'Workshop' : 'INSAC'}] {t.title}
+                      [{t.category === 'workshop' ? 'Seminar' : 'INSAC'}] {t.title}
                     </option>
                   ))}
                 </select>
