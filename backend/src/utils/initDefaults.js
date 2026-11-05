@@ -15,12 +15,12 @@ async function initDefaults() {
         conferenceSubtitle: 'Nuclear Energy & Nuclear Radiation: A Boon to Mankind',
         workshopTitle: 'Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities',
         eventStartDate: '7 December 2026',
-        eventEndDate: '11 December 2026',
-        datesConfirmed: false,
-        datesNote: 'Proposed dates: 7–11 December 2026, subject to approval',
+        eventEndDate: '9 December 2026',
+        datesConfirmed: true,
+        datesNote: '',
         venue: 'Dr. A.P.J. Abdul Kalam Women\'s Institute of Technology (WIT), Darbhanga, Bihar',
         venueAddress: 'Lalit Narayan Mithila University Campus, Darbhanga, Bihar 846004, India',
-        aboutEvent: `The joint academic event brings together INSAC 2026 — the Indian Nuclear Society's Annual Conference — and the National Workshop on "Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities." Hosted by Dr. A.P.J. Abdul Kalam Women's Institute of Technology (WIT), a constituent unit of Lalit Narayan Mithila University (LNMU), Darbhanga, Bihar, in collaboration with the Indian Nuclear Society (INS), this landmark gathering unites leading scientists, researchers, faculty, and research scholars to explore synergies between nuclear technologies and cutting-edge computational sciences.`,
+        aboutEvent: `The joint academic event brings together INSAC 2026 — the Indian Nuclear Society's Annual Conference — and the National Seminar on "Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities." Hosted by Dr. A.P.J. Abdul Kalam Women's Institute of Technology (WIT), a constituent unit of Lalit Narayan Mithila University (LNMU), Darbhanga, Bihar, in collaboration with the Indian Nuclear Society (INS), this landmark gathering unites leading scientists, researchers, faculty, and research scholars to explore synergies between nuclear technologies and cutting-edge computational sciences.`,
         aboutINS: `The Indian Nuclear Society (INS) is the premier professional body established in 1988 dedicated to the advancement and peaceful applications of nuclear science, technology, and allied disciplines. INS organizes its flagship Annual Conference (INSAC) to convene scientific minds from DAE units including BARC, NPCIL, BHAVINI, IGCAR, VECC, and AERB, alongside university faculties and industry partners. INSAC serves as a prestigious national forum discussing reactor safety, advanced computing, nuclear medicine, radiation technology, and clean energy transition.`,
         aboutLNMU: `Lalit Narayan Mithila University (LNMU), established in 1972, is an esteemed state university situated in the historic city of Darbhanga, Bihar. Named in honour of the illustrious leader and philosopher Lalit Narayan Mishra, LNMU is a major hub of higher learning and research in North Bihar, providing quality education across arts, science, commerce, law, medicine, and engineering through numerous constituent and affiliated institutions.`,
         aboutWIT: `Dr. A.P.J. Abdul Kalam Women's Institute of Technology (WIT) is a prestigious constituent unit of Lalit Narayan Mithila University (LNMU), Darbhanga, Bihar. Approved by AICTE, WIT is dedicated to empowering women through world-class technical and engineering education. Inspired by Dr. Kalam's visionary ideals of innovation and nation-building, the institute fosters rigorous academics, interdisciplinary research, and leadership in emerging technologies.`,
@@ -46,7 +46,7 @@ async function initDefaults() {
         accommodation: 'Details regarding university guest house and nearby hotel accommodation in Darbhanga will be announced shortly.',
         travelInfo: 'Darbhanga is well-connected by air via Darbhanga Airport (DHR) with direct flights from Delhi, Mumbai, Bengaluru, and Kolkata. It is also well-connected by rail to major Indian cities.',
         importantDates: [
-          { label: 'Proposed Event Dates', date: '7–11 December 2026', confirmed: false },
+          { label: 'Conference Dates', date: '7–9 December 2026', confirmed: true },
           { label: 'Abstract Submission Deadline', date: 'To be announced', confirmed: false },
           { label: 'Notification of Acceptance', date: 'To be announced', confirmed: false },
           { label: 'Registration Deadline', date: 'To be announced', confirmed: false },
@@ -118,10 +118,36 @@ async function initDefaults() {
       await settings.save();
       console.log('Event settings seeded successfully.');
     } else {
+      let settingsUpdated = false;
+
+      // Correct previously seeded event details without replacing other settings.
+      if (settings.eventStartDate === '7 December 2026' && settings.eventEndDate === '11 December 2026') {
+        settings.eventEndDate = '9 December 2026';
+        settings.datesConfirmed = true;
+        settings.datesNote = '';
+        if (Array.isArray(settings.importantDates)) {
+          settings.importantDates = settings.importantDates.map((item) =>
+            item.date === '7–11 December 2026'
+              ? { ...item.toObject(), label: 'Conference Dates', date: '7–9 December 2026', confirmed: true }
+              : item,
+          );
+        }
+        settingsUpdated = true;
+      }
+
+      if (settings.aboutEvent?.includes('National Workshop')) {
+        settings.aboutEvent = settings.aboutEvent.replace(/National Workshop/g, 'National Seminar');
+        settingsUpdated = true;
+      }
+
       // Ensure template path is set if empty
       if (!settings.abstractTemplateFile) {
         settings.abstractTemplateFile = 'uploads/templates/Template_for_extended_abstract_INSAC-2026.docx';
         settings.abstractTemplateName = 'Template for extended abstract (INSAC-2026).docx';
+        settingsUpdated = true;
+      }
+
+      if (settingsUpdated) {
         await settings.save();
       }
     }

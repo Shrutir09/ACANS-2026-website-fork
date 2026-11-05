@@ -18,7 +18,7 @@ const statusLabels: Record<string, string> = {
   under_review: 'Under Review',
   accepted: 'Accepted',
   revision_requested: 'Revision Requested',
-  workshop: 'Workshop Theme',
+  workshop: 'Seminar Theme',
   conference: 'INSAC Conference Topic',
 };
 

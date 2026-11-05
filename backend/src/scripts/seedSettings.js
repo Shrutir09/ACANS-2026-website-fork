@@ -26,14 +26,14 @@ async function seedSettings() {
     settings.paymentMethods = { upi: true, cash: true, bank_transfer: true };
     settings.paymentInstructions = 'Please complete the registration fee payment via UPI, Cash, or Bank Transfer as instructed by Dr. A.P.J. Abdul Kalam Women\'s Institute of Technology (WIT), LNMU. After payment, submit your transaction reference ID and details below for administrative verification.';
     settings.eventStartDate = '7 December 2026';
-    settings.eventEndDate = '11 December 2026';
-    settings.datesConfirmed = false;
-    settings.datesNote = 'Proposed dates: 7–11 December 2026, subject to approval';
+    settings.eventEndDate = '9 December 2026';
+    settings.datesConfirmed = true;
+    settings.datesNote = '';
     settings.venue = 'Dr. A.P.J. Abdul Kalam Women\'s Institute of Technology (WIT), Darbhanga, Bihar';
     settings.venueAddress = 'Lalit Narayan Mithila University Campus, Darbhanga, Bihar, India';
 
     // Set about content
-    settings.aboutEvent = `The joint event brings together INSAC 2026 — the Indian Nuclear Society's Annual Conference — and the National Workshop on "Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities." Hosted by Dr. A.P.J. Abdul Kalam Women's Institute of Technology (WIT), a constituent unit of Lalit Narayan Mithila University (LNMU), Darbhanga, Bihar, in collaboration with the Indian Nuclear Society (INS), this conference provides a premier platform for researchers, academicians, scientists, and industry professionals to deliberate on critical intersections of nuclear science and advanced computing.`;
+    settings.aboutEvent = `The joint event brings together INSAC 2026 — the Indian Nuclear Society's Annual Conference — and the National Seminar on "Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities." Hosted by Dr. A.P.J. Abdul Kalam Women's Institute of Technology (WIT), a constituent unit of Lalit Narayan Mithila University (LNMU), Darbhanga, Bihar, in collaboration with the Indian Nuclear Society (INS), this conference provides a premier platform for researchers, academicians, scientists, and industry professionals to deliberate on critical intersections of nuclear science and advanced computing.`;
 
     settings.aboutINS = `The Indian Nuclear Society (INS) is a professional body dedicated to promoting the peaceful uses of nuclear energy and radiation technologies in India. INS organizes the annual INSAC conference, which brings together scientists, engineers, and researchers from across the country's nuclear establishment including BARC, NPCIL, BHAVINI, AERB, and other DAE units, along with academic institutions and industry partners. INSAC serves as a premier platform for sharing advances in nuclear science, reactor technologies, fuel cycle, radiation applications, and nuclear medicine.`;
 

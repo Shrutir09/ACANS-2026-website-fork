@@ -21,7 +21,11 @@ export default function HomePage() {
     ? themes
     : themes.filter(t => t.category === activeThemeTab);
 
-  const officeBearers = settings?.committees?.filter(c => c.group === 'office_bearers') || [];
+  const homepageLeaders = [
+    { role: 'Chief Patron', name: 'Prof. Sanjay Kumar Choudhary' },
+    { role: 'Co-Patron', name: 'Dr. Divya Rani' },
+    { role: 'President', name: 'Dr. Amod Kumar' },
+  ];
 
   return (
     <div>
@@ -95,13 +99,10 @@ export default function HomePage() {
             fontSize: '0.9rem',
           }}>
             <div>
-              <span style={{ color: '#94a3b8' }}>Proposed Dates: </span>
+              <span style={{ color: '#94a3b8' }}>Conference Dates: </span>
               <strong style={{ color: '#fcd34d' }}>
-                {settings?.eventStartDate || '7 December'} – {settings?.eventEndDate || '11 December 2026'}
+                7–9 December 2026
               </strong>
-              <span style={{ fontSize: '0.75rem', color: '#cbd5e1', marginLeft: '0.3rem' }}>
-                ({settings?.datesNote || 'Subject to approval'})
-              </span>
             </div>
             <div style={{ color: '#475569' }}>|</div>
             <div>
@@ -182,10 +183,10 @@ export default function HomePage() {
 
                 <li>
                   <div style={{ fontWeight: 700, color: '#0f294a', fontSize: '0.75rem', textTransform: 'uppercase' }}>
-                    ● Proposed Event Schedule
+                    ● Conference Dates
                   </div>
                   <div style={{ marginTop: '0.2rem' }}>
-                    December 7–11, 2026 at Dr. A.P.J. Abdul Kalam WIT, LNMU, Darbhanga <em>(Subject to approval)</em>.
+                    7–9 December 2026 at Dr. A.P.J. Abdul Kalam WIT, LNMU, Darbhanga.
                   </div>
                 </li>
               </ul>
@@ -196,10 +197,10 @@ export default function HomePage() {
               <div style={{ marginBottom: '1.5rem' }}>
                 <span className="section-tag">About the Conference</span>
                 <h2 style={{ fontSize: '1.65rem', color: '#0f294a', margin: '0.35rem 0 0.75rem 0', fontWeight: 700 }}>
-                  INSAC-2026 &amp; National Workshop on Advanced Computing
+                  INSAC-2026 &amp; National Seminar on Advanced Computing
                 </h2>
                 <p style={{ color: '#334155', lineHeight: 1.7, marginBottom: '1rem', fontSize: '0.925rem' }}>
-                  The <strong>Indian Nuclear Society&apos;s Annual Conference (INSAC-2026)</strong> is being held jointly with the National Workshop on <em>&ldquo;Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities&rdquo;</em> at <strong>Dr. A.P.J. Abdul Kalam Women&apos;s Institute of Technology (WIT)</strong>, a premier constituent technical unit of <strong>Lalit Narayan Mithila University (LNMU)</strong>, Darbhanga, Bihar.
+                  The <strong>Indian Nuclear Society&apos;s Annual Conference (INSAC-2026)</strong> is being held jointly with the National Seminar on <em>&ldquo;Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities&rdquo;</em> at <strong>Dr. A.P.J. Abdul Kalam Women&apos;s Institute of Technology (WIT)</strong>, a premier constituent technical unit of <strong>Lalit Narayan Mithila University (LNMU)</strong>, Darbhanga, Bihar.
                 </p>
                 <p style={{ color: '#334155', lineHeight: 1.7, marginBottom: '1.25rem', fontSize: '0.925rem' }}>
                   The conference addresses the crucial intersections of high-performance computing, artificial intelligence, digital twin simulations, nuclear energy safety, radiation applications in agriculture and health sciences, and women in STEM technologies.
@@ -320,7 +321,7 @@ export default function HomePage() {
             <span className="section-tag">Schedule</span>
             <h2 className="section-title">Important Dates &amp; Deadlines</h2>
             <p className="section-subtitle">
-              Conference milestone dates. The event dates are proposed and subject to administrative approval.
+              Conference dates and submission milestones.
             </p>
           </div>
 
@@ -336,9 +337,9 @@ export default function HomePage() {
                 </thead>
                 <tbody>
                   <tr>
-                    <td><strong>Proposed Conference Dates</strong></td>
-                    <td><strong>December 7 – 11, 2026</strong></td>
-                    <td><span className="badge badge-pending">Proposed (Subject to Approval)</span></td>
+                    <td><strong>Conference Dates</strong></td>
+                    <td><strong>7–9 December 2026</strong></td>
+                    <td><span className="badge badge-accepted">Confirmed</span></td>
                   </tr>
                   <tr>
                     <td><strong>Extended Abstract Submission</strong></td>
@@ -369,7 +370,7 @@ export default function HomePage() {
             <span className="section-tag">Research Scope</span>
             <h2 className="section-title">Technical Themes &amp; Tracks</h2>
             <p className="section-subtitle">
-              Topics spanning the Advanced Computing workshop and INSAC conference tracks.
+              Topics spanning the Advanced Computing Seminar and INSAC conference tracks.
             </p>
 
             <div style={{ display: 'inline-flex', gap: '0.4rem', marginTop: '1rem', backgroundColor: '#f1f5f9', padding: '0.25rem', borderRadius: '4px', border: '1px solid #e2e8f0' }}>
@@ -383,7 +384,7 @@ export default function HomePage() {
                 onClick={() => setActiveThemeTab('workshop')}
                 className={`btn btn-sm ${activeThemeTab === 'workshop' ? 'btn-primary' : 'btn-secondary'}`}
               >
-                Workshop Themes
+                Seminar Themes
               </button>
               <button
                 onClick={() => setActiveThemeTab('conference')}
@@ -409,7 +410,7 @@ export default function HomePage() {
                       border: '1px solid #e2e8f0',
                       textTransform: 'uppercase',
                     }}>
-                      {theme.category === 'workshop' ? 'Workshop Track' : 'INSAC Track'}
+                      {theme.category === 'workshop' ? 'Seminar Track' : 'INSAC Track'}
                     </span>
                     <span style={{ fontSize: '0.8rem', color: '#94a3b8' }}>#{idx + 1}</span>
                   </div>
@@ -456,8 +457,8 @@ export default function HomePage() {
             gap: '1rem',
             marginBottom: '1.75rem',
           }}>
-            {officeBearers.map((member, idx) => (
-              <div key={idx} className="card" style={{ textAlign: 'center', borderTop: '3px solid #0f294a', padding: '1.25rem 1rem' }}>
+            {homepageLeaders.map((member, idx) => (
+              <div key={member.role} className="card" style={{ textAlign: 'center', borderTop: `3px solid ${idx === 1 ? '#b45309' : '#0f294a'}`, padding: '1.25rem 1rem', minWidth: 0 }}>
                 <div style={{
                   fontSize: '0.75rem',
                   fontWeight: 700,
@@ -466,23 +467,18 @@ export default function HomePage() {
                   letterSpacing: '0.04em',
                   marginBottom: '0.35rem',
                 }}>
-                  {member.role || member.designation}
+                  {member.role}
                 </div>
                 <h4 style={{ fontSize: '1.05rem', color: '#0f294a', marginBottom: '0.2rem' }}>
                   {member.name}
                 </h4>
-                {member.institution && (
-                  <div style={{ fontSize: '0.785rem', color: '#64748b' }}>
-                    {member.institution}
-                  </div>
-                )}
               </div>
             ))}
           </div>
 
           <div style={{ textAlign: 'center' }}>
             <Link href="/committees" className="btn btn-outline-navy">
-              View Complete Advisory &amp; Organizing Committees →
+              View All Committees →
             </Link>
           </div>
         </div>
