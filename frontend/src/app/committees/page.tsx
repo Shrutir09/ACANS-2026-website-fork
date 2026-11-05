@@ -35,11 +35,11 @@ const leadershipOfficeBearers = [
   },
   {
     role: 'Convener',
-    name: 'Dr. Rashmi',
+    name: 'Dr. Rashmi Kumari',
     designation: 'Convener, INSAC-2026',
     institution: 'Dr. A.P.J. Abdul Kalam WIT, LNMU',
-    photo: null,
-    alt: 'Dr. Rashmi, Convener, INSAC-2026',
+    photo: '/images/leadership/dr-rashmi.png',
+    alt: 'Dr. Rashmi Kumari, Convener, INSAC-2026',
   },
   {
     role: 'Deputy Convener',
@@ -168,7 +168,7 @@ function LeadershipCard({
 
   return (
     <div
-      className="card"
+      className="card leadership-card"
       style={{
         borderTop: `3px solid ${topBorderColor}`,
         textAlign: 'center',
@@ -182,8 +182,8 @@ function LeadershipCard({
       {/* Photo or Placeholder */}
       <div
         style={{
-          width: '90px',
-          height: '90px',
+          width: 'clamp(112px, 12vw, 164px)',
+          aspectRatio: '1',
           borderRadius: '50%',
           overflow: 'hidden',
           border: `2px solid ${topBorderColor}`,
@@ -196,9 +196,9 @@ function LeadershipCard({
           <Image
             src={photo}
             alt={alt}
-            width={90}
-            height={90}
-            style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+            width={164}
+            height={164}
+            style={{ objectFit: 'cover', objectPosition: 'center 32%', width: '100%', height: '100%' }}
             onError={() => setImgError(true)}
           />
         ) : (

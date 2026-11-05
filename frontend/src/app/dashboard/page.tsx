@@ -434,14 +434,14 @@ export default function ParticipantDashboard() {
                 Official Abstract Template
               </h3>
               <p style={{ fontSize: '0.85rem', color: 'var(--slate-600)', marginBottom: '1rem' }}>
-                Need the official Word template for preparing contributory papers? Download the verified 2-page template here:
+                Need the official A4 template for preparing contributory papers? Download the public PDF here:
               </p>
               <a
-                href={api.getTemplateDownloadUrl()}
-                download="Template for extended abstract (INSAC-2026).docx"
+                href="/downloads/conference-template-a4.pdf"
+                download="conference-template-a4.pdf"
                 className="btn btn-outline-navy btn-sm"
               >
-                📥 Download Template (.docx)
+                📥 Download Template (.pdf)
               </a>
             </div>
 

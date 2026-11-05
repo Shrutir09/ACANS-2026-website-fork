@@ -26,6 +26,38 @@ export default function HomePage() {
     { role: 'Co-Patron', name: 'Dr. Divya Rani' },
     { role: 'President', name: 'Dr. Amod Kumar' },
   ];
+  const speakers = [
+    {
+      name: 'Dr. Hrishikesh Mishra',
+      role: 'President, INS',
+      affiliation: 'Former Distinguished Scientist; Former Director, Engineering Service Group, BARC',
+    },
+    {
+      name: 'Anadi Kumar Sinha',
+      role: 'Convener, Outreach Committee, INS',
+      affiliation: 'Recognized as an Outstanding Scientist (OS)',
+    },
+    {
+      name: 'Dr. Ashok Kumar Kesari',
+      role: 'Treasurer, INS',
+      affiliation: 'Chief Coordinator, INS',
+    },
+    {
+      name: 'V.K. Manchanda',
+      role: 'Head, Radiochemistry Division, BARC',
+      affiliation: 'Former Professor, Sung Kyun Kwan University, South Korea',
+    },
+    {
+      name: 'Dr. Jimmy Kansal',
+      role: 'Scientist G, DGRE',
+      affiliation: 'DRDO Chandigarh',
+    },
+    {
+      name: 'Sri OP Rai',
+      role: 'Treasurer, INS',
+      affiliation: 'Chief Coordinator of the Seminar',
+    },
+  ];
 
   return (
     <div>
@@ -108,7 +140,7 @@ export default function HomePage() {
             <div>
               <span style={{ color: '#94a3b8' }}>Venue: </span>
               <strong style={{ color: '#ffffff' }}>
-                WIT Campus, LNMU, Darbhanga, Bihar, India
+                Kalpana Chawla Auditorium, WIT, LNMU, Darbhanga
               </strong>
             </div>
           </div>
@@ -116,12 +148,12 @@ export default function HomePage() {
           {/* Action CTAs */}
           <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>
             <a
-              href={api.getTemplateDownloadUrl()}
-              download="Template for extended abstract (INSAC-2026).docx"
+              href="/downloads/conference-template-a4.pdf"
+              download="conference-template-a4.pdf"
               className="btn btn-gold btn-lg"
               id="hero-template-cta"
             >
-              📄 Download Abstract Template (.docx)
+              📄 Download Paper Template (.pdf)
             </a>
             <Link href="/register" className="btn btn-outline-white btn-lg" id="hero-register-cta">
               Register as Participant
@@ -149,14 +181,14 @@ export default function HomePage() {
                     ● Official Template Available
                   </div>
                   <div style={{ marginTop: '0.2rem' }}>
-                    Official extended abstract template (.docx) is verified and available for download (max 2 pages).
+                    Official A4 conference paper template is available as a PDF. The website abstract page limit remains 2 pages.
                   </div>
                   <a
-                    href={api.getTemplateDownloadUrl()}
-                    download="Template for extended abstract (INSAC-2026).docx"
+                    href="/downloads/conference-template-a4.pdf"
+                    download="conference-template-a4.pdf"
                     style={{ color: '#0f294a', fontWeight: 600, display: 'inline-block', marginTop: '0.25rem' }}
                   >
-                    Download Template (.docx) →
+                    Download Template (.pdf) →
                   </a>
                 </li>
 
@@ -186,7 +218,7 @@ export default function HomePage() {
                     ● Conference Dates
                   </div>
                   <div style={{ marginTop: '0.2rem' }}>
-                    7–9 December 2026 at Dr. A.P.J. Abdul Kalam WIT, LNMU, Darbhanga.
+                    7–9 December 2026 at Kalpana Chawla Auditorium, Dr. A.P.J. Abdul Kalam WIT, LNMU, Darbhanga.
                   </div>
                 </li>
               </ul>
@@ -237,6 +269,27 @@ export default function HomePage() {
                 </Link>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Speakers */}
+      <section id="speakers" className="section" style={{ backgroundColor: '#f8fafc', borderTop: '1px solid #e2e8f0' }}>
+        <div className="container">
+          <div className="section-header">
+            <span className="section-tag">Speakers</span>
+            <h2 className="section-title">Key Speakers</h2>
+            <p className="section-subtitle">Scientists and academic leaders featured in the event brochure.</p>
+          </div>
+          <div className="grid-3">
+            {speakers.map((speaker) => (
+              <article key={speaker.name} className="card speaker-card">
+                <span className="speaker-card-label">Key Speaker</span>
+                <h3>{speaker.name}</h3>
+                <p className="speaker-card-role">{speaker.role}</p>
+                <p className="speaker-card-affiliation">{speaker.affiliation}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
@@ -343,7 +396,7 @@ export default function HomePage() {
                   </tr>
                   <tr>
                     <td><strong>Extended Abstract Submission</strong></td>
-                    <td>Open (250-word text summary + official .docx template)</td>
+                    <td>Open (250-word summary + official paper template PDF)</td>
                     <td><span className="badge badge-accepted">Active</span></td>
                   </tr>
                   <tr>

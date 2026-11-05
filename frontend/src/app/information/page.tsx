@@ -201,6 +201,27 @@ export default function InformationPage() {
                 </div>
               </div>
             </div>
+
+            <div className="grid-2">
+              <div className="card" id="venue">
+                <h2 style={{ fontSize: '1.2rem', color: '#0f294a', marginBottom: '0.65rem', fontWeight: 700 }}>
+                  Conference Venue
+                </h2>
+                <p style={{ color: '#475569', fontSize: '0.9rem', lineHeight: 1.6 }}>
+                  Kalpana Chawla Auditorium, Dr. A.P.J. Abdul Kalam Women&apos;s Institute of Technology, LNMU Campus, Darbhanga, Bihar.
+                </p>
+              </div>
+
+              <div className="card" id="contact">
+                <h2 style={{ fontSize: '1.2rem', color: '#0f294a', marginBottom: '0.65rem', fontWeight: 700 }}>
+                  Helpdesk Contact
+                </h2>
+                <p style={{ color: '#475569', fontSize: '0.9rem', lineHeight: 1.8 }}>
+                  Email: <a href="mailto:acanc.tech2026@gmail.com">acanc.tech2026@gmail.com</a><br />
+                  Phone: <a href="tel:987654321">987654321</a>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>

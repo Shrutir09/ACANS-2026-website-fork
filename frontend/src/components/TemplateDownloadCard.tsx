@@ -1,27 +1,26 @@
 'use client';
 
 import React from 'react';
-import { api } from '../lib/api';
 
 interface TemplateDownloadCardProps {
   compact?: boolean;
 }
 
 export default function TemplateDownloadCard({ compact = false }: TemplateDownloadCardProps) {
-  const downloadUrl = api.getTemplateDownloadUrl();
+  const downloadUrl = '/downloads/conference-template-a4.pdf';
 
   if (compact) {
     return (
       <a
         href={downloadUrl}
-        download="Template for extended abstract (INSAC-2026).docx"
+        download="conference-template-a4.pdf"
         className="btn btn-primary btn-sm"
         id="download-template-compact-btn"
       >
         <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
         </svg>
-        Download Abstract Template (.docx)
+        Download Abstract Template (.pdf)
       </a>
     );
   }
@@ -66,7 +65,7 @@ export default function TemplateDownloadCard({ compact = false }: TemplateDownlo
               Official Template
             </span>
             <span style={{ fontSize: '0.8rem', color: '#64748b' }}>
-              Microsoft Word (.docx) • 1.79 MB
+              PDF (.pdf)
             </span>
           </div>
 
@@ -81,18 +80,18 @@ export default function TemplateDownloadCard({ compact = false }: TemplateDownlo
           <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'center' }}>
             <a
               href={downloadUrl}
-              download="Template for extended abstract (INSAC-2026).docx"
+              download="conference-template-a4.pdf"
               className="btn btn-primary"
               id="download-official-template-btn"
             >
               <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
               </svg>
-              Download Abstract Template (.docx)
+              Download Abstract Template (.pdf)
             </a>
 
             <span style={{ fontSize: '0.8rem', color: '#64748b' }}>
-              Standard Word (.docx) format for INSAC contributory papers
+              A4 conference paper format
             </span>
           </div>
         </div>

@@ -15,7 +15,7 @@ export default function Navbar() {
   const isActive = (path: string) => pathname === path;
 
   return (
-    <header style={{ width: '100%', zIndex: 1000, position: 'relative' }}>
+    <header className="site-header" style={{ width: '100%', zIndex: 1000, position: 'relative' }}>
       {/* 1. Top Institutional Utility Strip */}
       <div style={{
         backgroundColor: '#071529',
@@ -24,17 +24,17 @@ export default function Navbar() {
         padding: '0.35rem 0',
         borderBottom: '1px solid #1e293b',
       }}>
-        <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <div className="container utility-strip-content">
+          <div className="utility-strip-institutions">
             <span>Dr. A.P.J. Abdul Kalam Women&apos;s Institute of Technology (WIT), LNMU Darbhanga</span>
-            <span style={{ color: '#64748b' }}>|</span>
+            <span className="utility-divider" style={{ color: '#64748b' }}>|</span>
             <span style={{ color: '#fcd34d' }}>In Collaboration with Indian Nuclear Society (INS)</span>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <div className="utility-strip-links">
             <Link href="/information#venue" style={{ color: '#cbd5e1' }}>Venue &amp; Travel</Link>
-            <span style={{ color: '#64748b' }}>|</span>
+            <span className="utility-divider" style={{ color: '#64748b' }}>|</span>
             <Link href="/information#contact" style={{ color: '#cbd5e1' }}>Helpdesk</Link>
-            <span style={{ color: '#64748b' }}>|</span>
+            <span className="utility-divider" style={{ color: '#64748b' }}>|</span>
             {user ? (
               <span style={{ color: '#67e8f9' }}>
                 Signed in as: <strong>{user.fullName}</strong>
@@ -375,7 +375,7 @@ export default function Navbar() {
         <div className="container" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <span className="announcement-badge">Notice</span>
           <div style={{ flex: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-            <span>★ Official Extended Abstract Template (.docx) is now available for download.</span>
+            <span>★ Official Conference Paper Template (PDF) is available for download.</span>
             <span style={{ margin: '0 0.6rem', color: '#cbd5e1' }}>|</span>
             <span>★ Conference Dates: 7–9 December 2026.</span>
             <span style={{ margin: '0 0.6rem', color: '#cbd5e1' }}>|</span>
@@ -441,9 +441,9 @@ export default function Navbar() {
 
 .masthead-container {
   display: grid;
-  grid-template-columns: 145px minmax(0, 1fr) 145px;
+  grid-template-columns: clamp(132px, 10vw, 180px) minmax(0, 1fr) clamp(132px, 10vw, 180px);
   align-items: center;
-  gap: 1.25rem;
+  gap: clamp(0.85rem, 1.6vw, 2rem);
 }
 
 /* Left: INS */
@@ -471,9 +471,9 @@ export default function Navbar() {
 
 /* INS Logo: Authoritative Institutional Rounded Badge */
 .masthead-logo-ins {
-  width: 70px;
-  height: 70px;
-  flex: 0 0 70px;
+  width: clamp(70px, 4.5vw, 86px);
+  height: clamp(70px, 4.5vw, 86px);
+  flex: 0 0 clamp(70px, 4.5vw, 86px);
   background-color: #000000;
   border-radius: 8px;
   border: 1px solid rgba(15, 41, 74, 0.18);
@@ -497,9 +497,9 @@ export default function Navbar() {
 
 /* LNMU Logo: Official University Circular Seal */
 .masthead-logo-lnmu {
-  width: 64px;
-  height: 64px;
-  flex: 0 0 64px;
+  width: clamp(64px, 3.8vw, 78px);
+  height: clamp(64px, 3.8vw, 78px);
+  flex: 0 0 clamp(64px, 3.8vw, 78px);
   background-color: #ffffff;
   border-radius: 50%;
   border: 1px solid rgba(15, 41, 74, 0.14);
@@ -523,9 +523,9 @@ export default function Navbar() {
 
 /* WIT Logo: Calibrated to match LNMU Circular Seal */
 .masthead-logo-wit {
-  width: 64px;
-  height: 64px;
-  flex: 0 0 64px;
+  width: clamp(64px, 3.8vw, 78px);
+  height: clamp(64px, 3.8vw, 78px);
+  flex: 0 0 clamp(64px, 3.8vw, 78px);
   background-color: #ffffff;
   border-radius: 50%;
   border: 1px solid rgba(15, 41, 74, 0.14);
@@ -540,12 +540,11 @@ export default function Navbar() {
 }
 
 .masthead-logo-wit img {
-  height: 124px;
-  width: auto;
-  max-width: none;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
   object-fit: contain;
   display: block;
-  margin-top: -1px;
 }
 
 /* Conference Details */
@@ -565,7 +564,7 @@ export default function Navbar() {
 }
 
 .masthead-title {
-  font-size: clamp(1.05rem, 1.85vw, 1.48rem);
+  font-size: clamp(1.05rem, 1.85vw, 1.65rem);
   font-weight: 800;
   color: #0f294a;
   line-height: 1.22;
@@ -614,7 +613,8 @@ export default function Navbar() {
   }
 
   .masthead-logo-wit img {
-    height: 109px;
+    width: 100%;
+    height: 100%;
   }
 
   .masthead-right {
@@ -673,7 +673,8 @@ export default function Navbar() {
   }
 
   .masthead-logo-wit img {
-    height: 94px;
+    width: 100%;
+    height: 100%;
   }
 
   .masthead-title {

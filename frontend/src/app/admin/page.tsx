@@ -339,15 +339,15 @@ export default function AdminDashboardPage() {
                   Active Template Status
                 </h3>
                 <p style={{ fontSize: '0.9rem', color: 'var(--slate-600)', marginBottom: '1rem', lineHeight: '1.6' }}>
-                  Official Word Template: <strong>Template for extended abstract (INSAC-2026).docx</strong> (1.79 MB)
+                  Current public template: <strong>conference-template-a4.pdf</strong>
                 </p>
                 <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
                   <a
-                    href={api.getTemplateDownloadUrl()}
-                    download="Template for extended abstract (INSAC-2026).docx"
+                    href="/downloads/conference-template-a4.pdf"
+                    download="conference-template-a4.pdf"
                     className="btn btn-sm btn-teal"
                   >
-                    📥 Test Download Current Template
+                    📥 Test Download Public PDF
                   </a>
                   <button onClick={() => setActiveTab('settings')} className="btn btn-sm btn-secondary">
                     Replace Template File
