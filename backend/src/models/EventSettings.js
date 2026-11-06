@@ -30,7 +30,7 @@ const eventSettingsSchema = new mongoose.Schema({
   // Core event info
   eventTitle: {
     type: String,
-    default: 'INSAC 2026 & Advanced Computing Conference',
+    default: 'ACANS 2026 | National Seminar on Advanced Computing and Nuclear Science',
   },
   eventSubtitle: {
     type: String,
@@ -38,7 +38,7 @@ const eventSettingsSchema = new mongoose.Schema({
   },
   conferenceTitle: {
     type: String,
-    default: "Indian Nuclear Society's Annual Conference (INSAC 2026)",
+    default: "Indian Nuclear Society's Annual Conference",
   },
   conferenceSubtitle: {
     type: String,

@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '../../context/AuthContext';
 import { api } from '../../lib/api';
 import { Registration, Payment, Abstract, EventSettings } from '../../types';
+import { normalizeEventText } from '../../lib/eventText';
 import StatusBadge from '../../components/StatusBadge';
 import TemplateDownloadCard from '../../components/TemplateDownloadCard';
 
@@ -245,7 +246,7 @@ export default function ParticipantDashboard() {
                   <div><strong>Payer UPI ID:</strong> {payment.payerUpiId || '—'}</div>
                   <div><strong>UPI UTR / Transaction ID:</strong> <code style={{ fontWeight: 700 }}>{payment.transactionId}</code></div>
                   <div style={{ marginTop: '0.75rem', color: 'var(--success-600)', fontWeight: 600 }}>
-                    Your registration for INSAC 2026 is officially confirmed!
+                    Your registration for ACANS 2026 is officially confirmed!
                   </div>
                 </div>
               </div>
@@ -454,8 +455,8 @@ export default function ParticipantDashboard() {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                   {settings.announcements.map((a, idx) => (
                     <div key={idx} style={{ padding: '0.75rem', backgroundColor: 'var(--slate-50)', borderRadius: '6px' }}>
-                      <div style={{ fontWeight: 600, fontSize: '0.9rem', color: 'var(--navy-900)' }}>{a.title}</div>
-                      <div style={{ fontSize: '0.825rem', color: 'var(--slate-600)', marginTop: '0.2rem' }}>{a.content}</div>
+                      <div style={{ fontWeight: 600, fontSize: '0.9rem', color: 'var(--navy-900)' }}>{normalizeEventText(a.title || '')}</div>
+                      <div style={{ fontSize: '0.825rem', color: 'var(--slate-600)', marginTop: '0.2rem' }}>{normalizeEventText(a.content || '')}</div>
                     </div>
                   ))}
                 </div>

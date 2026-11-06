@@ -16,7 +16,7 @@ export default function Footer() {
           {/* Col 1: Joint Event Information */}
           <div className="footer-event-info">
             <h3 style={{ color: '#ffffff', fontSize: '1.15rem', marginBottom: '0.4rem', fontWeight: 700 }}>
-              INSAC 2026 &amp; Advanced Computing Conference
+              ACANS 2026 &amp; Advanced Computing Seminar
             </h3>
             <div style={{ fontSize: '0.85rem', color: '#fcd34d', marginBottom: '0.75rem', fontWeight: 600 }}>
               National Seminar on &ldquo;Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities&rdquo;
@@ -175,7 +175,7 @@ export default function Footer() {
           color: '#64748b',
         }}>
           <div>
-            &copy; 2026 INSAC-2026 Joint Conference. Dr. A.P.J. Abdul Kalam WIT (LNMU) &amp; Indian Nuclear Society. All rights reserved.
+            &copy; 2026 ACANS 2026 Joint National Seminar. Dr. A.P.J. Abdul Kalam WIT (LNMU) &amp; Indian Nuclear Society. All rights reserved.
           </div>
           <div>
             Designed for Academic Conference Management

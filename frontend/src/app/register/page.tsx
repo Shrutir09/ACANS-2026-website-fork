@@ -112,7 +112,7 @@ function RegisterContent() {
               Create Participant Account
             </h1>
             <p style={{ fontSize: '0.85rem', color: '#64748b' }}>
-              INSAC-2026 &amp; Advanced Computing Seminar • WIT LNMU Darbhanga
+              ACANS 2026 • National Seminar • WIT LNMU Darbhanga
             </p>
           </div>
 
@@ -272,7 +272,7 @@ function RegisterContent() {
                   required
                 />
                 <span>
-                  I consent to the collection and processing of my registration details for the joint INSAC 2026 conference and seminar organized by WIT LNMU and INS.
+                  I consent to the collection and processing of my registration details for ACANS 2026, jointly organized by WIT LNMU and INS.
                 </span>
               </label>
             </div>

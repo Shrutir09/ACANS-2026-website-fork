@@ -167,7 +167,7 @@ exports.downloadTemplate = async (req, res, next) => {
       return res.status(404).json({ success: false, message: 'Template file not found on disk.' });
     }
 
-    res.download(filePath, settings.abstractTemplateName || 'Template for extended abstract (INSAC-2026).docx');
+    res.download(filePath, settings.abstractTemplateName || 'Template for extended abstract (ACANS 2026).docx');
   } catch (error) {
     next(error);
   }

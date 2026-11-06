@@ -40,7 +40,7 @@ export default function LoginPage() {
         <div className="card" style={{ maxWidth: '440px', margin: '0 auto', padding: '2rem', borderTop: '4px solid #0f294a' }}>
           <div style={{ textAlign: 'center', marginBottom: '1.75rem', borderBottom: '1px solid #e2e8f0', paddingBottom: '1rem' }}>
             <div style={{ fontSize: '0.785rem', fontWeight: 700, color: '#b45309', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-              INSAC 2026 Portal
+              ACANS 2026 Portal
             </div>
             <h1 style={{ fontSize: '1.5rem', color: '#0f294a', marginTop: '0.25rem', marginBottom: '0.25rem', fontWeight: 700 }}>
               Participant Sign In

@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '../../context/AuthContext';
 import { api } from '../../lib/api';
 import { DashboardStats, Registration, Payment, Abstract, EventSettings } from '../../types';
+import { normalizeEventText } from '../../lib/eventText';
 import StatusBadge from '../../components/StatusBadge';
 
 export default function AdminDashboardPage() {
@@ -208,7 +209,7 @@ export default function AdminDashboardPage() {
               Conference Management Control Center
             </div>
             <h1 style={{ fontSize: '2rem', color: 'var(--navy-900)' }}>
-              INSAC 2026 Admin Dashboard
+              ACANS 2026 Admin Dashboard
             </h1>
             <p style={{ color: 'var(--slate-500)', fontSize: '0.9rem' }}>
               Authenticated as Administrator • {user?.email}
@@ -218,7 +219,7 @@ export default function AdminDashboardPage() {
           <div style={{ display: 'flex', gap: '0.75rem' }}>
             <a
               href={api.getExportCsvUrl()}
-              download="insac2026_participants.csv"
+              download="acans2026_participants.csv"
               className="btn btn-outline-navy btn-sm"
               id="export-csv-btn"
             >
@@ -649,7 +650,7 @@ export default function AdminDashboardPage() {
                 Abstract Template File Management
               </h2>
               <p style={{ fontSize: '0.875rem', color: 'var(--slate-600)', marginBottom: '1.25rem', lineHeight: '1.6' }}>
-                Current template: <strong>{settings.abstractTemplateName || 'Template for extended abstract (INSAC-2026).docx'}</strong>.
+                Current template: <strong>{normalizeEventText(settings.abstractTemplateName || 'Template for extended abstract (ACANS 2026).docx')}</strong>.
                 You can replace this file at any time without changing application code. The previous file is safely backed up automatically.
               </p>
 

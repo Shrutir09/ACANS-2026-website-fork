@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '../../context/AuthContext';
 import { api } from '../../lib/api';
 import { EventSettings, EventTheme } from '../../types';
+import { normalizeEventText } from '../../lib/eventText';
 import TemplateDownloadCard from '../../components/TemplateDownloadCard';
 import WordCounter from '../../components/WordCounter';
 
@@ -53,7 +54,11 @@ function AbstractSubmissionContent() {
   useEffect(() => {
     api.getPublicSettings().then(res => {
       setSettings(res.settings);
-      setThemes(res.settings?.themes || []);
+      setThemes((res.settings?.themes || []).map(theme => ({
+        ...theme,
+        title: normalizeEventText(theme.title),
+        description: theme.description ? normalizeEventText(theme.description) : theme.description,
+      })));
       if (!initialTheme && res.settings?.themes?.length > 0) {
         setFormData(prev => ({ ...prev, researchTheme: prev.researchTheme || res.settings.themes[0].title }));
       }
@@ -156,7 +161,7 @@ function AbstractSubmissionContent() {
             Extended Abstract Submission
           </h1>
           <p style={{ color: '#cbd5e1', maxWidth: '750px', fontSize: '0.95rem' }}>
-            Submit your research contribution for INSAC 2026 and the National Seminar on Advanced Computing and Nuclear Science.
+            Submit your research contribution for ACANS 2026 and the National Seminar on Advanced Computing and Nuclear Science.
           </p>
         </div>
       </section>
@@ -221,7 +226,7 @@ function AbstractSubmissionContent() {
                   <option value="">-- Select Relevant Research Theme --</option>
                   {themes.map((t, idx) => (
                     <option key={idx} value={t.title}>
-                      [{t.category === 'workshop' ? 'Seminar' : 'INSAC'}] {t.title}
+                      [{t.category === 'workshop' ? 'Seminar' : 'ACANS'}] {t.title}
                     </option>
                   ))}
                 </select>
