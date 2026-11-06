@@ -103,7 +103,8 @@ export default function HomePage() {
     },
     {
       name: 'V.K. Manchanda',
-      image: '/images/speakers/vk-manchanda.png',
+      image: '/images/speakers/manchanda.jpeg',
+      objectPosition: 'center 0%',
       role: 'Head, Radiochemistry Division, BARC',
       affiliation: 'Former Professor, Sung Kyun Kwan University, South Korea',
     },
@@ -115,7 +116,7 @@ export default function HomePage() {
     },
     {
       name: 'Sri OP Rai',
-      image: '/images/speakers/op-rai.png',
+      image: '/images/speakers/op-rai.jpeg',
       role: 'Treasurer, INS',
       affiliation: 'Chief Coordinator of the Seminar',
     },
@@ -388,7 +389,7 @@ export default function HomePage() {
           <div className="grid-3">
             {speakers.map((speaker) => (
               <article key={speaker.name} className="card speaker-card">
-                <ProfilePortrait src={speaker.image} name={speaker.name} shape="circle" />
+                <ProfilePortrait src={speaker.image} name={speaker.name} shape="circle" objectPosition={speaker.objectPosition} />
                 <h3>{speaker.name}</h3>
                 <p className="speaker-card-role">{speaker.role}</p>
                 <p className="speaker-card-affiliation">{speaker.affiliation}</p>
