@@ -53,9 +53,13 @@ export default function Navbar() {
     {/* INS Logo */}
     <div className="masthead-left">
       <div className="masthead-logo masthead-logo-ins">
-        <img
+        <Image
           src="/logos/ins logo.jpeg"
           alt="Indian Nuclear Society Logo"
+          width={100}
+          height={100}
+          sizes="100px"
+          style={{ width: '100%', height: '100%', objectFit: 'contain' }}
         />
       </div>
     </div>
@@ -67,7 +71,7 @@ export default function Navbar() {
       </div>
 
       <h1 className="masthead-title">
-        INDIAN NUCLEAR SOCIETY ANNUAL CONFERENCE (INSAC-2026)
+        ACANS 2026
       </h1>
 
       <div className="masthead-subtitle">
@@ -88,16 +92,24 @@ export default function Navbar() {
     {/* LNMU and WIT Logos */}
     <div className="masthead-right">
       <div className="masthead-logo masthead-logo-lnmu">
-        <img
+        <Image
           src="/logos/lnmu logo.jpeg"
           alt="Lalit Narayan Mithila University Logo"
+          width={100}
+          height={100}
+          sizes="100px"
+          style={{ width: '100%', height: '100%', objectFit: 'contain' }}
         />
       </div>
 
       <div className="masthead-logo masthead-logo-wit">
-        <img
-          src="/logos/wit logo.jpeg"
+        <Image
+          src="/logos/wit-logo-trimmed.jpg"
           alt="Women's Institute of Technology Logo"
+          width={100}
+          height={100}
+          sizes="100px"
+          style={{ width: '100%', height: '100%', objectFit: 'contain' }}
         />
       </div>
     </div>
@@ -371,15 +383,22 @@ export default function Navbar() {
       </nav>
 
       {/* 4. Official Academic Announcement Ticker Bar */}
-      <div className="announcement-bar">
-        <div className="container" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+      <div className="announcement-bar" aria-label="Conference notices">
+        <div className="container announcement-content" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <span className="announcement-badge">Notice</span>
-          <div style={{ flex: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-            <span>★ Official Conference Paper Template (PDF) is available for download.</span>
-            <span style={{ margin: '0 0.6rem', color: '#cbd5e1' }}>|</span>
-            <span>★ Conference Dates: 7–9 December 2026.</span>
-            <span style={{ margin: '0 0.6rem', color: '#cbd5e1' }}>|</span>
-            <span>★ Registration Fee: Student ₹500, Research Scholar ₹750, Faculty ₹1,000 (Payment via UPI).</span>
+          <div className="announcement-viewport" tabIndex={0} aria-label="Notice ticker. Focus to pause scrolling.">
+            <div className="announcement-track">
+              {[0, 1].map((copy) => (
+                <div className="announcement-group" key={copy} aria-hidden={copy === 1}>
+                  <span>★ Official Seminar Paper Template (PDF) is available for download.</span>
+                  <span className="announcement-separator">|</span>
+                  <span>★ Seminar Dates: 7–9 December 2026.</span>
+                  <span className="announcement-separator">|</span>
+                  <span>★ Registration Fee: Student ₹500, Research Scholar ₹750, Faculty ₹1,000 (Payment via UPI).</span>
+                  <span className="announcement-separator">|</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

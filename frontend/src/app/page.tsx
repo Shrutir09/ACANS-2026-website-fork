@@ -2,9 +2,43 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { api } from '../lib/api';
 import { EventSettings } from '../types';
+import { normalizeEventText } from '../lib/eventText';
 import TemplateDownloadCard from '../components/TemplateDownloadCard';
+
+function ProfilePortrait({
+  src,
+  name,
+  shape,
+  objectPosition = 'center 30%',
+}: {
+  src: string;
+  name: string;
+  shape: 'circle' | 'square';
+  objectPosition?: string;
+}) {
+  const [imageFailed, setImageFailed] = useState(false);
+  const initials = name.split(' ').filter(Boolean).slice(-2).map((part) => part[0]).join('');
+
+  return (
+    <div className={`profile-portrait profile-portrait-${shape}`}>
+      {!imageFailed ? (
+        <Image
+          fill
+          sizes="(max-width: 768px) 132px, 164px"
+          src={src}
+          alt={`Photograph of ${name}`}
+          style={{ objectFit: 'cover', objectPosition }}
+          onError={() => setImageFailed(true)}
+        />
+      ) : (
+        <span aria-hidden="true">{initials}</span>
+      )}
+    </div>
+  );
+}
 
 export default function HomePage() {
   const [settings, setSettings] = useState<EventSettings | null>(null);
@@ -16,46 +50,91 @@ export default function HomePage() {
       .catch(err => console.error('Error loading settings:', err));
   }, []);
 
-  const themes = settings?.themes || [];
+  const themes = (settings?.themes || []).map((theme) => ({
+    ...theme,
+    title: normalizeEventText(theme.title),
+    description: theme.description ? normalizeEventText(theme.description) : theme.description,
+  }));
   const filteredThemes = activeThemeTab === 'all'
     ? themes
     : themes.filter(t => t.category === activeThemeTab);
 
   const homepageLeaders = [
-    { role: 'Chief Patron', name: 'Prof. Sanjay Kumar Choudhary' },
-    { role: 'Co-Patron', name: 'Dr. Divya Rani' },
-    { role: 'President', name: 'Dr. Amod Kumar' },
+    {
+      role: 'Chief Patron',
+      name: 'Prof. Sanjay Kumar Choudhary',
+      designation: 'Vice Chancellor, LNMU',
+      institution: 'Lalit Narayan Mithila University, Darbhanga',
+      image: '/images/leadership/prof-sanjay-kumar-choudhary.png',
+    },
+    {
+      role: 'Patron',
+      name: 'Dr. Divya Rani',
+      designation: 'Registrar, LNMU',
+      institution: 'Lalit Narayan Mithila University, Darbhanga',
+      image: '/images/leadership/dr-divya-rani.png',
+    },
+    {
+      role: 'President',
+      name: 'Dr. Amod Kumar',
+      designation: 'Director, WIT',
+      institution: 'Dr. A.P.J. Abdul Kalam Women\'s Institute of Technology, LNMU',
+      image: '/images/leadership/dr-amod-kumar.png',
+    },
   ];
   const speakers = [
     {
       name: 'Dr. Hrishikesh Mishra',
+      image: '/images/speakers/dr-hrishikesh-mishra.png',
       role: 'President, INS',
       affiliation: 'Former Distinguished Scientist; Former Director, Engineering Service Group, BARC',
     },
     {
       name: 'Anadi Kumar Sinha',
+      image: '/images/speakers/anadi-kumar-sinha.png',
       role: 'Convener, Outreach Committee, INS',
       affiliation: 'Recognized as an Outstanding Scientist (OS)',
     },
     {
       name: 'Dr. Ashok Kumar Kesari',
+      image: '/images/speakers/dr-ashok-kumar-kesari.png',
       role: 'Treasurer, INS',
       affiliation: 'Chief Coordinator, INS',
     },
     {
       name: 'V.K. Manchanda',
+      image: '/images/speakers/vk-manchanda.png',
       role: 'Head, Radiochemistry Division, BARC',
       affiliation: 'Former Professor, Sung Kyun Kwan University, South Korea',
     },
     {
       name: 'Dr. Jimmy Kansal',
+      image: '/images/speakers/dr-jimmy-kansal.png',
       role: 'Scientist G, DGRE',
       affiliation: 'DRDO Chandigarh',
     },
     {
       name: 'Sri OP Rai',
+      image: '/images/speakers/op-rai.png',
       role: 'Treasurer, INS',
       affiliation: 'Chief Coordinator of the Seminar',
+    },
+  ];
+  const eventSchedule = [
+    {
+      day: 'MONDAY',
+      date: '07/12',
+      description: 'Inaugural session; keynote lectures; introduction to advanced computing and nuclear science.',
+    },
+    {
+      day: 'TUESDAY',
+      date: '08/12',
+      description: 'Artificial Intelligence, Machine Learning, HPC, Digital Twins, and nuclear reactor monitoring, Medical physics, nuclear imaging, healthcare applications, and cancer diagnosis and treatment.',
+    },
+    {
+      day: 'WEDNESDAY',
+      date: '09/12',
+      description: 'Computational biology, molecular research, GeoAI, hazard prediction, and environmental risk assessment, Generative AI, Cybersecurity, IoT, Industry 5.0, research opportunities, interactive discussions, valedictory session, and certificate distribution.',
     },
   ];
 
@@ -93,7 +172,7 @@ export default function HomePage() {
             lineHeight: 1.2,
             marginBottom: '0.5rem',
           }}>
-            INSAC-2026
+            ACANS 2026
           </h1>
 
           <div style={{
@@ -114,7 +193,7 @@ export default function HomePage() {
             margin: '0 auto 1.5rem auto',
             lineHeight: 1.6,
           }}>
-            A national joint conference convening nuclear scientists, computational engineers, academicians, and researchers hosted by <strong>Dr. A.P.J. Abdul Kalam Women&apos;s Institute of Technology (WIT), LNMU Darbhanga</strong> in collaboration with the <strong>Indian Nuclear Society (INS)</strong>.
+            A national seminar and joint conference convening nuclear scientists, computational engineers, academicians, and researchers hosted by <strong>Dr. A.P.J. Abdul Kalam Women&apos;s Institute of Technology (WIT), LNMU Darbhanga</strong> in collaboration with the <strong>Indian Nuclear Society (INS)</strong>.
           </p>
 
           {/* Dates & Venue Info Box */}
@@ -229,10 +308,10 @@ export default function HomePage() {
               <div style={{ marginBottom: '1.5rem' }}>
                 <span className="section-tag">About the Conference</span>
                 <h2 style={{ fontSize: '1.65rem', color: '#0f294a', margin: '0.35rem 0 0.75rem 0', fontWeight: 700 }}>
-                  INSAC-2026 &amp; National Seminar on Advanced Computing
+                  ACANS 2026: National Seminar on Advanced Computing
                 </h2>
                 <p style={{ color: '#334155', lineHeight: 1.7, marginBottom: '1rem', fontSize: '0.925rem' }}>
-                  The <strong>Indian Nuclear Society&apos;s Annual Conference (INSAC-2026)</strong> is being held jointly with the National Seminar on <em>&ldquo;Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities&rdquo;</em> at <strong>Dr. A.P.J. Abdul Kalam Women&apos;s Institute of Technology (WIT)</strong>, a premier constituent technical unit of <strong>Lalit Narayan Mithila University (LNMU)</strong>, Darbhanga, Bihar.
+                  ACANS 2026 brings the <strong>Indian Nuclear Society&apos;s Annual Conference</strong> together with the National Seminar on <em>&ldquo;Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities&rdquo;</em> at <strong>Dr. A.P.J. Abdul Kalam Women&apos;s Institute of Technology (WIT)</strong>, a premier constituent technical unit of <strong>Lalit Narayan Mithila University (LNMU)</strong>, Darbhanga, Bihar.
                 </p>
                 <p style={{ color: '#334155', lineHeight: 1.7, marginBottom: '1.25rem', fontSize: '0.925rem' }}>
                   The conference addresses the crucial intersections of high-performance computing, artificial intelligence, digital twin simulations, nuclear energy safety, radiation applications in agriculture and health sciences, and women in STEM technologies.
@@ -273,21 +352,67 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Featured Leadership */}
+      <section id="leadership" className="section" style={{ backgroundColor: '#f8fafc', borderTop: '1px solid #e2e8f0' }}>
+        <div className="container">
+          <div className="section-header">
+            <span className="section-tag">Leadership</span>
+            <h2 className="section-title">Leadership</h2>
+            
+          </div>
+          <div className="grid-3 leadership-grid">
+            {homepageLeaders.map((leader) => (
+              <article key={leader.role} className="card leadership-feature-card">
+                <ProfilePortrait src={leader.image} name={leader.name} shape="circle" objectPosition="center 28%" />
+                <p className="leadership-feature-role">{leader.role}</p>
+                <h3>{leader.name}</h3>
+                <p className="leadership-feature-designation">{leader.designation}</p>
+                <p className="leadership-feature-institution">{leader.institution}</p>
+              </article>
+            ))}
+          </div>
+          <div className="leadership-more-link">
+            <Link href="/committees" className="btn btn-outline-navy btn-sm">View All Committees →</Link>
+          </div>
+        </div>
+      </section>
+
       {/* Speakers */}
       <section id="speakers" className="section" style={{ backgroundColor: '#f8fafc', borderTop: '1px solid #e2e8f0' }}>
         <div className="container">
           <div className="section-header">
             <span className="section-tag">Speakers</span>
             <h2 className="section-title">Key Speakers</h2>
-            <p className="section-subtitle">Scientists and academic leaders featured in the event brochure.</p>
+            
           </div>
           <div className="grid-3">
             {speakers.map((speaker) => (
               <article key={speaker.name} className="card speaker-card">
-                <span className="speaker-card-label">Key Speaker</span>
+                <ProfilePortrait src={speaker.image} name={speaker.name} shape="circle" />
                 <h3>{speaker.name}</h3>
                 <p className="speaker-card-role">{speaker.role}</p>
                 <p className="speaker-card-affiliation">{speaker.affiliation}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Event Schedule */}
+      <section id="event-schedule" className="section event-schedule-section">
+        <div className="container">
+          <div className="section-header">
+            <span className="section-tag">Three-Day Program</span>
+            <h2 className="section-title">Event Schedule</h2>
+          </div>
+          <div className="event-schedule-grid">
+            {eventSchedule.map((day, index) => (
+              <article className={`event-schedule-card event-schedule-card-${index + 1}`} key={day.day}>
+                <div className="event-schedule-date">
+                  <span>{day.day}</span>
+                  <strong>{day.date}</strong>
+                </div>
+                <p>{day.description}</p>
               </article>
             ))}
           </div>
@@ -423,10 +548,10 @@ export default function HomePage() {
             <span className="section-tag">Research Scope</span>
             <h2 className="section-title">Technical Themes &amp; Tracks</h2>
             <p className="section-subtitle">
-              Topics spanning the Advanced Computing Seminar and INSAC conference tracks.
+              Topics spanning the Advanced Computing Seminar and ACANS 2026 conference tracks.
             </p>
 
-            <div style={{ display: 'inline-flex', gap: '0.4rem', marginTop: '1rem', backgroundColor: '#f1f5f9', padding: '0.25rem', borderRadius: '4px', border: '1px solid #e2e8f0' }}>
+            <div className="theme-filter-controls" style={{ display: 'inline-flex', gap: '0.4rem', marginTop: '1rem', backgroundColor: '#f1f5f9', padding: '0.25rem', borderRadius: '4px', border: '1px solid #e2e8f0' }}>
               <button
                 onClick={() => setActiveThemeTab('all')}
                 className={`btn btn-sm ${activeThemeTab === 'all' ? 'btn-primary' : 'btn-secondary'}`}
@@ -443,7 +568,7 @@ export default function HomePage() {
                 onClick={() => setActiveThemeTab('conference')}
                 className={`btn btn-sm ${activeThemeTab === 'conference' ? 'btn-primary' : 'btn-secondary'}`}
               >
-                INSAC Topics
+                ACANS Conference Topics
               </button>
             </div>
           </div>
@@ -463,7 +588,7 @@ export default function HomePage() {
                       border: '1px solid #e2e8f0',
                       textTransform: 'uppercase',
                     }}>
-                      {theme.category === 'workshop' ? 'Seminar Track' : 'INSAC Track'}
+                      {theme.category === 'workshop' ? 'Seminar Track' : 'ACANS Track'}
                     </span>
                     <span style={{ fontSize: '0.8rem', color: '#94a3b8' }}>#{idx + 1}</span>
                   </div>
@@ -488,50 +613,6 @@ export default function HomePage() {
           <div style={{ textAlign: 'center', marginTop: '2rem' }}>
             <Link href="/themes" className="btn btn-outline-navy">
               View All {themes.length} Technical Themes &amp; Topics →
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* 7. Leadership & Committee Office Bearers */}
-      <section className="section" style={{ backgroundColor: '#f8fafc', borderTop: '1px solid #e2e8f0' }}>
-        <div className="container">
-          <div className="section-header">
-            <span className="section-tag">Committees</span>
-            <h2 className="section-title">Committee Office Bearers</h2>
-            <p className="section-subtitle">
-              Patrons and office bearers guiding the conference organization.
-            </p>
-          </div>
-
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-            gap: '1rem',
-            marginBottom: '1.75rem',
-          }}>
-            {homepageLeaders.map((member, idx) => (
-              <div key={member.role} className="card" style={{ textAlign: 'center', borderTop: `3px solid ${idx === 1 ? '#b45309' : '#0f294a'}`, padding: '1.25rem 1rem', minWidth: 0 }}>
-                <div style={{
-                  fontSize: '0.75rem',
-                  fontWeight: 700,
-                  color: '#b45309',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.04em',
-                  marginBottom: '0.35rem',
-                }}>
-                  {member.role}
-                </div>
-                <h4 style={{ fontSize: '1.05rem', color: '#0f294a', marginBottom: '0.2rem' }}>
-                  {member.name}
-                </h4>
-              </div>
-            ))}
-          </div>
-
-          <div style={{ textAlign: 'center' }}>
-            <Link href="/committees" className="btn btn-outline-navy">
-              View All Committees →
             </Link>
           </div>
         </div>

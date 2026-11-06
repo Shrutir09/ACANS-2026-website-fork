@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { api } from '../../lib/api';
 import { EventTheme } from '../../types';
+import { normalizeEventText } from '../../lib/eventText';
 
 export default function ThemesPage() {
   const [themes, setThemes] = useState<EventTheme[]>([]);
@@ -12,7 +13,11 @@ export default function ThemesPage() {
 
   useEffect(() => {
     api.getPublicSettings()
-      .then(res => setThemes(res.settings?.themes || []))
+      .then(res => setThemes((res.settings?.themes || []).map(theme => ({
+        ...theme,
+        title: normalizeEventText(theme.title),
+        description: theme.description ? normalizeEventText(theme.description) : theme.description,
+      }))))
       .catch(err => console.error('Error fetching themes:', err));
   }, []);
 
@@ -79,7 +84,7 @@ export default function ThemesPage() {
                 onClick={() => setFilter('conference')}
                 className={`btn btn-sm ${filter === 'conference' ? 'btn-primary' : 'btn-secondary'}`}
               >
-                INSAC Topics ({themes.filter(t => t.category === 'conference').length})
+                ACANS Topics ({themes.filter(t => t.category === 'conference').length})
               </button>
             </div>
 
@@ -120,7 +125,7 @@ export default function ThemesPage() {
                       border: '1px solid #e2e8f0',
                       textTransform: 'uppercase',
                     }}>
-                      {theme.category === 'workshop' ? 'National Seminar Theme' : 'INSAC Conference Topic'}
+                      {theme.category === 'workshop' ? 'National Seminar Theme' : 'ACANS Conference Topic'}
                     </span>
                     <span style={{ fontSize: '0.8rem', color: '#94a3b8' }}>
                       #{index + 1}

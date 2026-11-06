@@ -70,7 +70,7 @@ export default function TemplateDownloadCard({ compact = false }: TemplateDownlo
           </div>
 
           <h3 style={{ fontSize: '1.1rem', color: '#0f294a', marginBottom: '0.35rem', fontWeight: 700 }}>
-            Official INSAC 2026 Extended Abstract Template
+            Official ACANS 2026 Extended Abstract Template
           </h3>
 
           <p style={{ fontSize: '0.875rem', color: '#475569', marginBottom: '0.9rem', lineHeight: '1.5' }}>

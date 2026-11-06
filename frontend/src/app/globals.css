@@ -1,4 +1,4 @@
-/* INSAC 2026 Academic Conference - Simple, Authentic University Design System */
+/* ACANS 2026 Academic Seminar - Simple, Authentic University Design System */
 
 :root {
   /* Colors - Authentic University & Academic Palette */
@@ -528,6 +528,12 @@ textarea.form-control {
   margin-top: 0.5rem;
 }
 
+.theme-filter-controls {
+  max-width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 /* Announcement Ticker Bar */
 .announcement-bar {
   background-color: #fffbeb;
@@ -535,6 +541,40 @@ textarea.form-control {
   padding: 0.5rem 0;
   font-size: 0.85rem;
   color: #92400e;
+}
+
+.announcement-content { min-width: 0; }
+.announcement-viewport {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.announcement-viewport:focus-visible {
+  outline: 2px solid #0f294a;
+  outline-offset: 2px;
+}
+.announcement-track {
+  display: flex;
+  width: max-content;
+  animation: announcement-scroll 38s linear infinite;
+}
+.announcement-group {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+.announcement-separator { margin: 0 0.6rem; color: #92400e; }
+.announcement-bar:hover .announcement-track,
+.announcement-viewport:focus .announcement-track { animation-play-state: paused; }
+@keyframes announcement-scroll {
+  to { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .announcement-viewport { overflow: visible; white-space: normal; }
+  .announcement-track { animation: none; width: 100%; }
+  .announcement-group { flex-wrap: wrap; white-space: normal; }
+  .announcement-group[aria-hidden="true"] { display: none; }
 }
 
 .announcement-badge {
@@ -590,12 +630,115 @@ textarea.form-control {
 .speaker-card {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 0.45rem;
+  align-items: center;
+  text-align: center;
+  gap: 0.35rem;
   height: 100%;
   min-width: 0;
   border-top: 3px solid var(--gold-500);
+  padding: 1.15rem 1rem;
 }
+.profile-portrait {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 116px;
+  height: 116px;
+  flex: 0 0 auto;
+  overflow: hidden;
+  background: linear-gradient(135deg, #e2e8f0, #f8fafc);
+  border: 2px solid #e2e8f0;
+  color: var(--navy-900);
+  font-size: 1.7rem;
+  font-weight: 700;
+}
+.profile-portrait-circle { border-radius: 50%; }
+.profile-portrait-square { border-radius: 10px; }
+.profile-portrait img { width: 100%; height: 100%; }
+.profile-portrait { margin: 0 auto 0.25rem; }
+.leadership-feature-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.32rem;
+  height: 100%;
+  min-width: 0;
+  border-top: 3px solid var(--gold-500);
+  padding: 1.1rem 1rem;
+}
+.leadership-feature-card .profile-portrait {
+  width: 116px;
+  height: 116px;
+  border-color: #dbe3ec;
+  margin-bottom: 0.2rem;
+}
+.leadership-feature-card h3 {
+  margin: 0;
+  color: var(--navy-900);
+  font-size: 1rem;
+  line-height: 1.35;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+.leadership-feature-role {
+  margin: 0;
+  color: var(--gold-600);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.leadership-feature-designation,
+.leadership-feature-institution { max-width: 30rem; margin: 0; line-height: 1.4; }
+.leadership-feature-designation { color: var(--navy-900); font-size: 0.84rem; font-weight: 650; }
+.leadership-feature-institution { color: var(--slate-600); font-size: 0.77rem; }
+.leadership-more-link { margin-top: 1.25rem; text-align: center; }
+
+.event-schedule-section {
+  background: #ffffff;
+  border-block: 1px solid var(--slate-200);
+}
+.event-schedule-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.1rem;
+  align-items: stretch;
+}
+.event-schedule-card {
+  min-width: 0;
+  padding: 1.35rem;
+  border: 1px solid var(--slate-200);
+  border-top: 4px solid var(--navy-900);
+  border-radius: 7px;
+  overflow-wrap: anywhere;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+.event-schedule-card-1 { background: #f8fafc; }
+.event-schedule-card-2 { background: #ffffff; border-top-color: var(--gold-500); }
+.event-schedule-card-3 { background: #fffbeb; border-top-color: #b45309; }
+.event-schedule-date {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  color: var(--navy-900);
+}
+.event-schedule-date span { font-size: 0.78rem; font-weight: 750; letter-spacing: 0.06em; }
+.event-schedule-date strong {
+  display: inline-block;
+  padding: 0.35rem 0.55rem;
+  color: #ffffff;
+  background: var(--navy-900);
+  border-radius: 4px;
+  font-size: 1.15rem;
+  font-variant-numeric: tabular-nums;
+}
+.event-schedule-card-2 .event-schedule-date strong { background: #a16207; }
+.event-schedule-card-3 .event-schedule-date strong { background: #b45309; }
+.event-schedule-card p { margin: 0; color: var(--slate-700); font-size: 0.9rem; line-height: 1.65; }
 
 .speaker-card-label {
   color: var(--gold-600);
@@ -607,7 +750,11 @@ textarea.form-control {
 
 .speaker-card h3 {
   margin: 0;
-  font-size: clamp(1.05rem, 1.35vw, 1.25rem);
+  color: var(--navy-900);
+  font-size: 1rem;
+  line-height: 1.35;
+  text-align: center;
+  text-wrap: balance;
   overflow-wrap: anywhere;
 }
 
@@ -617,6 +764,8 @@ textarea.form-control {
   font-size: 0.9rem;
   font-weight: 650;
   line-height: 1.45;
+  text-align: center;
+  text-wrap: balance;
   overflow-wrap: anywhere;
 }
 
@@ -625,7 +774,27 @@ textarea.form-control {
   color: var(--slate-600);
   font-size: 0.85rem;
   line-height: 1.55;
+  text-align: center;
+  text-wrap: pretty;
   overflow-wrap: anywhere;
+}
+
+.leadership-feature-card,
+.speaker-card {
+  transition: transform 240ms ease, box-shadow 240ms ease, border-color 240ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .leadership-feature-card:hover,
+  .speaker-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .leadership-feature-card,
+  .speaker-card { transition: none; }
 }
 
 @media (max-width: 1024px) {
@@ -639,6 +808,7 @@ textarea.form-control {
   .speaker-card h3 {
     font-size: 1.1rem;
   }
+  .event-schedule-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 768px) {
@@ -663,6 +833,9 @@ textarea.form-control {
   .speaker-card {
     padding: 1.1rem;
   }
+
+  .event-schedule-grid { grid-template-columns: 1fr; }
+  .event-schedule-card { padding: 1.15rem; }
 }
 
 /* Institutional masthead sizing is global so all routes share the same header layout. */
@@ -768,6 +941,15 @@ header.site-header .masthead-logo-wit {
   border-radius: 50%;
   padding: 2px;
 }
+header.site-header .masthead-logo-wit {
+  width: clamp(64px, 3.8vw, 78px);
+  height: clamp(64px, 3.8vw, 78px);
+  flex-basis: clamp(64px, 3.8vw, 78px);
+  border-radius: 8px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+}
 
 header.site-header .masthead-logo-ins img,
 header.site-header .masthead-logo-lnmu img,
@@ -844,6 +1026,11 @@ header.site-header .masthead-organizer {
     height: 56px;
     flex-basis: 56px;
   }
+  header.site-header .masthead-logo-wit {
+    width: 56px;
+    height: 56px;
+    flex-basis: 56px;
+  }
 }
 
 @media (min-width: 961px) {
@@ -885,6 +1072,11 @@ header.site-header .masthead-organizer {
   }
 
   header.site-header .masthead-logo-lnmu,
+  header.site-header .masthead-logo-wit {
+    width: 48px;
+    height: 48px;
+    flex-basis: 48px;
+  }
   header.site-header .masthead-logo-wit {
     width: 48px;
     height: 48px;

@@ -62,7 +62,7 @@ function makeRequest(method, endpoint, body = null, cookie = null, isFormData = 
 
 async function runTests() {
   console.log('\n========================================');
-  console.log('   INSAC 2026 FULL-STACK TEST SUITE    ');
+  console.log('   ACANS 2026 FULL-STACK TEST SUITE    ');
   console.log('========================================\n');
 
   let passed = 0;
@@ -85,7 +85,7 @@ async function runTests() {
 
     // 2. Public Settings
     const pubSettings = await makeRequest('GET', '/api/v1/settings/public');
-    assert(pubSettings.statusCode === 200 && pubSettings.body.settings.eventTitle.includes('INSAC 2026'), 'Public Settings API returns event metadata');
+    assert(pubSettings.statusCode === 200 && pubSettings.body.settings.eventTitle.includes('ACANS 2026'), 'Public Settings API returns event metadata');
     assert(pubSettings.body.settings.committees.length > 0, 'Committees populated from Details.docx');
     assert(pubSettings.body.settings.fees.student === 500, 'Student fee is ₹500');
     assert(pubSettings.body.settings.fees.research_scholar === 750, 'Research Scholar fee is ₹750');
@@ -95,7 +95,7 @@ async function runTests() {
     // 3. Official Template Download
     const templateRes = await makeRequest('GET', '/api/v1/settings/template/download');
     assert(templateRes.statusCode === 200, 'Template download route returns 200');
-    assert(templateRes.headers['content-disposition'].includes('Template for extended abstract (INSAC-2026).docx'), 'Downloaded filename matches original official template');
+    assert(templateRes.headers['content-disposition'].includes('Template for extended abstract (ACANS 2026).docx'), 'Downloaded filename matches the ACANS 2026 template label');
     assert(templateRes.raw.length > 1700000, `Downloaded file size matches original docx (${(templateRes.raw.length / 1024 / 1024).toFixed(2)} MB)`);
 
     // 4. Participant Registration

@@ -36,18 +36,18 @@ const leadershipOfficeBearers = [
   {
     role: 'Convener',
     name: 'Dr. Rashmi Kumari',
-    designation: 'Convener, INSAC-2026',
+    designation: 'Convener, ACANS 2026',
     institution: 'Dr. A.P.J. Abdul Kalam WIT, LNMU',
     photo: '/images/leadership/dr-rashmi.png',
-    alt: 'Dr. Rashmi Kumari, Convener, INSAC-2026',
+    alt: 'Dr. Rashmi Kumari, Convener, ACANS 2026',
   },
   {
     role: 'Deputy Convener',
     name: 'Mrs. Charmis Mariwala',
-    designation: 'Deputy Convener, INSAC-2026',
+    designation: 'Deputy Convener, ACANS 2026',
     institution: 'Dr. A.P.J. Abdul Kalam WIT, LNMU',
-    photo: null,
-    alt: 'Mrs. Charmis Mariwala, Deputy Convener, INSAC-2026',
+    photo: '/images/leadership/charmis.jpeg',
+    alt: 'Mrs. Charmis Mariwala, Deputy Convener, ACANS 2026',
   },
 ];
 
@@ -305,7 +305,7 @@ export default function CommitteesPage() {
             Conference &amp; Seminar Committees
           </h1>
           <p style={{ color: '#cbd5e1', maxWidth: '750px', fontSize: '0.95rem' }}>
-            Distinguished academicians, office bearers, advisory panels, and organizing faculty governing INSAC 2026.
+            Distinguished academicians, office bearers, advisory panels, and organizing faculty supporting ACANS 2026.
           </p>
         </div>
       </section>

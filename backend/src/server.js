@@ -56,7 +56,7 @@ app.use('/api/v1/settings', settingsRoutes);
 
 // Health check
 app.get('/api/v1/health', (req, res) => {
-  res.json({ success: true, message: 'INSAC 2026 API is running', timestamp: new Date().toISOString() });
+  res.json({ success: true, message: 'ACANS 2026 API is running', timestamp: new Date().toISOString() });
 });
 
 // 404 handler
@@ -73,7 +73,7 @@ const startServer = async () => {
   const initDefaults = require('./utils/initDefaults');
   await initDefaults();
   app.listen(config.port, () => {
-    console.log(`INSAC 2026 Backend running on port ${config.port} [${config.nodeEnv}]`);
+    console.log(`ACANS 2026 Backend running on port ${config.port} [${config.nodeEnv}]`);
   });
 };
 
