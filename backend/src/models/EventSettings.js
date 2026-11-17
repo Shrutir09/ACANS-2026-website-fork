@@ -30,7 +30,7 @@ const eventSettingsSchema = new mongoose.Schema({
   // Core event info
   eventTitle: {
     type: String,
-    default: 'ACANS 2026 | National Seminar on Advanced Computing and Nuclear Science',
+    default: 'ACANS 2026 – National Seminar on "Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities"',
   },
   eventSubtitle: {
     type: String,
@@ -38,11 +38,11 @@ const eventSettingsSchema = new mongoose.Schema({
   },
   conferenceTitle: {
     type: String,
-    default: "Indian Nuclear Society's Annual Conference",
+    default: 'Indian Nuclear Society (INS) – Collaborating Organization',
   },
   conferenceSubtitle: {
     type: String,
-    default: 'Nuclear Energy & Nuclear Radiation: A Boon to Mankind',
+    default: 'Collaborating organization for ACANS 2026',
   },
   workshopTitle: {
     type: String,
@@ -69,7 +69,10 @@ const eventSettingsSchema = new mongoose.Schema({
   aboutEvent: { type: String, default: '' },
   aboutINS: { type: String, default: '' },
   aboutLNMU: { type: String, default: '' },
-  aboutWIT: { type: String, default: '' },
+  aboutWIT: {
+    type: String,
+    default: 'Dr. A.P.J. Abdul Kalam Women\'s Institute of Technology (WIT), a constituent unit of Lalit Narayan Mithila University, Darbhanga, Bihar, was established in 2004 and inaugurated by Bharat Ratna Dr. A.P.J. Abdul Kalam on December 30, 2005. The institute is dedicated to providing technical education to women and contributing to the development of the Mithila region.',
+  },
 
   // Fees
   fees: {
@@ -100,7 +103,7 @@ const eventSettingsSchema = new mongoose.Schema({
 
   // Contact
   contactEmail: { type: String, default: '' },
-  contactPhone: { type: String, default: '' },
+  contactPhone: { type: String, default: '9971144418, 9473370707' },
   contactWhatsApp: { type: String, default: '' },
 
   // Logos & images

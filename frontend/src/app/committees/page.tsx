@@ -42,32 +42,30 @@ const leadershipOfficeBearers = [
     alt: 'Dr. Rashmi Kumari, Convener, ACANS 2026',
   },
   {
-    role: 'Deputy Convener',
+    role: 'Co-Convener',
     name: 'Mrs. Charmis Mariwala',
-    designation: 'Deputy Convener, ACANS 2026',
+    designation: 'Co-Convener, ACANS 2026',
     institution: 'Dr. A.P.J. Abdul Kalam WIT, LNMU',
     photo: '/images/leadership/charmis.jpeg',
-    alt: 'Mrs. Charmis Mariwala, Deputy Convener, ACANS 2026',
+    alt: 'Mrs. Charmis Mariwala, Co-Convener, ACANS 2026',
   },
 ];
 
 const organisingCommittee = [
-  'Dr. Priyanka',
-  'Mr. Krishna Murari',
-  'Dr. Divya Rani',
-  'Mr. Amit Mishra',
-  'Ms. Kajal Kumari',
-  'Ms. Prachi Bharti',
-  'Dr. Rajeev Prasad',
-  'Mrs. Neha Kumari',
-  'Md Ashif Habibi',
-  'Mr. Ganesh Kumar Paswan',
-  'Dr. Rashmi Kumari',
-  'Dr. M.Z. Shamim',
-  'Dr. Chandrika Kumari',
-  'Mr. Aashish Mishra',
-  'Dr. Avinash Chandra',
-  'Dr. Chandrika Kumari',
+  { name: 'Dr. Priyanka', designation: 'Deputy Registrar, WIT' },
+  { name: 'Mr. Krishna Murari', designation: 'Administrative Officer, WIT' },
+  { name: 'Mr. Amit Mishra', designation: 'Assistant Professor, WIT' },
+  { name: 'Ms. Kajal Kumari', designation: 'Assistant Professor, WIT' },
+  { name: 'Ms. Prachi Bharti', designation: 'Assistant Professor, WIT' },
+  { name: 'Dr. Rajeev Prasad', designation: 'Assistant Professor, WIT' },
+  { name: 'Mrs. Neha Kumari', designation: 'Assistant Professor, WIT' },
+  { name: 'Md Ashif Habibi', designation: 'Assistant Professor, WIT' },
+  { name: 'Mr. Ganesh Kumar Paswan', designation: 'Assistant Professor, WIT' },
+  { name: 'Dr. M.Z. Shamim', designation: 'Assistant Professor, WIT' },
+  { name: 'Dr. Chandrika Kumari', designation: 'Assistant Professor, WIT' },
+  { name: 'Mr. Aashish Mishra', designation: 'Assistant Professor, WIT' },
+  { name: 'Dr. Avinash Chandra', designation: 'Assistant Professor, WIT' },
+  
 ];
 
 const advisoryCommittee = [
@@ -89,7 +87,7 @@ const advisoryCommittee = [
   {
     department: 'Department of Zoology',
     members: [
-      'Dr. Parul Banergee',
+      'Dr. Parul Banerjee',
     ],
   },
   {
@@ -152,7 +150,6 @@ function LeadershipCard({
   institution,
   photo,
   alt,
-  highlight,
 }: {
   role: string;
   name: string;
@@ -160,11 +157,10 @@ function LeadershipCard({
   institution: string;
   photo: string | null;
   alt: string;
-  highlight?: boolean;
 }) {
   const [imgError, setImgError] = React.useState(false);
 
-  const topBorderColor = highlight ? '#b45309' : '#0f294a';
+  const topBorderColor = '#0f294a';
 
   return (
     <div
@@ -211,11 +207,11 @@ function LeadershipCard({
         style={{
           fontSize: '0.7rem',
           fontWeight: 700,
-          color: '#b45309',
+          color: '#0f294a',
           textTransform: 'uppercase',
           letterSpacing: '0.05em',
-          backgroundColor: '#fffbeb',
-          border: '1px solid #fde68a',
+          backgroundColor: '#f8fafc',
+          border: '1px solid #e2e8f0',
           borderRadius: '3px',
           padding: '0.15rem 0.5rem',
         }}
@@ -356,12 +352,11 @@ export default function CommitteesPage() {
                     institution={m.institution}
                     photo={m.photo}
                     alt={m.alt}
-                    highlight={idx === 0}
                   />
                 ))}
               </div>
 
-              {/* Bottom row: Convener, Deputy Convener */}
+              {/* Bottom row: Convener, Co-Convener */}
               <div
                 style={{
                   display: 'grid',
@@ -415,9 +410,9 @@ export default function CommitteesPage() {
                     gap: '0.75rem',
                   }}
                 >
-                  {organisingCommittee.map((name, idx) => (
+                  {organisingCommittee.map((member, idx) => (
                     <div
-                      key={idx}
+                      key={`${member.name}-${idx}`}
                       style={{
                         padding: '0.75rem 0.85rem',
                         backgroundColor: '#f8fafc',
@@ -454,10 +449,10 @@ export default function CommitteesPage() {
                             fontSize: '0.9rem',
                           }}
                         >
-                          {name}
+                          {member.name}
                         </div>
                         <div style={{ fontSize: '0.775rem', color: '#64748b' }}>
-                          Organising Committee
+                          {member.designation}
                         </div>
                       </div>
                     </div>
@@ -530,11 +525,6 @@ export default function CommitteesPage() {
                             }}
                           >
                             {member}
-                          </div>
-                          <div style={{ fontSize: '0.775rem', color: '#64748b' }}>
-                            {dept.department.startsWith('Dr. A.P.J.')
-                              ? 'WIT Darbhanga'
-                              : dept.department}
                           </div>
                         </div>
                       ))}

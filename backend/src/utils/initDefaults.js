@@ -2,6 +2,25 @@ const EventSettings = require('../models/EventSettings');
 const User = require('../models/User');
 const config = require('../config');
 
+const aboutWITText = 'Dr. A.P.J. Abdul Kalam Women\'s Institute of Technology (WIT), a constituent unit of Lalit Narayan Mithila University, Darbhanga, Bihar, was established in 2004 and inaugurated by Bharat Ratna Dr. A.P.J. Abdul Kalam on December 30, 2005. The institute is dedicated to providing technical education to women and contributing to the development of the Mithila region.';
+const contactPhoneNumbers = '9971144418, 9473370707';
+const organizingCommitteeMembers = [
+  { name: 'Dr. Priyanka', designation: 'Deputy Registrar, WIT' },
+  { name: 'Mr. Krishna Murari', designation: 'Administrative Officer, WIT' },
+  { name: 'Mr. Amit Mishra', designation: 'Assistant Professor, WIT' },
+  { name: 'Ms. Kajal Kumari', designation: 'Assistant Professor, WIT' },
+  { name: 'Ms. Prachi Bharti', designation: 'Assistant Professor, WIT' },
+  { name: 'Dr. Rajeev Prasad', designation: 'Assistant Professor, WIT' },
+  { name: 'Mrs. Neha Kumari', designation: 'Assistant Professor, WIT' },
+  { name: 'Md Ashif Habibi', designation: 'Assistant Professor, WIT' },
+  { name: 'Mr. Ganesh Kumar Paswan', designation: 'Assistant Professor, WIT' },
+  { name: 'Dr. M.Z. Shamim', designation: 'Assistant Professor, WIT' },
+  { name: 'Dr. Chandrika Kumari', designation: 'Assistant Professor, WIT' },
+  { name: 'Mr. Aashish Mishra', designation: 'Assistant Professor, WIT' },
+  { name: 'Dr. Avinash Chandra', designation: 'Assistant Professor, WIT' },
+  { name: 'Dr. Chandrika Kumari', designation: 'Assistant Professor, WIT' },
+];
+
 async function initDefaults() {
   try {
     // 1. Check and initialize settings
@@ -9,10 +28,10 @@ async function initDefaults() {
     if (!settings) {
       console.log('Seeding initial event settings...');
       settings = new EventSettings({
-        eventTitle: 'ACANS 2026 | National Seminar on Advanced Computing and Nuclear Science',
+        eventTitle: 'ACANS 2026 – National Seminar on "Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities"',
         eventSubtitle: 'Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities',
-        conferenceTitle: "Indian Nuclear Society's Annual Conference",
-        conferenceSubtitle: 'Nuclear Energy & Nuclear Radiation: A Boon to Mankind',
+        conferenceTitle: 'Indian Nuclear Society (INS) – Collaborating Organization',
+        conferenceSubtitle: 'Collaborating organization for ACANS 2026',
         workshopTitle: 'Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities',
         eventStartDate: '7 December 2026',
         eventEndDate: '9 December 2026',
@@ -20,10 +39,10 @@ async function initDefaults() {
         datesNote: '',
         venue: 'Dr. A.P.J. Abdul Kalam Women\'s Institute of Technology (WIT), Darbhanga, Bihar',
         venueAddress: 'Lalit Narayan Mithila University Campus, Darbhanga, Bihar 846004, India',
-        aboutEvent: `ACANS 2026 brings together the Indian Nuclear Society's Annual Conference and the National Seminar on "Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities." Hosted by Dr. A.P.J. Abdul Kalam Women's Institute of Technology (WIT), a constituent unit of Lalit Narayan Mithila University (LNMU), Darbhanga, Bihar, in collaboration with the Indian Nuclear Society (INS), this landmark gathering unites leading scientists, researchers, faculty, and research scholars to explore synergies between nuclear technologies and cutting-edge computational sciences.`,
-        aboutINS: `The Indian Nuclear Society (INS) is the premier professional body established in 1988 dedicated to the advancement and peaceful applications of nuclear science, technology, and allied disciplines. INS organizes its flagship annual conference to convene scientific minds from DAE units including BARC, NPCIL, BHAVINI, IGCAR, VECC, and AERB, alongside university faculties and industry partners. It serves as a prestigious national forum discussing reactor safety, advanced computing, nuclear medicine, radiation technology, and clean energy transition.`,
+        aboutEvent: `ACANS 2026 is the National Seminar on "Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities." It is hosted by Dr. A.P.J. Abdul Kalam Women's Institute of Technology (WIT), a constituent unit of Lalit Narayan Mithila University (LNMU), Darbhanga, Bihar, in collaboration with the Indian Nuclear Society (INS). The seminar brings together leading scientists, researchers, faculty, and research scholars to explore synergies between nuclear technologies and advanced computing.`,
+        aboutINS: `The Indian Nuclear Society (INS) is a professional body dedicated to the advancement and peaceful applications of nuclear science, technology, and allied disciplines. INS collaborates with WIT, LNMU in organizing ACANS 2026. Separately, INS organizes its own annual conference and other scientific forums.`,
         aboutLNMU: `Lalit Narayan Mithila University (LNMU), established in 1972, is an esteemed state university situated in the historic city of Darbhanga, Bihar. Named in honour of the illustrious leader and philosopher Lalit Narayan Mishra, LNMU is a major hub of higher learning and research in North Bihar, providing quality education across arts, science, commerce, law, medicine, and engineering through numerous constituent and affiliated institutions.`,
-        aboutWIT: `Dr. A.P.J. Abdul Kalam Women's Institute of Technology (WIT) is a prestigious constituent unit of Lalit Narayan Mithila University (LNMU), Darbhanga, Bihar. Approved by AICTE, WIT is dedicated to empowering women through world-class technical and engineering education. Inspired by Dr. Kalam's visionary ideals of innovation and nation-building, the institute fosters rigorous academics, interdisciplinary research, and leadership in emerging technologies.`,
+        aboutWIT: aboutWITText,
         fees: {
           student: 500,
           research_scholar: 750,
@@ -37,16 +56,16 @@ async function initDefaults() {
         paymentInstructions: 'Please submit registration fees according to instructions provided by Dr. A.P.J. Abdul Kalam Women\'s Institute of Technology (WIT), LNMU. After payment via UPI, Cash, or Bank Transfer, enter your transaction reference ID and proof below for administrative verification.',
         abstractWordLimit: 250,
         abstractInstructions: 'All submissions must conform to the official ACANS 2026 extended abstract template. Contributory paper abstracts must not exceed 2 pages including figures, tables, and references. The abstract text summary below should be within the configured word limit.',
-        abstractTemplateFile: 'uploads/templates/Template_for_extended_abstract_INSAC-2026.docx',
+        abstractTemplateFile: 'uploads/templates/Template_for_extended_abstract_ACANS-2026.docx',
         abstractTemplateName: 'Template for extended abstract (ACANS 2026).docx',
         registrationOpen: true,
         abstractSubmissionOpen: true,
         contactEmail: 'contact@insac2026.org',
-        contactPhone: '+91 6272 246579',
+        contactPhone: contactPhoneNumbers,
         accommodation: 'Details regarding university guest house and nearby hotel accommodation in Darbhanga will be announced shortly.',
         travelInfo: 'Darbhanga is well-connected by air via Darbhanga Airport (DHR) with direct flights from Delhi, Mumbai, Bengaluru, and Kolkata. It is also well-connected by rail to major Indian cities.',
         importantDates: [
-          { label: 'Conference Dates', date: '7–9 December 2026', confirmed: true },
+          { label: 'Seminar Dates', date: '7–9 December 2026', confirmed: true },
           { label: 'Abstract Submission Deadline', date: 'To be announced', confirmed: false },
           { label: 'Notification of Acceptance', date: 'To be announced', confirmed: false },
           { label: 'Registration Deadline', date: 'To be announced', confirmed: false },
@@ -57,7 +76,7 @@ async function initDefaults() {
           { name: 'Registrar', designation: 'Patron', group: 'office_bearers', role: 'Patron', sortOrder: 2 },
           { name: 'Director', designation: 'President', group: 'office_bearers', role: 'President', sortOrder: 3 },
           { name: 'Dr. Rashmi', designation: 'Convener', group: 'office_bearers', role: 'Convener', sortOrder: 4 },
-          { name: 'Mrs. Charmis Mariwala', designation: 'Deputy Convener', group: 'office_bearers', role: 'Deputy Convener', sortOrder: 5 },
+          { name: 'Mrs. Charmis Mariwala', designation: 'Co-Convener', group: 'office_bearers', role: 'Co-Convener', sortOrder: 5 },
 
           // Advisory - Physics
           { name: 'Prof. Naushad Alam', department: 'Physics', group: 'advisory_physics', sortOrder: 1 },
@@ -69,24 +88,24 @@ async function initDefaults() {
           { name: 'Dr. Arindra Sharma', department: 'Chemistry', group: 'advisory_chemistry', sortOrder: 2 },
 
           // Advisory - Zoology
-          { name: 'Dr. Parul Banergee', department: 'Zoology', group: 'advisory_zoology', sortOrder: 1 },
+          { name: 'Dr. Parul Banerjee', department: 'Zoology', group: 'advisory_zoology', sortOrder: 1 },
 
           // Advisory - Botany
           { name: 'Dr. Aniket Kumar Singh', department: 'Botany', group: 'advisory_botany', sortOrder: 1 },
 
           // Advisory - WIT
-          { name: 'Mr. Amit Kumar Mishra', institution: 'WIT', group: 'advisory_wit', sortOrder: 1 },
-          { name: 'Mrs. Neha Kumari', institution: 'WIT', group: 'advisory_wit', sortOrder: 2 },
-          { name: 'Mr. Ashif Habibi', institution: 'WIT', group: 'advisory_wit', sortOrder: 3 },
-          { name: 'Dr. Zakirullah Shamim', institution: 'WIT', group: 'advisory_wit', sortOrder: 4 },
-          { name: 'Dr. Avinash Chandra', institution: 'WIT', group: 'advisory_wit', sortOrder: 5 },
+          { name: 'Mr. Amit Kumar Mishra', group: 'advisory_wit', sortOrder: 1 },
+          { name: 'Mrs. Neha Kumari', group: 'advisory_wit', sortOrder: 2 },
+          { name: 'Mr. Ashif Habibi', group: 'advisory_wit', sortOrder: 3 },
+          { name: 'Dr. Zakirullah Shamim', group: 'advisory_wit', sortOrder: 4 },
+          { name: 'Dr. Avinash Chandra', group: 'advisory_wit', sortOrder: 5 },
 
           // Organizing Committee
-          { name: 'Deputy Registrar (WIT)', group: 'organizing', sortOrder: 1 },
-          { name: 'A.O.', group: 'organizing', sortOrder: 2 },
-          { name: 'Deputy Registrar 1 (LNMU)', group: 'organizing', sortOrder: 3 },
-          { name: 'Deputy Registrar 2 (LNMU)', group: 'organizing', sortOrder: 4 },
-          { name: 'All teaching faculty (WIT)', group: 'organizing', sortOrder: 5 },
+          ...organizingCommitteeMembers.map((member, index) => ({
+            ...member,
+            group: 'organizing',
+            sortOrder: index + 1,
+          })),
         ],
         themes: [
           // Seminar Themes
@@ -99,7 +118,7 @@ async function initDefaults() {
           { title: 'GeoAI and High-Performance Computing for Nuclear Power Plant Siting and Environmental Risk Assessment', category: 'workshop', sortOrder: 7, isPublished: true },
           { title: 'AI, Machine Learning, Data Science, Cloud Computing, Cybersecurity, IoT, Generative AI, and Industry 5.0', category: 'workshop', sortOrder: 8, isPublished: true },
 
-          // INSAC Conference Topics
+          // Related nuclear science topics
           { title: '700 MWe PHWR: Work Horse of DAE', category: 'conference', sortOrder: 1, isPublished: true },
           { title: 'Innovation & Challenges in Design and Validation of SMRs and BSR-220', category: 'conference', sortOrder: 2, isPublished: true },
           { title: 'PFBR: Gateway to Thorium Utilization', category: 'conference', sortOrder: 3, isPublished: true },
@@ -128,7 +147,7 @@ async function initDefaults() {
         if (Array.isArray(settings.importantDates)) {
           settings.importantDates = settings.importantDates.map((item) =>
             item.date === '7–11 December 2026'
-              ? { ...item.toObject(), label: 'Conference Dates', date: '7–9 December 2026', confirmed: true }
+              ? { ...item.toObject(), label: 'Seminar Dates', date: '7–9 December 2026', confirmed: true }
               : item,
           );
         }
@@ -143,23 +162,92 @@ async function initDefaults() {
           settingsUpdated = true;
         }
       };
-      updateText('eventTitle', [[/INSAC[ -]?2026/gi, 'ACANS 2026'], [/\bWorkshop\b/gi, 'Seminar']]);
-      updateText('conferenceTitle', [[/\s*\(INSAC[ -]?2026\)/gi, '']]);
-      updateText('aboutEvent', [[/INSAC[ -]?2026/gi, 'ACANS 2026'], [/National Workshop/gi, 'National Seminar'], [/\bWorkshop\b/gi, 'Seminar']]);
-      updateText('aboutINS', [[/\bINSAC\b/gi, 'annual conference']]);
+      const officialEventTitle = 'ACANS 2026 – National Seminar on "Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities"';
+      if (settings.eventTitle !== officialEventTitle) {
+        settings.eventTitle = officialEventTitle;
+        settingsUpdated = true;
+      }
+      updateText('eventSubtitle', [[/INSAC[ -]?2026/gi, 'ACANS 2026']]);
+      updateText('conferenceTitle', [[/Indian Nuclear Society.?s Annual Conference/i, 'Indian Nuclear Society (INS) – Collaborating Organization']]);
+      updateText('aboutEvent', [[/INSAC[ -]?2026/gi, 'ACANS 2026'], [/ACANS 2026 brings together the Indian Nuclear Society.?s Annual Conference and the National Seminar on "Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities\." Hosted by Dr\. A\.P\.J\. Abdul Kalam Women.?s Institute of Technology \(WIT\), a constituent unit of Lalit Narayan Mithila University \(LNMU\), Darbhanga, Bihar, in collaboration with the Indian Nuclear Society \(INS\), this landmark gathering unites leading scientists, researchers, faculty, and research scholars to explore synergies between nuclear technologies and cutting-edge computational sciences\./i, 'ACANS 2026 is the National Seminar on "Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities." It is hosted by Dr. A.P.J. Abdul Kalam Women\'s Institute of Technology (WIT), a constituent unit of Lalit Narayan Mithila University (LNMU), Darbhanga, Bihar, in collaboration with the Indian Nuclear Society (INS).']]);
+      updateText('aboutINS', [[/\bINSAC\b/gi, 'ACANS 2026']]);
+      if (typeof settings.aboutINS === 'string' && /INSAC 2026|ACANS 2026 serves|annual ACANS 2026 conference/i.test(settings.aboutINS)) {
+        settings.aboutINS = 'The Indian Nuclear Society (INS) is a professional body dedicated to the advancement and peaceful applications of nuclear science, technology, and allied disciplines. INS collaborates with WIT, LNMU in organizing ACANS 2026. Separately, INS organizes its own annual conference and other scientific forums.';
+        settingsUpdated = true;
+      }
       updateText('abstractInstructions', [[/INSAC[ -]?2026/gi, 'ACANS 2026']]);
       updateText('abstractTemplateName', [[/INSAC[ -]?2026/gi, 'ACANS 2026']]);
+      updateText('abstractTemplateFile', [[/Template_for_extended_abstract_INSAC-2026\.docx/gi, 'Template_for_extended_abstract_ACANS-2026.docx']]);
+      if (settings.aboutWIT !== aboutWITText) {
+        settings.aboutWIT = aboutWITText;
+        settingsUpdated = true;
+      }
+      if (settings.contactPhone !== contactPhoneNumbers) {
+        settings.contactPhone = contactPhoneNumbers;
+        settingsUpdated = true;
+      }
+      const existingOrganizingMembers = (settings.committees || []).filter((member) => member.group === 'organizing');
+      const expectedOrganizingMembers = organizingCommitteeMembers.map((member, index) => ({
+        ...member,
+        group: 'organizing',
+        sortOrder: index + 1,
+      }));
+      const organizingMembersMatch = existingOrganizingMembers.length === expectedOrganizingMembers.length
+        && existingOrganizingMembers.every((member, index) =>
+          member.name === expectedOrganizingMembers[index].name
+          && member.designation === expectedOrganizingMembers[index].designation
+          && member.sortOrder === expectedOrganizingMembers[index].sortOrder);
+      if (!organizingMembersMatch) {
+        settings.committees = (settings.committees || [])
+          .filter((member) => member.group !== 'organizing')
+          .concat(expectedOrganizingMembers);
+        settingsUpdated = true;
+      }
+      const charmis = (settings.committees || []).find((member) => member.name === 'Mrs. Charmis Mariwala');
+      if (charmis && (charmis.designation !== 'Co-Convener' || charmis.role !== 'Co-Convener')) {
+        charmis.designation = 'Co-Convener';
+        charmis.role = 'Co-Convener';
+        settingsUpdated = true;
+      }
+      (settings.committees || []).forEach((member) => {
+        if (member.group?.startsWith('advisory_') && member.institution) {
+          member.institution = '';
+          settingsUpdated = true;
+        }
+      });
+      if (typeof settings.aboutEvent === 'string' && /Indian Nuclear Society.?s Annual Conference|National Seminar on Advanced Computing(?! and Nuclear Science: Emerging Technologies)/i.test(settings.aboutEvent)) {
+        settings.aboutEvent = 'ACANS 2026 is the National Seminar on "Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities." It is hosted by Dr. A.P.J. Abdul Kalam Women\'s Institute of Technology (WIT), a constituent unit of Lalit Narayan Mithila University (LNMU), Darbhanga, Bihar, in collaboration with the Indian Nuclear Society (INS). The seminar brings together leading scientists, researchers, faculty, and research scholars to explore synergies between nuclear technologies and advanced computing.';
+        settingsUpdated = true;
+      }
+      if (settings.conferenceTitle !== 'Indian Nuclear Society (INS) – Collaborating Organization') {
+        settings.conferenceTitle = 'Indian Nuclear Society (INS) – Collaborating Organization';
+        settingsUpdated = true;
+      }
+      if (settings.conferenceSubtitle === 'Nuclear Energy & Nuclear Radiation: A Boon to Mankind') {
+        settings.conferenceSubtitle = 'Collaborating organization for ACANS 2026';
+        settingsUpdated = true;
+      }
       if (Array.isArray(settings.announcements)) {
         settings.announcements.forEach((announcement) => {
           for (const field of ['title', 'content']) {
             if (typeof announcement[field] !== 'string') continue;
             const updated = announcement[field]
               .replace(/INSAC[ -]?2026/gi, 'ACANS 2026')
-              .replace(/National Workshop/gi, 'National Seminar');
+              .replace(/National Workshop/gi, 'National Seminar')
+              .replace(/Indian Nuclear Society.?s Annual Conference/gi, 'ACANS 2026 National Seminar in collaboration with the Indian Nuclear Society (INS)')
+              .replace(/National Seminar on Advanced Computing(?! and Nuclear Science: Emerging Technologies)/gi, 'National Seminar on "Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities"');
             if (updated !== announcement[field]) {
               announcement[field] = updated;
               settingsUpdated = true;
             }
+          }
+        });
+      }
+      if (Array.isArray(settings.importantDates)) {
+        settings.importantDates.forEach((item) => {
+          if (item.label === 'Conference Dates') {
+            item.label = 'Seminar Dates';
+            settingsUpdated = true;
           }
         });
       }
@@ -178,7 +266,7 @@ async function initDefaults() {
 
       // Ensure template path is set if empty
       if (!settings.abstractTemplateFile) {
-        settings.abstractTemplateFile = 'uploads/templates/Template_for_extended_abstract_INSAC-2026.docx';
+        settings.abstractTemplateFile = 'uploads/templates/Template_for_extended_abstract_ACANS-2026.docx';
         settings.abstractTemplateName = 'Template for extended abstract (ACANS 2026).docx';
         settingsUpdated = true;
       }

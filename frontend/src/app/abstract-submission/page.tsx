@@ -158,10 +158,10 @@ function AbstractSubmissionContent() {
             <span>Abstract Submission</span>
           </div>
           <h1 style={{ fontSize: '1.85rem', color: '#ffffff', marginBottom: '0.35rem', fontWeight: 700 }}>
-            Extended Abstract Submission
+            ACANS 2026
           </h1>
           <p style={{ color: '#cbd5e1', maxWidth: '750px', fontSize: '0.95rem' }}>
-            Submit your research contribution for ACANS 2026 and the National Seminar on Advanced Computing and Nuclear Science.
+            Submit your research contribution to ACANS 2026: Advanced Computing and Nuclear Science.
           </p>
         </div>
       </section>
@@ -226,7 +226,7 @@ function AbstractSubmissionContent() {
                   <option value="">-- Select Relevant Research Theme --</option>
                   {themes.map((t, idx) => (
                     <option key={idx} value={t.title}>
-                      [{t.category === 'workshop' ? 'Seminar' : 'ACANS'}] {t.title}
+                      [{t.category === 'workshop' ? 'Seminar Theme' : 'Related Topic'}] {t.title}
                     </option>
                   ))}
                 </select>

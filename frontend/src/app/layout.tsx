@@ -5,8 +5,8 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
 export const metadata: Metadata = {
-  title: 'ACANS 2026 | National Seminar on Advanced Computing and Nuclear Science',
-  description: "Official portal for ACANS 2026, the joint National Seminar on Advanced Computing and Nuclear Science and Indian Nuclear Society annual conference, hosted by Dr. A.P.J. Abdul Kalam Women's Institute of Technology (WIT), LNMU Darbhanga, in collaboration with INS.",
+  title: 'ACANS 2026 – National Seminar on "Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities"',
+  description: "Official website for ACANS 2026 – National Seminar on Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities. Hosted by Dr. A.P.J. Abdul Kalam Women's Institute of Technology (WIT), Lalit Narayan Mithila University (LNMU), in collaboration with the Indian Nuclear Society (INS).",
   keywords: [
     'ACANS 2026',
     'Indian Nuclear Society',
@@ -19,8 +19,8 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: 'WIT LNMU & INS' }],
   openGraph: {
-    title: 'ACANS 2026 | National Seminar on Advanced Computing and Nuclear Science',
-    description: "National Seminar & Annual Conference on Advanced Computing and Nuclear Science at Dr. A.P.J. Abdul Kalam WIT, LNMU Darbhanga.",
+    title: 'ACANS 2026 – National Seminar on "Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities"',
+    description: "ACANS 2026 National Seminar hosted by Dr. A.P.J. Abdul Kalam Women's Institute of Technology (WIT), Lalit Narayan Mithila University (LNMU), in collaboration with the Indian Nuclear Society (INS).",
     type: 'website',
   },
 };

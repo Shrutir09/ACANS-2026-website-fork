@@ -171,9 +171,9 @@ export default function ParticipantDashboard() {
           </div>
 
           {/* Card 2: Payment Status */}
-          <div className="card" style={{ borderTop: '3px solid #b45309' }}>
+          <div className="card" style={{ borderTop: '3px solid #0f294a' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-              <span style={{ fontSize: '0.785rem', fontWeight: 700, color: '#b45309', textTransform: 'uppercase', letterSpacing: '0.04em' }}>UPI Payment</span>
+              <span style={{ fontSize: '0.785rem', fontWeight: 700, color: '#0f294a', textTransform: 'uppercase', letterSpacing: '0.04em' }}>UPI Payment</span>
               <StatusBadge status={payment?.status || 'not_submitted'} />
             </div>
             <div style={{ fontSize: '0.75rem', color: '#64748b', textTransform: 'uppercase' }}>
@@ -430,7 +430,7 @@ export default function ParticipantDashboard() {
             </div>
 
             {/* Template Card */}
-            <div className="card" style={{ borderLeft: '4px solid var(--gold-500)' }}>
+            <div className="card" style={{ borderLeft: '4px solid #0f294a' }}>
               <h3 style={{ fontSize: '1.05rem', color: 'var(--navy-900)', marginBottom: '0.5rem' }}>
                 Official Abstract Template
               </h3>
@@ -438,8 +438,8 @@ export default function ParticipantDashboard() {
                 Need the official A4 template for preparing contributory papers? Download the public PDF here:
               </p>
               <a
-                href="/downloads/conference-template-a4.pdf"
-                download="conference-template-a4.pdf"
+                href="/downloads/ACANS-2026-extended-abstract-template.pdf"
+                download="ACANS-2026-extended-abstract-template.pdf"
                 className="btn btn-outline-navy btn-sm"
               >
                 📥 Download Template (.pdf)

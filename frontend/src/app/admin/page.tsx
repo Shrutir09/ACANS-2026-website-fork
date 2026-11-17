@@ -206,7 +206,7 @@ export default function AdminDashboardPage() {
         }}>
           <div>
             <div style={{ fontSize: '0.8rem', color: 'var(--gold-600)', fontWeight: 700, textTransform: 'uppercase' }}>
-              Conference Management Control Center
+              Seminar Management Control Center
             </div>
             <h1 style={{ fontSize: '2rem', color: 'var(--navy-900)' }}>
               ACANS 2026 Admin Dashboard
@@ -301,7 +301,7 @@ export default function AdminDashboardPage() {
                 <div style={{ fontSize: '0.8rem', color: 'var(--slate-500)', textTransform: 'uppercase' }}>Fee Payments</div>
                 <div style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--navy-900)', margin: '0.25rem 0' }}>
                   {stats.verifiedPayments}
-                  <span style={{ fontSize: '1rem', color: 'var(--gold-600)', marginLeft: '0.4rem', fontWeight: 600 }}>
+                  <span style={{ fontSize: '1rem', color: 'var(--navy-900)', marginLeft: '0.4rem', fontWeight: 600 }}>
                     ({stats.pendingPayments} Pending)
                   </span>
                 </div>
@@ -340,12 +340,12 @@ export default function AdminDashboardPage() {
                   Active Template Status
                 </h3>
                 <p style={{ fontSize: '0.9rem', color: 'var(--slate-600)', marginBottom: '1rem', lineHeight: '1.6' }}>
-                  Current public template: <strong>conference-template-a4.pdf</strong>
+                  Current public template: <strong>ACANS-2026-extended-abstract-template.pdf</strong>
                 </p>
                 <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
                   <a
-                    href="/downloads/conference-template-a4.pdf"
-                    download="conference-template-a4.pdf"
+                    href="/downloads/ACANS-2026-extended-abstract-template.pdf"
+                    download="ACANS-2026-extended-abstract-template.pdf"
                     className="btn btn-sm btn-teal"
                   >
                     📥 Test Download Public PDF
@@ -645,7 +645,7 @@ export default function AdminDashboardPage() {
             {settingsError && <div className="alert alert-danger">{settingsError}</div>}
 
             {/* Template Replacement Box */}
-            <div className="card" style={{ borderLeft: '4px solid var(--gold-500)' }}>
+            <div className="card" style={{ borderLeft: '4px solid var(--navy-900)' }}>
               <h2 style={{ fontSize: '1.25rem', color: 'var(--navy-900)', marginBottom: '0.75rem' }}>
                 Abstract Template File Management
               </h2>

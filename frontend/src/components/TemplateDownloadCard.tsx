@@ -7,13 +7,13 @@ interface TemplateDownloadCardProps {
 }
 
 export default function TemplateDownloadCard({ compact = false }: TemplateDownloadCardProps) {
-  const downloadUrl = '/downloads/conference-template-a4.pdf';
+  const downloadUrl = '/downloads/ACANS-2026-extended-abstract-template.pdf';
 
   if (compact) {
     return (
       <a
         href={downloadUrl}
-        download="conference-template-a4.pdf"
+        download="ACANS-2026-extended-abstract-template.pdf"
         className="btn btn-primary btn-sm"
         id="download-template-compact-btn"
       >
@@ -80,7 +80,7 @@ export default function TemplateDownloadCard({ compact = false }: TemplateDownlo
           <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'center' }}>
             <a
               href={downloadUrl}
-              download="conference-template-a4.pdf"
+              download="ACANS-2026-extended-abstract-template.pdf"
               className="btn btn-primary"
               id="download-official-template-btn"
             >
@@ -91,7 +91,7 @@ export default function TemplateDownloadCard({ compact = false }: TemplateDownlo
             </a>
 
             <span style={{ fontSize: '0.8rem', color: '#64748b' }}>
-              A4 conference paper format
+              A4 extended abstract format
             </span>
           </div>
         </div>

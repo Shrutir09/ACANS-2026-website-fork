@@ -1,8 +1,8 @@
 <<<<<<< HEAD
-# INSAC 2026 + Advanced Computing Conference Website
+# ACANS 2026 National Seminar Website
 ### Joint Academic Event: Dr. A.P.J. Abdul Kalam WIT (LNMU) & Indian Nuclear Society (INS)
 
-A full-stack, secure, production-grade academic conference management web application built for **INSAC 2026** (Indian Nuclear Society's Annual Conference) and the **National Workshop on "Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities."**
+A full-stack, secure, production-grade seminar management web application for **ACANS 2026 – National Seminar on "Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities."** The seminar is hosted by Dr. A.P.J. Abdul Kalam Women's Institute of Technology (WIT), Lalit Narayan Mithila University (LNMU), in collaboration with the Indian Nuclear Society (INS).
 
 ---
 
@@ -27,7 +27,7 @@ A full-stack, secure, production-grade academic conference management web applic
    - Participants record and report paid details (UPI UTR / transaction ID, cash receipt number, or bank transfer reference) on their dashboard.
    - Authorized administrators manually verify or reject submissions with an audit trail.
 6. **Official Abstract Template**:
-   - Retrieved directly from the official reference site: `Template for extended abstract (INSAC-2026).docx` (1.79 MB).
+   - Official extended abstract template for ACANS 2026 (1.79 MB).
    - Max 2 pages, Times New Roman (Title: 14pt Capital Bold, Subtitles: 12pt Bold, Text: 11pt, 1.5 line spacing).
    - Configurable live word counter (default 250 words) enforced on both client and server.
    - Downloadable directly from the homepage, abstract submission page, and participant dashboard.
@@ -185,11 +185,11 @@ To access the private Admin Dashboard:
 ## 6. Official Abstract Template
 
 - **Source**: Retrieved live from the official conference reference site:  
-  `https://www.insac2026.org/pdf/Template%20for%20extended%20abstract%20(INSAC-2026).docx`
-- **File Name**: `Template for extended abstract (INSAC-2026).docx`
+  `https://www.insac2026.org/pdf/Template%20for%20extended%20abstract%20(INSAC-2026).docx` (the original source URL retained as provenance)
+- **Download Label**: `Template for extended abstract (ACANS 2026).docx`
 - **Format**: Microsoft Word OpenXML (`.docx`)
 - **File Size**: 1.79 MB (1,793,931 bytes)
-- **Local Storage**: `backend/uploads/templates/Template_for_extended_abstract_INSAC-2026.docx` and `frontend/public/downloads/`
+- **Local Storage**: `backend/uploads/templates/Template_for_extended_abstract_ACANS-2026.docx` and `frontend/public/downloads/`
 - **Serving Route**: `GET /api/v1/settings/template/download`
 - **Online Replacement**: Administrators can upload and replace the official template directly via `/admin` (Tab: "Event Content Settings") with automatic timestamped backup versioning.
 
@@ -246,5 +246,5 @@ NODE_ENV=production node src/server.js
    - Configure active SMTP credentials (`SMTP_HOST`, `SMTP_USER`, `SMTP_PASS`) for real-time transactional emails.
 =======
 # insac-2026-website
-INSAC 2026 and Advanced Computing Conference website
+ACANS 2026 National Seminar website
 >>>>>>> 6bbfdbf92b356880ab1e1b14ad5fad87811eba67

@@ -90,7 +90,7 @@ async function runTests() {
     assert(pubSettings.body.settings.fees.student === 500, 'Student fee is ₹500');
     assert(pubSettings.body.settings.fees.research_scholar === 750, 'Research Scholar fee is ₹750');
     assert(pubSettings.body.settings.fees.faculty === 1000, 'Faculty fee is ₹1,000');
-    assert(pubSettings.body.settings.datesConfirmed === true, 'Conference dates are confirmed');
+    assert(pubSettings.body.settings.datesConfirmed === true, 'Seminar dates are confirmed');
 
     // 3. Official Template Download
     const templateRes = await makeRequest('GET', '/api/v1/settings/template/download');
