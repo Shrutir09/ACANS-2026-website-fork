@@ -65,7 +65,6 @@ const organisingCommittee = [
   { name: 'Dr. Chandrika Kumari', designation: 'Assistant Professor, WIT' },
   { name: 'Mr. Aashish Mishra', designation: 'Assistant Professor, WIT' },
   { name: 'Dr. Avinash Chandra', designation: 'Assistant Professor, WIT' },
-  
 ];
 
 const advisoryCommittee = [
