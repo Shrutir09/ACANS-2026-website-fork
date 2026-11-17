@@ -332,23 +332,23 @@ function CommitteeMemberCard({ member }: { member: CommitteeMember }) {
 
   return (
     <div
-      className="card leadership-card"
+      className="card leadership-card committee-member-card"
       style={{
         borderTop: `3px solid ${navy}`,
         textAlign: 'center',
-        padding: '1.15rem 0.9rem 1rem',
+        padding: '1.2rem 1rem 1.1rem',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'flex-start',
-        gap: '0.5rem',
-        minHeight: member.designation ? '264px' : '224px',
+        gap: '0.6rem',
+        minHeight: '272px',
         boxSizing: 'border-box',
       }}
     >
       <div
         style={{
-          width: 'clamp(108px, 9vw, 124px)',
+          width: 'clamp(116px, 10vw, 132px)',
           aspectRatio: '1',
           borderRadius: '50%',
           overflow: 'hidden',
@@ -364,7 +364,7 @@ function CommitteeMemberCard({ member }: { member: CommitteeMember }) {
             alt={member.name}
             width={164}
             height={164}
-            sizes="(max-width: 900px) 108px, 124px"
+            sizes="(max-width: 900px) 116px, 132px"
             style={{
               objectFit: 'cover',
               objectPosition: member.photoPosition ?? 'center 30%',
@@ -385,7 +385,7 @@ function CommitteeMemberCard({ member }: { member: CommitteeMember }) {
           fontWeight: 700,
           lineHeight: 1.25,
           margin: 0,
-          minHeight: '2.5rem',
+          minHeight: '2.75rem',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -401,7 +401,7 @@ function CommitteeMemberCard({ member }: { member: CommitteeMember }) {
             color: '#334155',
             fontWeight: 600,
             lineHeight: 1.35,
-            minHeight: '2.25rem',
+            minHeight: '2rem',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -453,7 +453,7 @@ export default function CommitteesPage() {
               fontWeight: 700,
             }}
           >
-            Conference &amp; Seminar Committees
+            Committees
           </h1>
           <p style={{ color: '#cbd5e1', maxWidth: '750px', fontSize: '0.95rem' }}>
             Distinguished academicians, office bearers, advisory panels, and organizing faculty supporting ACANS 2026.
@@ -592,19 +592,10 @@ export default function CommitteesPage() {
                 </h2>
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+              <div className="committee-department-list">
                 {advisoryCommittee.map((dept, deptIdx) => (
-                  <div key={deptIdx} className="card">
-                    <h3
-                      style={{
-                        fontSize: '1.05rem',
-                        color: '#0f294a',
-                        marginBottom: '0.75rem',
-                        borderBottom: '1px solid #e2e8f0',
-                        paddingBottom: '0.4rem',
-                        fontWeight: 700,
-                      }}
-                    >
+                  <div key={deptIdx} className="card committee-department-card">
+                    <h3 className="committee-department-title">
                       {dept.department}
                     </h3>
                     <div className="committee-member-grid">

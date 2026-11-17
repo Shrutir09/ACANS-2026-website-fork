@@ -131,7 +131,7 @@ const eventSettingsSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now },
   }],
 
-  // General info sections
+  // Registration and seminar information sections
   eligibility: { type: String, default: '' },
   accommodation: { type: String, default: 'To be announced' },
   travelInfo: { type: String, default: 'To be announced' },

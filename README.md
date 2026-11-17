@@ -72,7 +72,7 @@ insac2026/
 │       │   ├── about/page.tsx    # Subsections: Event, INS, LNMU, WIT
 │       │   ├── themes/page.tsx   # Interactive themes with category filters
 │       │   ├── committees/page.tsx # Committee directory from Details.docx
-│       │   ├── information/page.tsx # General info, fees, abstract rules, travel
+│       │   ├── information/page.tsx # Registration for National Seminar and Fee, travel
 │       │   ├── register/page.tsx # Participant account creation
 │       │   ├── login/page.tsx    # User & admin authentication
 │       │   ├── forgot-password/page.tsx # Password recovery

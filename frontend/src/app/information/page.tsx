@@ -28,10 +28,10 @@ export default function InformationPage() {
           <div style={{ display: 'flex', gap: '0.5rem', fontSize: '0.825rem', color: '#cbd5e1', marginBottom: '0.5rem' }}>
             <Link href="/" style={{ color: '#fcd34d' }}>Home</Link>
             <span>/</span>
-            <span>General Information</span>
+            <span>Registration for National Seminar and Fee</span>
           </div>
           <h1 style={{ fontSize: '1.85rem', color: '#ffffff', marginBottom: '0.35rem', fontWeight: 700 }}>
-            General Information &amp; Guidelines
+            Registration for National Seminar and Fee
           </h1>
           <p style={{ color: '#cbd5e1', maxWidth: '750px', fontSize: '0.95rem' }}>
             Eligibility criteria, registration procedures, fee structures, UPI payment instructions, and extended abstract guidelines.

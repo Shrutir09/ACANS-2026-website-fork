@@ -250,7 +250,7 @@ export default function Navbar() {
                 letterSpacing: '0.03em',
               }}
             >
-              Registration &amp; Fee
+              Registration
             </Link>
 
             <Link
@@ -414,7 +414,7 @@ export default function Navbar() {
           <Link href="/about" onClick={() => setMobileMenuOpen(false)} style={{ padding: '0.4rem 0', fontWeight: 600, color: '#0f294a' }}>About the Seminar</Link>
           <Link href="/committees" onClick={() => setMobileMenuOpen(false)} style={{ padding: '0.4rem 0', fontWeight: 600, color: '#0f294a' }}>Committees</Link>
           <Link href="/themes" onClick={() => setMobileMenuOpen(false)} style={{ padding: '0.4rem 0', fontWeight: 600, color: '#0f294a' }}>Themes &amp; Topics</Link>
-          <Link href="/information" onClick={() => setMobileMenuOpen(false)} style={{ padding: '0.4rem 0', fontWeight: 600, color: '#0f294a' }}>Registration &amp; Fee Guidelines</Link>
+          <Link href="/information" onClick={() => setMobileMenuOpen(false)} style={{ padding: '0.4rem 0', fontWeight: 600, color: '#0f294a' }}>Registration</Link>
           <Link href="/abstract-submission" onClick={() => setMobileMenuOpen(false)} style={{ padding: '0.4rem 0', fontWeight: 600, color: '#0f294a' }}>Abstract Submission</Link>
           <hr style={{ border: 'none', borderTop: '1px solid #e2e8f0', margin: '0.5rem 0' }} />
           {user ? (
