@@ -85,7 +85,7 @@ export default function HomePage() {
   const speakers = [
     {
       name: 'Dr. Hrishikesh Mishra',
-      image: '/images/speakers/dr-hrishikesh-mishra.png',
+      image: '/images/speakers/dr-hrishikesh-mishra.jpeg',
       role: 'President, INS',
       affiliation: 'Former Distinguished Scientist; Former Director, Engineering Service Group, BARC',
     },
@@ -163,7 +163,7 @@ export default function HomePage() {
             textTransform: 'uppercase',
             letterSpacing: '0.04em',
           }}>
-            Joint National Academic Event
+            National Seminar
           </div>
 
           <h1 style={{
@@ -184,7 +184,8 @@ export default function HomePage() {
             margin: '0 auto 1rem auto',
             lineHeight: 1.4,
           }}>
-            Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities
+            <span style={{ display: 'block' }}>– National Seminar on “Advanced Computing and Nuclear Science:</span>
+            <span style={{ display: 'block' }}>Emerging Technologies, Interdisciplinary Applications and Research Opportunities”</span>
           </div>
 
           <p style={{
@@ -194,7 +195,7 @@ export default function HomePage() {
             margin: '0 auto 1.5rem auto',
             lineHeight: 1.6,
           }}>
-            A national seminar and joint conference convening nuclear scientists, computational engineers, academicians, and researchers hosted by <strong>Dr. A.P.J. Abdul Kalam Women&apos;s Institute of Technology (WIT), LNMU Darbhanga</strong> in collaboration with the <strong>Indian Nuclear Society (INS)</strong>.
+            The National Seminar on &ldquo;Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities&rdquo; is organised by <strong>Dr. A.P.J. Abdul Kalam Women&apos;s Institute of Technology (WIT), Lalit Narayan Mithila University (LNMU)</strong>, in collaboration with the <strong>Indian Nuclear Society (INS)</strong>.
           </p>
 
           {/* Dates & Venue Info Box */}
@@ -211,7 +212,7 @@ export default function HomePage() {
             fontSize: '0.9rem',
           }}>
             <div>
-              <span style={{ color: '#94a3b8' }}>Conference Dates: </span>
+              <span style={{ color: '#94a3b8' }}>Seminar Dates: </span>
               <strong style={{ color: '#fcd34d' }}>
                 7–9 December 2026
               </strong>
@@ -228,8 +229,8 @@ export default function HomePage() {
           {/* Action CTAs */}
           <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>
             <a
-              href="/downloads/conference-template-a4.pdf"
-              download="conference-template-a4.pdf"
+              href="/downloads/ACANS-2026-extended-abstract-template.pdf"
+              download="ACANS-2026-extended-abstract-template.pdf"
               className="btn btn-gold btn-lg"
               id="hero-template-cta"
             >
@@ -250,7 +251,7 @@ export default function HomePage() {
         <div className="container">
           <div className="grid-3" style={{ alignItems: 'flex-start' }}>
             {/* Left Column (1 col): Important Updates & Quick Downloads */}
-            <div className="card" style={{ borderTop: '3px solid #b45309', padding: '1.25rem' }}>
+            <div className="card" style={{ borderTop: '3px solid #0f294a', padding: '1.25rem' }}>
               <h3 style={{ fontSize: '1.1rem', color: '#0f294a', marginBottom: '0.75rem', borderBottom: '1px solid #e2e8f0', paddingBottom: '0.5rem', fontWeight: 700 }}>
                 Important Updates
               </h3>
@@ -261,11 +262,11 @@ export default function HomePage() {
                     ● Official Template Available
                   </div>
                   <div style={{ marginTop: '0.2rem' }}>
-                    Official A4 conference paper template is available as a PDF. The website abstract page limit remains 2 pages.
+                    Abstract submission closes 4 December 2026. Submit a one-page extended abstract of no more than 250 words. Registration remains open after the abstract deadline, subject to arrangements; late abstracts will not be considered for publication.
                   </div>
                   <a
-                    href="/downloads/conference-template-a4.pdf"
-                    download="conference-template-a4.pdf"
+                    href="/downloads/ACANS-2026-extended-abstract-template.pdf"
+                    download="ACANS-2026-extended-abstract-template.pdf"
                     style={{ color: '#0f294a', fontWeight: 600, display: 'inline-block', marginTop: '0.25rem' }}
                   >
                     Download Template (.pdf) →
@@ -285,7 +286,7 @@ export default function HomePage() {
                 </li>
 
                 <li style={{ borderBottom: '1px solid #f1f5f9', paddingBottom: '0.6rem' }}>
-                  <div style={{ fontWeight: 700, color: '#b45309', fontSize: '0.75rem', textTransform: 'uppercase' }}>
+                  <div style={{ fontWeight: 700, color: '#0f294a', fontSize: '0.75rem', textTransform: 'uppercase' }}>
                     ● UPI Fee Payment
                   </div>
                   <div style={{ marginTop: '0.2rem' }}>
@@ -295,7 +296,7 @@ export default function HomePage() {
 
                 <li>
                   <div style={{ fontWeight: 700, color: '#0f294a', fontSize: '0.75rem', textTransform: 'uppercase' }}>
-                    ● Conference Dates
+                    ● Seminar Dates
                   </div>
                   <div style={{ marginTop: '0.2rem' }}>
                     7–9 December 2026 at Kalpana Chawla Auditorium, Dr. A.P.J. Abdul Kalam WIT, LNMU, Darbhanga.
@@ -304,18 +305,18 @@ export default function HomePage() {
               </ul>
             </div>
 
-            {/* Right Column (2 cols): About the Conference */}
+            {/* Right Column (2 cols): About the Seminar */}
             <div style={{ gridColumn: 'span 2' }}>
               <div style={{ marginBottom: '1.5rem' }}>
-                <span className="section-tag">About the Conference</span>
+                <span className="section-tag">About the Seminar</span>
                 <h2 style={{ fontSize: '1.65rem', color: '#0f294a', margin: '0.35rem 0 0.75rem 0', fontWeight: 700 }}>
-                  ACANS 2026: National Seminar on Advanced Computing
+                  ACANS 2026: Advanced Computing and Nuclear Science
                 </h2>
                 <p style={{ color: '#334155', lineHeight: 1.7, marginBottom: '1rem', fontSize: '0.925rem' }}>
-                  ACANS 2026 brings the <strong>Indian Nuclear Society&apos;s Annual Conference</strong> together with the National Seminar on <em>&ldquo;Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities&rdquo;</em> at <strong>Dr. A.P.J. Abdul Kalam Women&apos;s Institute of Technology (WIT)</strong>, a premier constituent technical unit of <strong>Lalit Narayan Mithila University (LNMU)</strong>, Darbhanga, Bihar.
+                  ACANS 2026 is the National Seminar on <em>&ldquo;Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities&rdquo;</em>, organised by <strong>Dr. A.P.J. Abdul Kalam Women&apos;s Institute of Technology (WIT)</strong>, a constituent unit of <strong>Lalit Narayan Mithila University (LNMU)</strong>, Darbhanga, Bihar, in collaboration with the <strong>Indian Nuclear Society (INS)</strong>.
                 </p>
                 <p style={{ color: '#334155', lineHeight: 1.7, marginBottom: '1.25rem', fontSize: '0.925rem' }}>
-                  The conference addresses the crucial intersections of high-performance computing, artificial intelligence, digital twin simulations, nuclear energy safety, radiation applications in agriculture and health sciences, and women in STEM technologies.
+                  The seminar explores high-performance computing, artificial intelligence, digital twin simulations, nuclear energy safety, radiation applications in agriculture and health sciences, and women in STEM technologies.
                 </p>
               </div>
 
@@ -335,7 +336,7 @@ export default function HomePage() {
                     Dr. A.P.J. Abdul Kalam WIT &amp; LNMU
                   </h4>
                   <p style={{ fontSize: '0.85rem', color: '#475569', lineHeight: 1.6 }}>
-                    A constituent technical institute of Lalit Narayan Mithila University, Darbhanga, dedicated to technical education and research in computer science, information technology, and engineering for women scholars.
+                    WIT is a constituent unit of Lalit Narayan Mithila University in Darbhanga, Bihar, providing technical education to women.
                   </p>
                 </div>
               </div>
@@ -436,7 +437,7 @@ export default function HomePage() {
             <span className="section-tag">Registration</span>
             <h2 className="section-title">Registration Categories &amp; Fee Structure</h2>
             <p className="section-subtitle">
-              Registration fee structure verified from official conference notification. Payments are accepted via UPI.
+                Registration fee structure verified from the official seminar notification. Payments are accepted via UPI.
             </p>
           </div>
 
@@ -454,7 +455,7 @@ export default function HomePage() {
                 <tbody>
                   <tr>
                     <td><strong>Student</strong></td>
-                    <td>Undergraduate and Postgraduate Students with valid college ID</td>
+                    <td>Undergraduate and Postgraduate Students</td>
                     <td><strong style={{ color: '#0f294a', fontSize: '1.1rem' }}>₹500</strong></td>
                     <td>
                       <Link href="/register?category=student" className="btn btn-primary btn-sm">
@@ -464,7 +465,7 @@ export default function HomePage() {
                   </tr>
                   <tr>
                     <td><strong>Research Scholar</strong></td>
-                    <td>Ph.D. Scholars, Junior/Senior Research Fellows, Postdoctoral Fellows</td>
+                    <td>Ph.D. Scholars and Junior/Senior Research Fellows</td>
                     <td><strong style={{ color: '#0f294a', fontSize: '1.1rem' }}>₹750</strong></td>
                     <td>
                       <Link href="/register?category=research_scholar" className="btn btn-primary btn-sm">
@@ -473,8 +474,8 @@ export default function HomePage() {
                     </td>
                   </tr>
                   <tr>
-                    <td><strong>Faculty Member</strong></td>
-                    <td>Faculty Members, Scientists, and Academic Delegates</td>
+                    <td><strong>Faculty</strong></td>
+                    <td>Faculty, Scientists, and Academic Delegates</td>
                     <td><strong style={{ color: '#0f294a', fontSize: '1.1rem' }}>₹1,000</strong></td>
                     <td>
                       <Link href="/register?category=faculty" className="btn btn-primary btn-sm">
@@ -500,7 +501,7 @@ export default function HomePage() {
             <span className="section-tag">Schedule</span>
             <h2 className="section-title">Important Dates &amp; Deadlines</h2>
             <p className="section-subtitle">
-              Conference dates and submission milestones.
+              Seminar dates and submission milestones.
             </p>
           </div>
 
@@ -516,7 +517,7 @@ export default function HomePage() {
                 </thead>
                 <tbody>
                   <tr>
-                    <td><strong>Conference Dates</strong></td>
+                    <td><strong>Seminar Dates</strong></td>
                     <td><strong>7–9 December 2026</strong></td>
                     <td><span className="badge badge-accepted">Confirmed</span></td>
                   </tr>
@@ -524,11 +525,6 @@ export default function HomePage() {
                     <td><strong>Extended Abstract Submission</strong></td>
                     <td>Open (250-word summary + official paper template PDF)</td>
                     <td><span className="badge badge-accepted">Active</span></td>
-                  </tr>
-                  <tr>
-                    <td><strong>Notification of Acceptance</strong></td>
-                    <td>To be communicated to authors via email</td>
-                    <td><span className="badge badge-submitted">Upcoming</span></td>
                   </tr>
                   <tr>
                     <td><strong>Delegate Registration Deadline</strong></td>
@@ -549,7 +545,7 @@ export default function HomePage() {
             <span className="section-tag">Research Scope</span>
             <h2 className="section-title">Technical Themes &amp; Tracks</h2>
             <p className="section-subtitle">
-              Topics spanning the Advanced Computing Seminar and ACANS 2026 conference tracks.
+              Seminar themes and related topics in advanced computing and nuclear science.
             </p>
 
             <div className="theme-filter-controls" style={{ display: 'inline-flex', gap: '0.4rem', marginTop: '1rem', backgroundColor: '#f1f5f9', padding: '0.25rem', borderRadius: '4px', border: '1px solid #e2e8f0' }}>
@@ -569,7 +565,7 @@ export default function HomePage() {
                 onClick={() => setActiveThemeTab('conference')}
                 className={`btn btn-sm ${activeThemeTab === 'conference' ? 'btn-primary' : 'btn-secondary'}`}
               >
-                ACANS Conference Topics
+                Related Technical Topics
               </button>
             </div>
           </div>
@@ -582,14 +578,14 @@ export default function HomePage() {
                     <span style={{
                       fontSize: '0.72rem',
                       fontWeight: 700,
-                      color: theme.category === 'workshop' ? '#0d5f57' : '#92400e',
-                      backgroundColor: theme.category === 'workshop' ? '#f0fdf4' : '#fffbeb',
+                      color: theme.category === 'workshop' ? '#0d5f57' : '#0f294a',
+                      backgroundColor: theme.category === 'workshop' ? '#f0fdf4' : '#f8fafc',
                       padding: '0.15rem 0.45rem',
                       borderRadius: '3px',
                       border: '1px solid #e2e8f0',
                       textTransform: 'uppercase',
                     }}>
-                      {theme.category === 'workshop' ? 'Seminar Track' : 'ACANS Track'}
+                      {theme.category === 'workshop' ? 'Seminar Theme' : 'Related Topic'}
                     </span>
                     <span style={{ fontSize: '0.8rem', color: '#94a3b8' }}>#{idx + 1}</span>
                   </div>

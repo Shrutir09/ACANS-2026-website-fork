@@ -4,7 +4,17 @@ const Abstract = require('../models/Abstract');
 const EventSettings = require('../models/EventSettings');
 const AuditLog = require('../models/AuditLog');
 const { generateRef, countWords } = require('../utils/helpers');
-const emailService = require('../services/emailService');
+
+const participantAbstract = (abstract) => {
+  if (!abstract) return null;
+  const data = typeof abstract.toObject === 'function' ? abstract.toObject() : { ...abstract };
+  data.status = 'submitted';
+  delete data.reviewNotes;
+  delete data.revisionComments;
+  delete data.reviewedBy;
+  delete data.reviewedAt;
+  return data;
+};
 
 exports.submitAbstract = async (req, res, next) => {
   try {
@@ -17,10 +27,11 @@ exports.submitAbstract = async (req, res, next) => {
 
     // Server-side word count enforcement
     const wordCount = countWords(abstractText);
-    if (wordCount > settings.abstractWordLimit) {
+    const wordLimit = Math.min(Number(settings.abstractWordLimit) || 250, 250);
+    if (wordCount > wordLimit) {
       return res.status(400).json({
         success: false,
-        message: `Abstract exceeds word limit. Maximum: ${settings.abstractWordLimit} words. Your abstract: ${wordCount} words.`,
+        message: `Abstract exceeds word limit. Maximum: ${wordLimit} words. Your abstract: ${wordCount} words.`,
       });
     }
 
@@ -58,7 +69,8 @@ exports.submitAbstract = async (req, res, next) => {
 exports.getMyAbstracts = async (req, res, next) => {
   try {
     const abstracts = await Abstract.find({ user: req.user._id }).sort({ createdAt: -1 });
-    res.json({ success: true, abstracts, abstract: abstracts[0] || null });
+    const participantAbstracts = abstracts.map(participantAbstract);
+    res.json({ success: true, abstracts: participantAbstracts, abstract: participantAbstracts[0] || null });
   } catch (error) {
     next(error);
   }
@@ -70,7 +82,7 @@ exports.getAbstractById = async (req, res, next) => {
     if (!abstract) {
       return res.status(404).json({ success: false, message: 'Abstract not found.' });
     }
-    res.json({ success: true, abstract });
+    res.json({ success: true, abstract: participantAbstract(abstract) });
   } catch (error) {
     next(error);
   }
@@ -89,6 +101,7 @@ exports.updateAbstract = async (req, res, next) => {
     }
 
     const settings = await EventSettings.getSettings();
+    const wordLimit = Math.min(Number(settings.abstractWordLimit) || 250, 250);
     const allowedFields = ['title', 'abstractText', 'authorName', 'coAuthors', 'institution', 'department', 'researchTheme', 'keywords', 'contactEmail'];
 
     allowedFields.forEach(field => {
@@ -97,10 +110,10 @@ exports.updateAbstract = async (req, res, next) => {
 
     if (req.body.abstractText) {
       abstract.wordCount = countWords(req.body.abstractText);
-      if (abstract.wordCount > settings.abstractWordLimit) {
+      if (abstract.wordCount > wordLimit) {
         return res.status(400).json({
           success: false,
-          message: `Abstract exceeds word limit. Maximum: ${settings.abstractWordLimit} words.`,
+          message: `Abstract exceeds word limit. Maximum: ${wordLimit} words.`,
         });
       }
     }
@@ -115,7 +128,7 @@ exports.updateAbstract = async (req, res, next) => {
     }
 
     await abstract.save();
-    res.json({ success: true, message: 'Abstract updated.', abstract });
+    res.json({ success: true, message: 'Abstract updated.', abstract: participantAbstract(abstract) });
   } catch (error) {
     next(error);
   }
@@ -189,16 +202,6 @@ exports.reviewAbstract = async (req, res, next) => {
       details: `Abstract ${abstract.abstractRef} ${status}`,
       ipAddress: req.ip,
     });
-
-    if (abstract.user) {
-      await emailService.sendAbstractStatusUpdate(abstract.contactEmail || abstract.user.email, {
-        authorName: abstract.authorName,
-        title: abstract.title,
-        abstractRef: abstract.abstractRef,
-        status,
-        comments: revisionComments,
-      });
-    }
 
     res.json({ success: true, message: `Abstract ${status}.`, abstract });
   } catch (error) {

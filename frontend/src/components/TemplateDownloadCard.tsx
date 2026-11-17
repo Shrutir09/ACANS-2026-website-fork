@@ -7,13 +7,13 @@ interface TemplateDownloadCardProps {
 }
 
 export default function TemplateDownloadCard({ compact = false }: TemplateDownloadCardProps) {
-  const downloadUrl = '/downloads/conference-template-a4.pdf';
+  const downloadUrl = '/downloads/ACANS-2026-extended-abstract-template.pdf';
 
   if (compact) {
     return (
       <a
         href={downloadUrl}
-        download="conference-template-a4.pdf"
+        download="ACANS-2026-extended-abstract-template.pdf"
         className="btn btn-primary btn-sm"
         id="download-template-compact-btn"
       >
@@ -74,13 +74,13 @@ export default function TemplateDownloadCard({ compact = false }: TemplateDownlo
           </h3>
 
           <p style={{ fontSize: '0.875rem', color: '#475569', marginBottom: '0.9rem', lineHeight: '1.5' }}>
-            All contributory paper abstracts must strictly follow this official template. Maximum <strong>2 pages</strong> including figures, tables, and references (Title: 14pt Capital Times New Roman, Body: 11pt, 1.5 line spacing).
+            Use the A4 template&apos;s built-in styles. The seminar limit is <strong>one page and 250 words</strong>, including figures, tables, and references.
           </p>
 
           <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'center' }}>
             <a
               href={downloadUrl}
-              download="conference-template-a4.pdf"
+              download="ACANS-2026-extended-abstract-template.pdf"
               className="btn btn-primary"
               id="download-official-template-btn"
             >
@@ -90,8 +90,16 @@ export default function TemplateDownloadCard({ compact = false }: TemplateDownlo
               Download Abstract Template (.pdf)
             </a>
 
+            <a
+              href="/downloads/ACANS-2026-extended-abstract-template.docx"
+              download="ACANS-2026-extended-abstract-template.docx"
+              className="btn btn-outline-navy"
+            >
+              Download Editable Template (.docx)
+            </a>
+
             <span style={{ fontSize: '0.8rem', color: '#64748b' }}>
-              A4 conference paper format
+              A4 extended abstract format
             </span>
           </div>
         </div>

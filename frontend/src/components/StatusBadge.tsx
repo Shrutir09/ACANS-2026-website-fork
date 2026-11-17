@@ -19,7 +19,7 @@ const statusLabels: Record<string, string> = {
   accepted: 'Accepted',
   revision_requested: 'Revision Requested',
   workshop: 'Seminar Theme',
-  conference: 'ACANS Conference Topic',
+  conference: 'Related Technical Topic',
 };
 
 export default function StatusBadge({ status, type = 'registration' }: StatusBadgeProps) {

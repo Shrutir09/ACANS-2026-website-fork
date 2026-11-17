@@ -28,10 +28,10 @@ export default function InformationPage() {
           <div style={{ display: 'flex', gap: '0.5rem', fontSize: '0.825rem', color: '#cbd5e1', marginBottom: '0.5rem' }}>
             <Link href="/" style={{ color: '#fcd34d' }}>Home</Link>
             <span>/</span>
-            <span>General Information</span>
+            <span>Registration for National Seminar and Fee</span>
           </div>
           <h1 style={{ fontSize: '1.85rem', color: '#ffffff', marginBottom: '0.35rem', fontWeight: 700 }}>
-            General Information &amp; Guidelines
+            Registration for National Seminar and Fee
           </h1>
           <p style={{ color: '#cbd5e1', maxWidth: '750px', fontSize: '0.95rem' }}>
             Eligibility criteria, registration procedures, fee structures, UPI payment instructions, and extended abstract guidelines.
@@ -45,7 +45,7 @@ export default function InformationPage() {
             {/* 1. Registration Fees & Categories */}
             <div className="card">
               <h2 style={{ fontSize: '1.35rem', color: '#0f294a', marginBottom: '1rem', borderBottom: '1px solid #e2e8f0', paddingBottom: '0.5rem', fontWeight: 700 }}>
-                1. Registration Categories &amp; Fee Structure
+                Registration for ACANS 2026 – National Seminar on Advanced Computing and Nuclear Science
               </h2>
               <div className="table-responsive" style={{ marginBottom: '1.25rem' }}>
                 <table className="table">
@@ -60,7 +60,7 @@ export default function InformationPage() {
                   <tbody>
                     <tr>
                       <td><strong>Students</strong></td>
-                      <td>Undergraduate &amp; Postgraduate Students with valid college ID</td>
+                      <td>Undergraduate &amp; Postgraduate Students</td>
                       <td><span style={{ fontSize: '1.1rem', fontWeight: 700, color: '#0f294a' }}>₹500</span></td>
                       <td>
                         <Link href="/register?category=student" className="btn btn-sm btn-primary">
@@ -70,7 +70,7 @@ export default function InformationPage() {
                     </tr>
                     <tr>
                       <td><strong>Research Scholars</strong></td>
-                      <td>Ph.D. candidates and Postdoctoral fellows</td>
+                      <td>Ph.D. candidates and research fellows</td>
                       <td><span style={{ fontSize: '1.1rem', fontWeight: 700, color: '#0f294a' }}>₹750</span></td>
                       <td>
                         <Link href="/register?category=research_scholar" className="btn btn-sm btn-primary">
@@ -79,7 +79,7 @@ export default function InformationPage() {
                       </td>
                     </tr>
                     <tr>
-                      <td><strong>Faculty Members</strong></td>
+                      <td><strong>Faculty</strong></td>
                       <td>University faculty, scientists, and institutional delegates</td>
                       <td><span style={{ fontSize: '1.1rem', fontWeight: 700, color: '#0f294a' }}>₹1,000</span></td>
                       <td>
@@ -141,31 +141,31 @@ export default function InformationPage() {
                   <tbody>
                     <tr>
                       <td><strong>Page Length</strong></td>
-                      <td>Maximum <strong>TWO (2) pages</strong> including figures, tables, and references.</td>
+                      <td>Maximum <strong>one (1) page</strong> and <strong>250 words</strong>, including figures, tables, and references.</td>
                     </tr>
                     <tr>
                       <td><strong>Word Limit (Form Summary)</strong></td>
-                      <td>Live word limit enforced at <strong>{settings?.abstractWordLimit || 250} words</strong> for the structured text summary.</td>
+                      <td>Live word limit enforced at <strong>{Math.min(settings?.abstractWordLimit || 250, 250)} words</strong> for the structured text summary.</td>
                     </tr>
                     <tr>
                       <td><strong>Paper Title</strong></td>
-                      <td>ALL CAPITAL, Times New Roman, Font Size 14, Bold.</td>
+                      <td>Use the Paper Title style provided in the official template.</td>
                     </tr>
                     <tr>
                       <td><strong>Author Details</strong></td>
-                      <td>Presenting author must be underlined. Affiliation addresses and contact emails included.</td>
+                      <td>Enter author names, affiliations, and contact details in the fields provided in the template.</td>
                     </tr>
                     <tr>
                       <td><strong>Keywords</strong></td>
-                      <td>At least four (4) keywords must be included.</td>
+                      <td>Enter keywords in the keyword field provided in the template.</td>
                     </tr>
                     <tr>
                       <td><strong>Text Formatting</strong></td>
-                      <td>Times New Roman 11pt, 1.5 line spacing. Section subtitles in 12pt Bold.</td>
+                      <td>Follow the template&apos;s built-in layout and styles.</td>
                     </tr>
                     <tr>
                       <td><strong>Sections</strong></td>
-                      <td>Introduction (≤ 5 lines), Methods (≤ 4 lines), Results and Discussion, Conclusions (1–2 lines), References (bracketed as [1]).</td>
+                      <td>Use the abstract and keyword sections provided in the template.</td>
                     </tr>
                     <tr>
                       <td><strong>Allowed File Types</strong></td>
@@ -205,7 +205,7 @@ export default function InformationPage() {
             <div className="grid-2">
               <div className="card" id="venue">
                 <h2 style={{ fontSize: '1.2rem', color: '#0f294a', marginBottom: '0.65rem', fontWeight: 700 }}>
-                  Conference Venue
+                  Seminar Venue
                 </h2>
                 <p style={{ color: '#475569', fontSize: '0.9rem', lineHeight: 1.6 }}>
                   Kalpana Chawla Auditorium, Dr. A.P.J. Abdul Kalam Women&apos;s Institute of Technology, LNMU Campus, Darbhanga, Bihar.
@@ -218,7 +218,8 @@ export default function InformationPage() {
                 </h2>
                 <p style={{ color: '#475569', fontSize: '0.9rem', lineHeight: 1.8 }}>
                   Email: <a href="mailto:acanc.tech2026@gmail.com">acanc.tech2026@gmail.com</a><br />
-                  Phone: <a href="tel:987654321">987654321</a>
+                  Phone: <a href="tel:9971144418">9971144418</a>,{' '}
+                  <a href="tel:9473370707">9473370707</a>
                 </p>
               </div>
             </div>

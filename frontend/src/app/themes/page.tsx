@@ -84,7 +84,7 @@ export default function ThemesPage() {
                 onClick={() => setFilter('conference')}
                 className={`btn btn-sm ${filter === 'conference' ? 'btn-primary' : 'btn-secondary'}`}
               >
-                ACANS Topics ({themes.filter(t => t.category === 'conference').length})
+                Related Topics ({themes.filter(t => t.category === 'conference').length})
               </button>
             </div>
 
@@ -110,7 +110,7 @@ export default function ThemesPage() {
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between',
-                  borderTop: theme.category === 'workshop' ? '3px solid #0f294a' : '3px solid #b45309',
+                  borderTop: '3px solid #0f294a',
                 }}
               >
                 <div>
@@ -118,14 +118,14 @@ export default function ThemesPage() {
                     <span style={{
                       fontSize: '0.72rem',
                       fontWeight: 700,
-                      color: theme.category === 'workshop' ? '#0d5f57' : '#92400e',
-                      backgroundColor: theme.category === 'workshop' ? '#f0fdf4' : '#fffbeb',
+                      color: theme.category === 'workshop' ? '#0d5f57' : '#0f294a',
+                      backgroundColor: theme.category === 'workshop' ? '#f0fdf4' : '#f8fafc',
                       padding: '0.15rem 0.45rem',
                       borderRadius: '3px',
                       border: '1px solid #e2e8f0',
                       textTransform: 'uppercase',
                     }}>
-                      {theme.category === 'workshop' ? 'National Seminar Theme' : 'ACANS Conference Topic'}
+                      {theme.category === 'workshop' ? 'National Seminar Theme' : 'Related Technical Topic'}
                     </span>
                     <span style={{ fontSize: '0.8rem', color: '#94a3b8' }}>
                       #{index + 1}

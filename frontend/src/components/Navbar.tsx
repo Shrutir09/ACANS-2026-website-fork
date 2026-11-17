@@ -66,26 +66,21 @@ export default function Navbar() {
 
     {/* Conference Details */}
     <div className="masthead-center">
-      <div className="masthead-eyebrow">
-        Joint National Academic Event
-      </div>
-
       <h1 className="masthead-title">
         ACANS 2026
       </h1>
 
       <div className="masthead-subtitle">
-        National Seminar on &ldquo;Advanced Computing and Nuclear Science:
-        Emerging Technologies, Interdisciplinary Applications and Research
-        Opportunities&rdquo;
+        <span>– National Seminar on “Advanced Computing and Nuclear Science:</span>
+        <span className="masthead-subtitle-detail">Emerging Technologies, Interdisciplinary Applications and Research Opportunities”</span>
       </div>
 
       <div className="masthead-organizer">
-        Organized by{" "}
+        Organised by{" "}
         <strong>
           Dr. A.P.J. Abdul Kalam Women&apos;s Institute of Technology (WIT)
         </strong>
-        , Lalit Narayan Mithila University (LNMU), Darbhanga, Bihar
+        , Lalit Narayan Mithila University (LNMU), Darbhanga, Bihar, in collaboration with the Indian Nuclear Society (INS)
       </div>
     </div>
 
@@ -255,7 +250,7 @@ export default function Navbar() {
                 letterSpacing: '0.03em',
               }}
             >
-              Registration &amp; Fee
+              Registration
             </Link>
 
             <Link
@@ -383,7 +378,7 @@ export default function Navbar() {
       </nav>
 
       {/* 4. Official Academic Announcement Ticker Bar */}
-      <div className="announcement-bar" aria-label="Conference notices">
+      <div className="announcement-bar" aria-label="Seminar notices">
         <div className="container announcement-content" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <span className="announcement-badge">Notice</span>
           <div className="announcement-viewport" tabIndex={0} aria-label="Notice ticker. Focus to pause scrolling.">
@@ -391,6 +386,8 @@ export default function Navbar() {
               {[0, 1].map((copy) => (
                 <div className="announcement-group" key={copy} aria-hidden={copy === 1}>
                   <span>★ Official Seminar Paper Template (PDF) is available for download.</span>
+                  <span className="announcement-separator">|</span>
+                  <span><strong>IMPORTANT NOTICE: Last date for Abstract Submission – 4 December 2026.</strong></span>
                   <span className="announcement-separator">|</span>
                   <span>★ Seminar Dates: 7–9 December 2026.</span>
                   <span className="announcement-separator">|</span>
@@ -414,10 +411,10 @@ export default function Navbar() {
           gap: '0.5rem',
         }}>
           <Link href="/" onClick={() => setMobileMenuOpen(false)} style={{ padding: '0.4rem 0', fontWeight: 600, color: '#0f294a' }}>Home</Link>
-          <Link href="/about" onClick={() => setMobileMenuOpen(false)} style={{ padding: '0.4rem 0', fontWeight: 600, color: '#0f294a' }}>About Joint Event</Link>
+          <Link href="/about" onClick={() => setMobileMenuOpen(false)} style={{ padding: '0.4rem 0', fontWeight: 600, color: '#0f294a' }}>About the Seminar</Link>
           <Link href="/committees" onClick={() => setMobileMenuOpen(false)} style={{ padding: '0.4rem 0', fontWeight: 600, color: '#0f294a' }}>Committees</Link>
           <Link href="/themes" onClick={() => setMobileMenuOpen(false)} style={{ padding: '0.4rem 0', fontWeight: 600, color: '#0f294a' }}>Themes &amp; Topics</Link>
-          <Link href="/information" onClick={() => setMobileMenuOpen(false)} style={{ padding: '0.4rem 0', fontWeight: 600, color: '#0f294a' }}>Registration &amp; Fee Guidelines</Link>
+          <Link href="/information" onClick={() => setMobileMenuOpen(false)} style={{ padding: '0.4rem 0', fontWeight: 600, color: '#0f294a' }}>Registration</Link>
           <Link href="/abstract-submission" onClick={() => setMobileMenuOpen(false)} style={{ padding: '0.4rem 0', fontWeight: 600, color: '#0f294a' }}>Abstract Submission</Link>
           <hr style={{ border: 'none', borderTop: '1px solid #e2e8f0', margin: '0.5rem 0' }} />
           {user ? (

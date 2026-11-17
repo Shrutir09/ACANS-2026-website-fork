@@ -18,10 +18,24 @@ async function seedSettings() {
     }
 
     // Set template & instructions
-    settings.abstractTemplateFile = 'uploads/templates/Template_for_extended_abstract_INSAC-2026.docx';
-    settings.abstractTemplateName = 'Template for extended abstract (ACANS 2026).docx';
-    settings.abstractInstructions = 'All submissions should conform to the official template format. The extended abstract of contributory papers should not exceed 2 pages including figures, tables, and references in Times New Roman format.';
+    settings.eventTitle = 'ACANS 2026 – National Seminar on "Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities"';
+    settings.eventSubtitle = 'Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities';
+    settings.conferenceTitle = 'Indian Nuclear Society (INS) – Collaborating Organization';
+    settings.conferenceSubtitle = 'Collaborating organization for ACANS 2026';
+    settings.abstractTemplateFile = 'uploads/templates/ACANS-2026-extended-abstract-template.docx';
+    settings.abstractTemplateName = 'ACANS-2026-extended-abstract-template.docx';
+    settings.abstractInstructions = 'All submissions should conform to the official template format. The extended abstract of contributory papers should not exceed one page or 250 words, including figures, tables, and references in Times New Roman format.';
     settings.abstractWordLimit = 250;
+    settings.abstractDeadline = '4 December 2026';
+    settings.importantDates = (settings.importantDates || []).map(item => {
+      const dateItem = typeof item.toObject === 'function' ? item.toObject() : item;
+      return dateItem.label === 'Abstract Submission Deadline'
+        ? { ...dateItem, date: '4 December 2026', confirmed: true }
+        : dateItem;
+    }).filter(item => !/^(?:notice|notification) of acceptance$/i.test(item.label || ''));
+    if (!settings.importantDates.some(item => item.label === 'Abstract Submission Deadline')) {
+      settings.importantDates.push({ label: 'Abstract Submission Deadline', date: '4 December 2026', confirmed: true });
+    }
     settings.fees = { student: 500, research_scholar: 750, faculty: 1000 };
     settings.paymentMethods = { upi: true, cash: true, bank_transfer: true };
     settings.paymentInstructions = 'Please complete the registration fee payment via UPI, Cash, or Bank Transfer as instructed by Dr. A.P.J. Abdul Kalam Women\'s Institute of Technology (WIT), LNMU. After payment, submit your transaction reference ID and details below for administrative verification.';
@@ -31,15 +45,16 @@ async function seedSettings() {
     settings.datesNote = '';
     settings.venue = 'Dr. A.P.J. Abdul Kalam Women\'s Institute of Technology (WIT), Darbhanga, Bihar';
     settings.venueAddress = 'Lalit Narayan Mithila University Campus, Darbhanga, Bihar, India';
+    settings.contactPhone = '9971144418, 9473370707';
 
     // Set about content
-    settings.aboutEvent = `ACANS 2026 brings together the Indian Nuclear Society's Annual Conference and the National Seminar on "Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities." Hosted by Dr. A.P.J. Abdul Kalam Women's Institute of Technology (WIT), a constituent unit of Lalit Narayan Mithila University (LNMU), Darbhanga, Bihar, in collaboration with the Indian Nuclear Society (INS), this conference provides a premier platform for researchers, academicians, scientists, and industry professionals to deliberate on critical intersections of nuclear science and advanced computing.`;
+    settings.aboutEvent = `ACANS 2026 is the National Seminar on "Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities." It is organised by Dr. A.P.J. Abdul Kalam Women's Institute of Technology (WIT), a constituent unit of Lalit Narayan Mithila University (LNMU), Darbhanga, Bihar, in collaboration with the Indian Nuclear Society (INS). The seminar provides a platform for researchers, academicians, scientists, and industry professionals to discuss the intersections of nuclear science and advanced computing.`;
 
-    settings.aboutINS = `The Indian Nuclear Society (INS) is a professional body dedicated to promoting the peaceful uses of nuclear energy and radiation technologies in India. INS organizes its annual conference, which brings together scientists, engineers, and researchers from across the country's nuclear establishment including BARC, NPCIL, BHAVINI, AERB, and other DAE units, along with academic institutions and industry partners. It serves as a premier platform for sharing advances in nuclear science, reactor technologies, fuel cycle, radiation applications, and nuclear medicine.`;
+    settings.aboutINS = `The Indian Nuclear Society (INS) is a professional body dedicated to promoting the peaceful uses of nuclear energy and radiation technologies in India. INS collaborates with WIT, LNMU in organizing ACANS 2026. Separately, INS organizes its own annual conference, bringing together scientists, engineers, and researchers to share advances in nuclear science, reactor technologies, fuel cycle, radiation applications, and nuclear medicine.`;
 
     settings.aboutLNMU = `Lalit Narayan Mithila University (LNMU), established in 1972, is located in Darbhanga, Bihar, India. Named after the legendary Maithili scholar and philosopher, the university serves as a major center for higher education in the Mithila region. LNMU offers a wide range of undergraduate, postgraduate, and doctoral programs across multiple disciplines and is affiliated with numerous constituent and affiliated colleges throughout the region.`;
 
-    settings.aboutWIT = `Dr. A.P.J. Abdul Kalam Women's Institute of Technology (WIT) is a constituent unit of Lalit Narayan Mithila University, Darbhanga, Bihar. Named after the former President of India and renowned scientist Dr. A.P.J. Abdul Kalam, the institute is dedicated to providing quality technical education to women. WIT offers programs in engineering and technology disciplines, fostering innovation, research, and professional development among its students and faculty.`;
+    settings.aboutWIT = `Dr. A.P.J. Abdul Kalam Women's Institute of Technology (WIT), a constituent unit of Lalit Narayan Mithila University, Darbhanga, Bihar, was established in 2004 and inaugurated by Bharat Ratna Dr. A.P.J. Abdul Kalam on December 30, 2005. The institute is dedicated to providing technical education to women and contributing to the development of the Mithila region.`;
 
     // Set committees
     settings.committees = [
@@ -48,7 +63,7 @@ async function seedSettings() {
       { name: 'Registrar', designation: 'Patron', group: 'office_bearers', role: 'Patron', sortOrder: 2 },
       { name: 'Director', designation: 'President', group: 'office_bearers', role: 'President', sortOrder: 3 },
       { name: 'Dr. Rashmi', designation: 'Convener', group: 'office_bearers', role: 'Convener', sortOrder: 4 },
-      { name: 'Mrs. Charmis Mariwala', designation: 'Deputy Convener', group: 'office_bearers', role: 'Deputy Convener', sortOrder: 5 },
+      { name: 'Mrs. Charmis Mariwala', designation: 'Co-Convener', group: 'office_bearers', role: 'Co-Convener', sortOrder: 5 },
 
       // Advisory - Physics
       { name: 'Prof. Naushad Alam', department: 'Physics', group: 'advisory_physics', sortOrder: 1 },
@@ -60,24 +75,33 @@ async function seedSettings() {
       { name: 'Dr. Arindra Sharma', department: 'Chemistry', group: 'advisory_chemistry', sortOrder: 2 },
 
       // Advisory - Zoology
-      { name: 'Dr. Parul Banergee', department: 'Zoology', group: 'advisory_zoology', sortOrder: 1 },
+      { name: 'Dr. Parul Banerjee', department: 'Zoology', group: 'advisory_zoology', sortOrder: 1 },
 
       // Advisory - Botany
       { name: 'Dr. Aniket Kumar Singh', department: 'Botany', group: 'advisory_botany', sortOrder: 1 },
 
       // Advisory - WIT
-      { name: 'Mr. Amit Kumar Mishra', institution: 'WIT', group: 'advisory_wit', sortOrder: 1 },
-      { name: 'Mrs. Neha Kumari', institution: 'WIT', group: 'advisory_wit', sortOrder: 2 },
-      { name: 'Mr. Ashif Habibi', institution: 'WIT', group: 'advisory_wit', sortOrder: 3 },
-      { name: 'Dr. Zakirullah Shamim', institution: 'WIT', group: 'advisory_wit', sortOrder: 4 },
-      { name: 'Dr. Avinash Chandra', institution: 'WIT', group: 'advisory_wit', sortOrder: 5 },
+      { name: 'Mr. Amit Kumar Mishra', group: 'advisory_wit', sortOrder: 1 },
+      { name: 'Mrs. Neha Kumari', group: 'advisory_wit', sortOrder: 2 },
+      { name: 'Mr. Ashif Habibi', group: 'advisory_wit', sortOrder: 3 },
+      { name: 'Dr. Zakirullah Shamim', group: 'advisory_wit', sortOrder: 4 },
+      { name: 'Dr. Avinash Chandra', group: 'advisory_wit', sortOrder: 5 },
 
       // Organizing Committee
-      { name: 'Deputy Registrar (WIT)', group: 'organizing', sortOrder: 1 },
-      { name: 'A.O.', group: 'organizing', sortOrder: 2 },
-      { name: 'Deputy Registrar 1 (LNMU)', group: 'organizing', sortOrder: 3 },
-      { name: 'Deputy Registrar 2 (LNMU)', group: 'organizing', sortOrder: 4 },
-      { name: 'All teaching faculty (WIT)', group: 'organizing', sortOrder: 5 },
+      { name: 'Dr. Priyanka', designation: 'Deputy Registrar, WIT', group: 'organizing', sortOrder: 1 },
+      { name: 'Mr. Krishna Murari', designation: 'Administrative Officer, WIT', group: 'organizing', sortOrder: 2 },
+      { name: 'Mr. Amit Mishra', designation: 'Assistant Professor, WIT', group: 'organizing', sortOrder: 3 },
+      { name: 'Ms. Kajal Kumari', designation: 'Assistant Professor, WIT', group: 'organizing', sortOrder: 4 },
+      { name: 'Ms. Prachi Bharti', designation: 'Assistant Professor, WIT', group: 'organizing', sortOrder: 5 },
+      { name: 'Dr. Rajeev Prasad', designation: 'Assistant Professor, WIT', group: 'organizing', sortOrder: 6 },
+      { name: 'Mrs. Neha Kumari', designation: 'Assistant Professor, WIT', group: 'organizing', sortOrder: 7 },
+      { name: 'Md Ashif Habibi', designation: 'Assistant Professor, WIT', group: 'organizing', sortOrder: 8 },
+      { name: 'Mr. Ganesh Kumar Paswan', designation: 'Assistant Professor, WIT', group: 'organizing', sortOrder: 9 },
+      { name: 'Dr. M.Z. Shamim', designation: 'Assistant Professor, WIT', group: 'organizing', sortOrder: 10 },
+      { name: 'Dr. Chandrika Kumari', designation: 'Assistant Professor, WIT', group: 'organizing', sortOrder: 11 },
+      { name: 'Mr. Aashish Mishra', designation: 'Assistant Professor, WIT', group: 'organizing', sortOrder: 12 },
+      { name: 'Dr. Avinash Chandra', designation: 'Assistant Professor, WIT', group: 'organizing', sortOrder: 13 },
+      { name: 'Dr. Chandrika Kumari', designation: 'Assistant Professor, WIT', group: 'organizing', sortOrder: 14 },
     ];
 
     // Set themes
@@ -92,7 +116,7 @@ async function seedSettings() {
       { title: 'GeoAI and High-Performance Computing for Nuclear Power Plant Siting and Environmental Risk Assessment', category: 'workshop', sortOrder: 7, isPublished: true },
       { title: 'AI, Machine Learning, Data Science, Cloud Computing, Cybersecurity, IoT, Generative AI, and Industry 5.0', category: 'workshop', sortOrder: 8, isPublished: true },
 
-      // Conference topics
+      // Related nuclear science topics
       { title: '700 MWe PHWR: Work Horse of DAE', category: 'conference', sortOrder: 1, isPublished: true },
       { title: 'Innovation & Challenges in Design and Validation of SMRs and BSR-220', category: 'conference', sortOrder: 2, isPublished: true },
       { title: 'PFBR: Gateway to Thorium Utilization', category: 'conference', sortOrder: 3, isPublished: true },

@@ -105,14 +105,14 @@ function RegisterContent() {
       <div className="container-narrow">
         <div className="card" style={{ maxWidth: '640px', margin: '0 auto', padding: '2rem', borderTop: '4px solid #0f294a' }}>
           <div style={{ textAlign: 'center', marginBottom: '1.75rem', borderBottom: '1px solid #e2e8f0', paddingBottom: '1rem' }}>
-            <div style={{ fontSize: '0.785rem', fontWeight: 700, color: '#b45309', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-              Conference Delegate Registration
+            <div style={{ fontSize: '0.785rem', fontWeight: 700, color: '#0f294a', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+              ACANS 2026 National Seminar Registration
             </div>
             <h1 style={{ fontSize: '1.5rem', color: '#0f294a', marginTop: '0.25rem', marginBottom: '0.25rem', fontWeight: 700 }}>
               Create Participant Account
             </h1>
             <p style={{ fontSize: '0.85rem', color: '#64748b' }}>
-              ACANS 2026 • National Seminar • WIT LNMU Darbhanga
+              National Seminar on Advanced Computing and Nuclear Science • WIT, LNMU Darbhanga
             </p>
           </div>
 
@@ -221,10 +221,10 @@ function RegisterContent() {
                 >
                   <option value="student">Student (₹500)</option>
                   <option value="research_scholar">Research Scholar (₹750)</option>
-                  <option value="faculty">Faculty Member (₹1,000)</option>
+                  <option value="faculty">Faculty (₹1,000)</option>
                 </select>
                 <div className="form-hint">
-                  Applicable conference fee: <strong>{feePreview[formData.participantCategory] || '₹500'}</strong>
+                  Applicable seminar fee: <strong>{feePreview[formData.participantCategory] || '₹500'}</strong>
                 </div>
               </div>
             </div>
@@ -272,7 +272,7 @@ function RegisterContent() {
                   required
                 />
                 <span>
-                  I consent to the collection and processing of my registration details for ACANS 2026, jointly organized by WIT LNMU and INS.
+                  I consent to the collection and processing of my registration details for ACANS 2026, organised by WIT, LNMU, in collaboration with the Indian Nuclear Society (INS).
                 </span>
               </label>
             </div>

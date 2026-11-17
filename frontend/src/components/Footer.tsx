@@ -13,17 +13,17 @@ export default function Footer() {
     }}>
       <div className="container">
         <div className="grid-4" style={{ marginBottom: '2rem' }}>
-          {/* Col 1: Joint Event Information */}
+          {/* Col 1: Seminar Information */}
           <div className="footer-event-info">
             <h3 style={{ color: '#ffffff', fontSize: '1.15rem', marginBottom: '0.4rem', fontWeight: 700 }}>
-              ACANS 2026 &amp; Advanced Computing Seminar
+              ACANS 2026: Advanced Computing and Nuclear Science
             </h3>
             <div style={{ fontSize: '0.85rem', color: '#fcd34d', marginBottom: '0.75rem', fontWeight: 600 }}>
-              National Seminar on &ldquo;Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities&rdquo;
+              ACANS 2026 &ndash; National Seminar on &ldquo;Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities&rdquo;
             </div>
 
             <p style={{ fontSize: '0.825rem', color: '#94a3b8', lineHeight: '1.6', marginBottom: '1rem' }}>
-              Jointly organized by <strong>Dr. A.P.J. Abdul Kalam Women&apos;s Institute of Technology (WIT)</strong>, a constituent unit of <strong>Lalit Narayan Mithila University (LNMU)</strong>, Darbhanga, Bihar, in collaboration with the <strong>Indian Nuclear Society (INS)</strong>.
+              Organised by <strong>Dr. A.P.J. Abdul Kalam Women&apos;s Institute of Technology (WIT)</strong>, a constituent unit of <strong>Lalit Narayan Mithila University (LNMU)</strong>, Darbhanga, Bihar, in collaboration with the <strong>Indian Nuclear Society (INS)</strong>.
             </p>
 
             <div style={{
@@ -35,7 +35,7 @@ export default function Footer() {
               fontSize: '0.8rem',
               color: '#fcd34d',
             }}>
-              <strong>Conference Dates:</strong> 7–9 December 2026
+              <strong>Seminar Dates:</strong> 7–9 December 2026
             </div>
           </div>
 
@@ -46,10 +46,10 @@ export default function Footer() {
             </h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.45rem', fontSize: '0.825rem' }}>
               <li><Link href="/" style={{ color: '#cbd5e1' }}>Home</Link></li>
-              <li><Link href="/about" style={{ color: '#cbd5e1' }}>About the Joint Conference</Link></li>
+              <li><Link href="/about" style={{ color: '#cbd5e1' }}>About the Seminar</Link></li>
               <li><Link href="/themes" style={{ color: '#cbd5e1' }}>Technical Themes &amp; Tracks</Link></li>
               <li><Link href="/committees" style={{ color: '#cbd5e1' }}>Organizing &amp; Advisory Committees</Link></li>
-              <li><Link href="/information" style={{ color: '#cbd5e1' }}>Registration Guidelines &amp; Fees</Link></li>
+              <li><Link href="/information" style={{ color: '#cbd5e1' }}>Registration for National Seminar and Fee</Link></li>
               <li><Link href="/abstract-submission" style={{ color: '#cbd5e1' }}>Extended Abstract Submission</Link></li>
             </ul>
           </div>
@@ -70,7 +70,8 @@ export default function Footer() {
                 Email: <a href="mailto:acanc.tech2026@gmail.com" style={{ color: '#fcd34d' }}>acanc.tech2026@gmail.com</a>
               </span>
               <span style={{ display: 'block', marginTop: '0.25rem' }}>
-                Phone: <a href="tel:987654321" style={{ color: '#fcd34d' }}>987654321</a>
+                Phone: <a href="tel:9971144418" style={{ color: '#fcd34d' }}>9971144418</a>,{' '}
+                <a href="tel:9473370707" style={{ color: '#fcd34d' }}>9473370707</a>
               </span>
             </p>
 
@@ -175,10 +176,10 @@ export default function Footer() {
           color: '#64748b',
         }}>
           <div>
-            &copy; 2026 ACANS 2026 Joint National Seminar. Dr. A.P.J. Abdul Kalam WIT (LNMU) &amp; Indian Nuclear Society. All rights reserved.
+            &copy; 2026 ACANS 2026 National Seminar. Dr. A.P.J. Abdul Kalam Women&apos;s Institute of Technology (WIT), Lalit Narayan Mithila University (LNMU), in collaboration with the Indian Nuclear Society (INS). All rights reserved.
           </div>
           <div>
-            Designed for Academic Conference Management
+            Designed for Academic Seminar Management
           </div>
         </div>
       </div>

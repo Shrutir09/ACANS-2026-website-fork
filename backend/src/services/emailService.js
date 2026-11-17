@@ -1,5 +1,6 @@
 const nodemailer = require('nodemailer');
 const config = require('../config');
+const EVENT_SHORT_NAME = 'ACANS 2026: Advanced Computing and Nuclear Science';
 
 class EmailService {
   constructor() {
@@ -38,7 +39,7 @@ class EmailService {
 
   async sendVerificationEmail(email, token) {
     const url = `${config.frontendUrl}/verify-email?token=${token}`;
-    return this.send(email, 'Verify Your Email - ACANS 2026', `
+    return this.send(email, `Verify Your Email - ${EVENT_SHORT_NAME}`, `
       <h2>Email Verification</h2>
       <p>Please click the link below to verify your email address:</p>
       <a href="${url}">Verify Email</a>
@@ -48,7 +49,7 @@ class EmailService {
 
   async sendPasswordResetEmail(email, token) {
     const url = `${config.frontendUrl}/reset-password?token=${token}`;
-    return this.send(email, 'Password Reset - ACANS 2026', `
+    return this.send(email, `Password Reset - ${EVENT_SHORT_NAME}`, `
       <h2>Password Reset</h2>
       <p>Click the link below to reset your password:</p>
       <a href="${url}">Reset Password</a>
@@ -57,7 +58,7 @@ class EmailService {
   }
 
   async sendRegistrationConfirmation(email, data) {
-    return this.send(email, 'Registration Confirmation - ACANS 2026', `
+    return this.send(email, `Registration Confirmation - ${EVENT_SHORT_NAME}`, `
       <h2>Registration Received</h2>
       <p>Dear ${data.fullName},</p>
       <p>Your registration has been received successfully.</p>
@@ -68,18 +69,8 @@ class EmailService {
     `);
   }
 
-  async sendAbstractStatusUpdate(email, data) {
-    return this.send(email, `Abstract ${data.status} - ACANS 2026`, `
-      <h2>Abstract Status Update</h2>
-      <p>Dear ${data.authorName},</p>
-      <p>Your abstract "<strong>${data.title}</strong>" (Ref: ${data.abstractRef}) has been ${data.status}.</p>
-      ${data.comments ? `<p><strong>Comments:</strong> ${data.comments}</p>` : ''}
-      <p>Please log in to your dashboard for further details.</p>
-    `);
-  }
-
   async sendPaymentStatusUpdate(email, data) {
-    return this.send(email, `Payment ${data.status} - ACANS 2026`, `
+    return this.send(email, `Payment ${data.status} - ${EVENT_SHORT_NAME}`, `
       <h2>Payment Status Update</h2>
       <p>Dear ${data.fullName},</p>
       <p>Your payment for registration ${data.registrationRef} has been ${data.status}.</p>

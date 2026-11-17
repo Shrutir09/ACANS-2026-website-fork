@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useAuth } from '../../context/AuthContext';
 import { api } from '../../lib/api';
 import { EventSettings, EventTheme } from '../../types';
@@ -11,7 +11,6 @@ import TemplateDownloadCard from '../../components/TemplateDownloadCard';
 import WordCounter from '../../components/WordCounter';
 
 function AbstractSubmissionContent() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const { user } = useAuth();
 
@@ -66,7 +65,7 @@ function AbstractSubmissionContent() {
   }, [initialTheme]);
 
   // Count words helper
-  const wordLimit = settings?.abstractWordLimit || 250;
+  const wordLimit = Math.min(settings?.abstractWordLimit || 250, 250);
   const wordCount = formData.abstractText.trim()
     ? formData.abstractText.trim().split(/\s+/).filter(Boolean).length
     : 0;
@@ -131,9 +130,6 @@ function AbstractSubmissionContent() {
         ref: res.abstract.abstractRef,
       });
 
-      setTimeout(() => {
-        router.push('/dashboard');
-      }, 3000);
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : 'Submission failed. Please check required fields.';
       setError(message);
@@ -161,7 +157,7 @@ function AbstractSubmissionContent() {
             Extended Abstract Submission
           </h1>
           <p style={{ color: '#cbd5e1', maxWidth: '750px', fontSize: '0.95rem' }}>
-            Submit your research contribution for ACANS 2026 and the National Seminar on Advanced Computing and Nuclear Science.
+            Submit your research contribution to ACANS 2026: Advanced Computing and Nuclear Science.
           </p>
         </div>
       </section>
@@ -173,13 +169,17 @@ function AbstractSubmissionContent() {
             <TemplateDownloadCard />
           </div>
 
+          <div className="alert alert-info" style={{ marginBottom: '2rem', borderLeft: '4px solid #b45309' }}>
+            <strong>Important abstract notice:</strong> Submit by <strong>4 December 2026</strong>. Registration remains open after this date, subject to arrangements. Late abstracts will not be considered for publication.
+          </div>
+
           {!user && (
             <div className="alert alert-info" style={{ marginBottom: '2rem' }}>
               <div>
                 <strong>Account Required:</strong> Please{' '}
                 <Link href="/login" style={{ textDecoration: 'underline', fontWeight: 600 }}>log in</Link> or{' '}
                 <Link href="/register" style={{ textDecoration: 'underline', fontWeight: 600 }}>create an account</Link>{' '}
-                to associate your abstract with your participant profile and track review status.
+                to associate your abstract with your participant profile and access your submission record.
               </div>
             </div>
           )}
@@ -189,7 +189,8 @@ function AbstractSubmissionContent() {
             <div className="alert alert-success" style={{ marginBottom: '2rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
               <div><strong>Success!</strong> {success.message}</div>
               <div>Your Abstract Reference ID is: <strong>{success.ref}</strong></div>
-              <div style={{ fontSize: '0.85rem' }}>Redirecting to your participant dashboard...</div>
+              <div style={{ fontSize: '0.85rem' }}>This confirms receipt only; it is not a review or publication decision.</div>
+              <Link href="/dashboard" style={{ color: 'var(--navy-900)', fontWeight: 600 }}>View participant dashboard →</Link>
             </div>
           )}
 
@@ -226,7 +227,7 @@ function AbstractSubmissionContent() {
                   <option value="">-- Select Relevant Research Theme --</option>
                   {themes.map((t, idx) => (
                     <option key={idx} value={t.title}>
-                      [{t.category === 'workshop' ? 'Seminar' : 'ACANS'}] {t.title}
+                      [{t.category === 'workshop' ? 'Seminar Theme' : 'Related Topic'}] {t.title}
                     </option>
                   ))}
                 </select>
@@ -346,7 +347,7 @@ function AbstractSubmissionContent() {
                   Upload Extended Abstract Document (.docx, .doc, .pdf)
                 </label>
                 <p style={{ fontSize: '0.825rem', color: 'var(--slate-500)', marginBottom: '0.75rem' }}>
-                  Please format your extended abstract using the official template (maximum 2 pages including figures and tables).
+                  Use the official template. The extended abstract must fit on one page and contain no more than 250 words, including any figures and tables.
                 </p>
                 <input
                   id="abstractFile"

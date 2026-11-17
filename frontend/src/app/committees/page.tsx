@@ -42,70 +42,135 @@ const leadershipOfficeBearers = [
     alt: 'Dr. Rashmi Kumari, Convener, ACANS 2026',
   },
   {
-    role: 'Deputy Convener',
+    role: 'Co-Convener',
     name: 'Mrs. Charmis Mariwala',
-    designation: 'Deputy Convener, ACANS 2026',
+    designation: 'Co-Convener, ACANS 2026',
     institution: 'Dr. A.P.J. Abdul Kalam WIT, LNMU',
     photo: '/images/leadership/charmis.jpeg',
-    alt: 'Mrs. Charmis Mariwala, Deputy Convener, ACANS 2026',
+    alt: 'Mrs. Charmis Mariwala, Co-Convener, ACANS 2026',
   },
 ];
 
-const organisingCommittee = [
-  'Dr. Priyanka',
-  'Mr. Krishna Murari',
-  'Dr. Divya Rani',
-  'Mr. Amit Mishra',
-  'Ms. Kajal Kumari',
-  'Ms. Prachi Bharti',
-  'Dr. Rajeev Prasad',
-  'Mrs. Neha Kumari',
-  'Md Ashif Habibi',
-  'Mr. Ganesh Kumar Paswan',
-  'Dr. Rashmi Kumari',
-  'Dr. M.Z. Shamim',
-  'Dr. Chandrika Kumari',
-  'Mr. Aashish Mishra',
-  'Dr. Avinash Chandra',
-  'Dr. Chandrika Kumari',
+// Committee portraits are stored under public/images/leadership. Set `photo`
+// to its public path (for example, '/images/leadership/member-name.png'); leave
+// it null for the initials placeholder. `photoPosition` can be tuned per image.
+type CommitteeMember = {
+  name: string;
+  designation?: string;
+  photo?: string | null;
+  photoPosition?: string;
+};
+
+const organisingCommittee: CommitteeMember[] = [
+  {
+    name: 'Dr. Priyanka Rai',
+    designation: 'Deputy Registrar, WIT',
+    photo: '/images/leadership/dr Priyanka Rai.png',
+    photoPosition: 'center 34%',
+  },
+  {
+    name: 'Mr. Krishna Murari',
+    designation: 'Administrative Officer, WIT',
+    photo: '/images/leadership/Krishna Murari.png',
+    photoPosition: 'center 30%',
+  },
+  {
+    name: 'Mr. Amit Mishra',
+    designation: 'Assistant Professor, WIT',
+    photo: '/images/leadership/Amit Mishra.png',
+    photoPosition: 'center 30%',
+  },
+  {
+    name: 'Ms. Kajal Kumari',
+    designation: 'Assistant Professor, WIT',
+    photo: '/images/leadership/Kajal Kumari.jpeg',
+  },
+  {
+    name: 'Ms. Prachi Bharti',
+    designation: 'Assistant Professor, WIT',
+    photo: '/images/leadership/Prachi Bharti.png',
+    photoPosition: 'center 32%',
+  },
+  {
+    name: 'Dr. Rajeev Prasad',
+    designation: 'Assistant Professor, WIT',
+    photo: '/images/leadership/Dr. Rajeev Prasad.png',
+    photoPosition: 'center 30%',
+  },
+  {
+    name: 'Mrs. Neha Kumari',
+    designation: 'Assistant Professor, WIT',
+    photo: '/images/leadership/Neha Kumari.png',
+    photoPosition: 'center 34%',
+  },
+  {
+    name: 'Md Ashif Habibi',
+    designation: 'Assistant Professor, WIT',
+    photo: null,
+    photoPosition: 'center 30%',
+  },
+  {
+    name: 'Mr. Ganesh Kumar Paswan',
+    designation: 'Assistant Professor, WIT',
+    photo: '/images/leadership/Ganesh Kumar paswan.png',
+    photoPosition: 'center 30%',
+  },
+  {
+    name: 'Dr. M.Z. Shamim',
+    designation: 'Assistant Professor, WIT',
+    photo: '/images/leadership/Dr. M.Z. Shamim.png',
+    photoPosition: 'center 30%',
+  },
+  {
+    name: 'Dr. Chandrika Kumari',
+    designation: 'Assistant Professor, WIT',
+    photo: '/images/leadership/dr Chnadrika.png',
+    photoPosition: 'center 24%',
+  },
+ {
+    name: 'Dr. Avinash Chandra',
+    designation: 'Assistant Professor, WIT',
+    photo: '/images/leadership/avinash chandra.png',
+    photoPosition: 'center 30%',
+  },
 ];
 
-const advisoryCommittee = [
+const advisoryCommittee: { department: string; members: CommitteeMember[] }[] = [
   {
     department: 'Department of Physics',
     members: [
-      'Prof. Naushad Alam',
-      'Dr. Pooja Agarwal',
-      'Dr. Sumandeep Kaur',
+      { name: 'Prof. Naushad Alam', photo: null, photoPosition: 'center 30%' },
+      { name: 'Dr. Pooja Agarwal', photo: '/images/leadership/Dr. Pooja Agarwal.png', photoPosition: 'center 30%' },
+      { name: 'Dr. Sumandeep Kaur', photo: null, photoPosition: 'center 30%' },
     ],
   },
   {
     department: 'Department of Chemistry',
     members: [
-      'Dr. Abhishek Rai',
-      'Dr. Arindra Sharma',
+      { name: 'Dr. Abhishek Rai', photo: '/images/leadership/Abhishek Rai.jpeg', photoPosition: 'center 30%' },
+      { name: 'Dr. Arindra Sharma', photo: '/images/leadership/Arindra Sharma.jpeg', photoPosition: 'center 30%' },
     ],
   },
   {
     department: 'Department of Zoology',
     members: [
-      'Dr. Parul Banergee',
+      { name: 'Dr. Parul Banerjee', photo: '/images/leadership/Dr. Parul Banerjee.jpeg', photoPosition: 'center 30%' },
     ],
   },
   {
     department: 'Department of Botany',
     members: [
-      'Dr. Aniket Kumar Singh',
+      { name: 'Dr. Aniket Kumar Singh', photo: null, photoPosition: 'center 30%' },
     ],
   },
   {
     department: 'Dr. A.P.J. Abdul Kalam Women\'s Institute of Technology',
     members: [
-      'Mr. Amit Kumar Mishra',
-      'Mrs. Neha Kumari',
-      'Mr. Ashif Habibi',
-      'Dr. Zakirullah Shamim',
-      'Dr. Avinash Chandra',
+      { name: 'Mr. Amit Kumar Mishra', photo: '/images/leadership/Amit Mishra.png', photoPosition: 'center 30%' },
+      { name: 'Mrs. Neha Kumari', photo:'/images/leadership/Neha Kumari.png' , photoPosition: 'center 30%' },
+      { name: 'Mr. Ashif Habibi', photo: null, photoPosition: 'center 30%' },
+      { name: 'Dr. Zakirullah Shamim', photo: '/images/leadership/Dr. M.Z. Shamim.png', photoPosition: 'center 30%' },
+      { name: 'Dr. Avinash Chandra', photo: '/images/leadership/avinash chandra.png', photoPosition: 'center 30%' },
     ],
   },
 ];
@@ -152,7 +217,6 @@ function LeadershipCard({
   institution,
   photo,
   alt,
-  highlight,
 }: {
   role: string;
   name: string;
@@ -160,11 +224,10 @@ function LeadershipCard({
   institution: string;
   photo: string | null;
   alt: string;
-  highlight?: boolean;
 }) {
   const [imgError, setImgError] = React.useState(false);
 
-  const topBorderColor = highlight ? '#b45309' : '#0f294a';
+  const topBorderColor = '#0f294a';
 
   return (
     <div
@@ -211,11 +274,11 @@ function LeadershipCard({
         style={{
           fontSize: '0.7rem',
           fontWeight: 700,
-          color: '#b45309',
+          color: '#0f294a',
           textTransform: 'uppercase',
           letterSpacing: '0.05em',
-          backgroundColor: '#fffbeb',
-          border: '1px solid #fde68a',
+          backgroundColor: '#f8fafc',
+          border: '1px solid #e2e8f0',
           borderRadius: '3px',
           padding: '0.15rem 0.5rem',
         }}
@@ -263,6 +326,94 @@ function LeadershipCard({
   );
 }
 
+function CommitteeMemberCard({ member }: { member: CommitteeMember }) {
+  const [imgError, setImgError] = React.useState(false);
+  const navy = '#0f294a';
+
+  return (
+    <div
+      className="card leadership-card committee-member-card"
+      style={{
+        borderTop: `3px solid ${navy}`,
+        textAlign: 'center',
+        padding: '1.2rem 1rem 1.1rem',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        gap: '0.6rem',
+        minHeight: '272px',
+        boxSizing: 'border-box',
+      }}
+    >
+      <div
+        style={{
+          width: 'clamp(116px, 10vw, 132px)',
+          aspectRatio: '1',
+          borderRadius: '50%',
+          overflow: 'hidden',
+          border: `2px solid ${navy}`,
+          marginBottom: '0.35rem',
+          flexShrink: 0,
+          backgroundColor: '#e2e8f0',
+        }}
+      >
+        {member.photo && !imgError ? (
+          <Image
+            src={member.photo}
+            alt={member.name}
+            width={164}
+            height={164}
+            sizes="(max-width: 900px) 116px, 132px"
+            style={{
+              objectFit: 'cover',
+              objectPosition: member.photoPosition ?? 'center 30%',
+              width: '100%',
+              height: '100%',
+            }}
+            onError={() => setImgError(true)}
+          />
+        ) : (
+          <PhotoPlaceholder name={member.name} />
+        )}
+      </div>
+
+      <h3
+        style={{
+          fontSize: '1.02rem',
+          color: navy,
+          fontWeight: 700,
+          lineHeight: 1.25,
+          margin: 0,
+          minHeight: '2.75rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        {member.name}
+      </h3>
+
+      {member.designation && (
+        <div
+          style={{
+            fontSize: '0.825rem',
+            color: '#334155',
+            fontWeight: 600,
+            lineHeight: 1.35,
+            minHeight: '2rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          {member.designation}
+        </div>
+      )}
+    </div>
+  );
+}
+
 /* ─────────────────────────────────────────────────────────────────────────────
    Page component
    ───────────────────────────────────────────────────────────────────────────── */
@@ -302,7 +453,7 @@ export default function CommitteesPage() {
               fontWeight: 700,
             }}
           >
-            Conference &amp; Seminar Committees
+            Committees
           </h1>
           <p style={{ color: '#cbd5e1', maxWidth: '750px', fontSize: '0.95rem' }}>
             Distinguished academicians, office bearers, advisory panels, and organizing faculty supporting ACANS 2026.
@@ -356,12 +507,11 @@ export default function CommitteesPage() {
                     institution={m.institution}
                     photo={m.photo}
                     alt={m.alt}
-                    highlight={idx === 0}
                   />
                 ))}
               </div>
 
-              {/* Bottom row: Convener, Deputy Convener */}
+              {/* Bottom row: Convener, Co-Convener */}
               <div
                 style={{
                   display: 'grid',
@@ -409,58 +559,10 @@ export default function CommitteesPage() {
               </div>
               <div className="card">
                 <div
-                  style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-                    gap: '0.75rem',
-                  }}
+                  className="committee-member-grid"
                 >
-                  {organisingCommittee.map((name, idx) => (
-                    <div
-                      key={idx}
-                      style={{
-                        padding: '0.75rem 0.85rem',
-                        backgroundColor: '#f8fafc',
-                        borderRadius: '4px',
-                        border: '1px solid #e2e8f0',
-                        borderLeft: '3px solid #0f294a',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '0.6rem',
-                      }}
-                    >
-                      <span
-                        style={{
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          width: '22px',
-                          height: '22px',
-                          borderRadius: '50%',
-                          backgroundColor: '#0f294a',
-                          color: '#ffffff',
-                          fontSize: '0.65rem',
-                          fontWeight: 700,
-                          flexShrink: 0,
-                        }}
-                      >
-                        {idx + 1}
-                      </span>
-                      <div>
-                        <div
-                          style={{
-                            fontWeight: 600,
-                            color: '#0f294a',
-                            fontSize: '0.9rem',
-                          }}
-                        >
-                          {name}
-                        </div>
-                        <div style={{ fontSize: '0.775rem', color: '#64748b' }}>
-                          Organising Committee
-                        </div>
-                      </div>
-                    </div>
+                  {organisingCommittee.map(member => (
+                    <CommitteeMemberCard key={member.name} member={member} />
                   ))}
                 </div>
               </div>
@@ -490,53 +592,15 @@ export default function CommitteesPage() {
                 </h2>
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+              <div className="committee-department-list">
                 {advisoryCommittee.map((dept, deptIdx) => (
-                  <div key={deptIdx} className="card">
-                    <h3
-                      style={{
-                        fontSize: '1.05rem',
-                        color: '#0f294a',
-                        marginBottom: '0.75rem',
-                        borderBottom: '1px solid #e2e8f0',
-                        paddingBottom: '0.4rem',
-                        fontWeight: 700,
-                      }}
-                    >
+                  <div key={deptIdx} className="card committee-department-card">
+                    <h3 className="committee-department-title">
                       {dept.department}
                     </h3>
-                    <div
-                      style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                        gap: '0.75rem',
-                      }}
-                    >
-                      {dept.members.map((member, mIdx) => (
-                        <div
-                          key={mIdx}
-                          style={{
-                            padding: '0.65rem 0.85rem',
-                            backgroundColor: '#f8fafc',
-                            borderRadius: '4px',
-                            border: '1px solid #e2e8f0',
-                          }}
-                        >
-                          <div
-                            style={{
-                              fontWeight: 600,
-                              color: '#0f294a',
-                              fontSize: '0.9rem',
-                            }}
-                          >
-                            {member}
-                          </div>
-                          <div style={{ fontSize: '0.775rem', color: '#64748b' }}>
-                            {dept.department.startsWith('Dr. A.P.J.')
-                              ? 'WIT Darbhanga'
-                              : dept.department}
-                          </div>
-                        </div>
+                    <div className="committee-member-grid">
+                      {dept.members.map(member => (
+                        <CommitteeMemberCard key={member.name} member={member} />
                       ))}
                     </div>
                   </div>

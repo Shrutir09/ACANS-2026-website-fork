@@ -94,6 +94,9 @@ exports.updateSettings = async (req, res, next) => {
         settings[field] = req.body[field];
       }
     });
+    if (req.body.abstractWordLimit !== undefined) {
+      settings.abstractWordLimit = Math.min(Math.max(Number(req.body.abstractWordLimit) || 250, 1), 250);
+    }
 
     await settings.save();
 
@@ -167,7 +170,7 @@ exports.downloadTemplate = async (req, res, next) => {
       return res.status(404).json({ success: false, message: 'Template file not found on disk.' });
     }
 
-    res.download(filePath, settings.abstractTemplateName || 'Template for extended abstract (ACANS 2026).docx');
+    res.download(filePath, settings.abstractTemplateName || 'ACANS-2026-extended-abstract-template.docx');
   } catch (error) {
     next(error);
   }
