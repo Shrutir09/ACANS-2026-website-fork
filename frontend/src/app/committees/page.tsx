@@ -51,20 +51,86 @@ const leadershipOfficeBearers = [
   },
 ];
 
-const organisingCommittee = [
-  { name: 'Dr. Priyanka', designation: 'Deputy Registrar, WIT' },
-  { name: 'Mr. Krishna Murari', designation: 'Administrative Officer, WIT' },
-  { name: 'Mr. Amit Mishra', designation: 'Assistant Professor, WIT' },
-  { name: 'Ms. Kajal Kumari', designation: 'Assistant Professor, WIT' },
-  { name: 'Ms. Prachi Bharti', designation: 'Assistant Professor, WIT' },
-  { name: 'Dr. Rajeev Prasad', designation: 'Assistant Professor, WIT' },
-  { name: 'Mrs. Neha Kumari', designation: 'Assistant Professor, WIT' },
-  { name: 'Md Ashif Habibi', designation: 'Assistant Professor, WIT' },
-  { name: 'Mr. Ganesh Kumar Paswan', designation: 'Assistant Professor, WIT' },
-  { name: 'Dr. M.Z. Shamim', designation: 'Assistant Professor, WIT' },
-  { name: 'Dr. Chandrika Kumari', designation: 'Assistant Professor, WIT' },
-  { name: 'Mr. Aashish Mishra', designation: 'Assistant Professor, WIT' },
-  { name: 'Dr. Avinash Chandra', designation: 'Assistant Professor, WIT' },
+type OrganisingCommitteeMember = {
+  name: string;
+  designation: string;
+  photo: string | null;
+  photoPosition: string;
+};
+
+const organisingCommittee: OrganisingCommitteeMember[] = [
+  {
+    name: 'Dr. Priyanka Rai',
+    designation: 'Deputy Registrar, WIT',
+    photo: '/images/leadership/dr Priyanka Rai.png',
+    photoPosition: 'center 34%',
+  },
+  {
+    name: 'Mr. Krishna Murari',
+    designation: 'Administrative Officer, WIT',
+    photo: null,
+    photoPosition: 'center 30%',
+  },
+  {
+    name: 'Mr. Amit Mishra',
+    designation: 'Assistant Professor, WIT',
+    photo: '/images/leadership/Amit Mishra.png',
+    photoPosition: 'center 30%',
+  },
+  {
+    name: 'Ms. Kajal Kumari',
+    designation: 'Assistant Professor, WIT',
+    photo: null,
+    photoPosition: 'center 30%',
+  },
+  {
+    name: 'Ms. Prachi Bharti',
+    designation: 'Assistant Professor, WIT',
+    photo: '/images/leadership/Prachi Bharti.png',
+    photoPosition: 'center 32%',
+  },
+  {
+    name: 'Dr. Rajeev Prasad',
+    designation: 'Assistant Professor, WIT',
+    photo: '/images/leadership/Dr. Rajeev Prasad.png',
+    photoPosition: 'center 30%',
+  },
+  {
+    name: 'Mrs. Neha Kumari',
+    designation: 'Assistant Professor, WIT',
+    photo: '/images/leadership/Neha Kumari.png',
+    photoPosition: 'center 34%',
+  },
+  {
+    name: 'Md Ashif Habibi',
+    designation: 'Assistant Professor, WIT',
+    photo: null,
+    photoPosition: 'center 30%',
+  },
+  {
+    name: 'Mr. Ganesh Kumar Paswan',
+    designation: 'Assistant Professor, WIT',
+    photo: '/images/leadership/Ganesh Kumar paswan.png',
+    photoPosition: 'center 30%',
+  },
+  {
+    name: 'Dr. M.Z. Shamim',
+    designation: 'Assistant Professor, WIT',
+    photo: '/images/leadership/Dr. M.Z. Shamim.png',
+    photoPosition: 'center 30%',
+  },
+  {
+    name: 'Dr. Chandrika Kumari',
+    designation: 'Assistant Professor, WIT',
+    photo: '/images/leadership/dr Chnadrika.png',
+    photoPosition: 'center 24%',
+  },
+ {
+    name: 'Dr. Avinash Chandra',
+    designation: 'Assistant Professor, WIT',
+    photo: '/images/leadership/avinash chandra.png',
+    photoPosition: 'center 30%',
+  },
 ];
 
 const advisoryCommittee = [
@@ -258,6 +324,92 @@ function LeadershipCard({
   );
 }
 
+function OrganisingMemberCard({ member }: { member: OrganisingCommitteeMember }) {
+  const [imgError, setImgError] = React.useState(false);
+  const navy = '#0f294a';
+
+  return (
+    <div
+      className="card leadership-card"
+      style={{
+        borderTop: `3px solid ${navy}`,
+        textAlign: 'center',
+        padding: '1.5rem 1rem 1.25rem',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        gap: '0.5rem',
+        minHeight: '310px',
+        boxSizing: 'border-box',
+      }}
+    >
+      <div
+        style={{
+          width: 'clamp(112px, 12vw, 164px)',
+          aspectRatio: '1',
+          borderRadius: '50%',
+          overflow: 'hidden',
+          border: `2px solid ${navy}`,
+          marginBottom: '0.35rem',
+          flexShrink: 0,
+          backgroundColor: '#e2e8f0',
+        }}
+      >
+        {member.photo && !imgError ? (
+          <Image
+            src={member.photo}
+            alt={member.name}
+            width={164}
+            height={164}
+            sizes="(max-width: 600px) 112px, (max-width: 900px) 12vw, 164px"
+            style={{
+              objectFit: 'cover',
+              objectPosition: member.photoPosition,
+              width: '100%',
+              height: '100%',
+            }}
+            onError={() => setImgError(true)}
+          />
+        ) : (
+          <PhotoPlaceholder name={member.name} />
+        )}
+      </div>
+
+      <h3
+        style={{
+          fontSize: '1.02rem',
+          color: navy,
+          fontWeight: 700,
+          lineHeight: 1.25,
+          margin: 0,
+          minHeight: '2.5rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        {member.name}
+      </h3>
+
+      <div
+        style={{
+          fontSize: '0.825rem',
+          color: '#334155',
+          fontWeight: 600,
+          lineHeight: 1.35,
+          minHeight: '2.25rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        {member.designation}
+      </div>
+    </div>
+  );
+}
+
 /* ─────────────────────────────────────────────────────────────────────────────
    Page component
    ───────────────────────────────────────────────────────────────────────────── */
@@ -405,56 +557,13 @@ export default function CommitteesPage() {
                 <div
                   style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-                    gap: '0.75rem',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))',
+                    gap: '1rem',
+                    alignItems: 'stretch',
                   }}
                 >
-                  {organisingCommittee.map((member, idx) => (
-                    <div
-                      key={`${member.name}-${idx}`}
-                      style={{
-                        padding: '0.75rem 0.85rem',
-                        backgroundColor: '#f8fafc',
-                        borderRadius: '4px',
-                        border: '1px solid #e2e8f0',
-                        borderLeft: '3px solid #0f294a',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '0.6rem',
-                      }}
-                    >
-                      <span
-                        style={{
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          width: '22px',
-                          height: '22px',
-                          borderRadius: '50%',
-                          backgroundColor: '#0f294a',
-                          color: '#ffffff',
-                          fontSize: '0.65rem',
-                          fontWeight: 700,
-                          flexShrink: 0,
-                        }}
-                      >
-                        {idx + 1}
-                      </span>
-                      <div>
-                        <div
-                          style={{
-                            fontWeight: 600,
-                            color: '#0f294a',
-                            fontSize: '0.9rem',
-                          }}
-                        >
-                          {member.name}
-                        </div>
-                        <div style={{ fontSize: '0.775rem', color: '#64748b' }}>
-                          {member.designation}
-                        </div>
-                      </div>
-                    </div>
+                  {organisingCommittee.map(member => (
+                    <OrganisingMemberCard key={member.name} member={member} />
                   ))}
                 </div>
               </div>
