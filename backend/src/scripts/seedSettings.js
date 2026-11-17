@@ -22,10 +22,20 @@ async function seedSettings() {
     settings.eventSubtitle = 'Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities';
     settings.conferenceTitle = 'Indian Nuclear Society (INS) – Collaborating Organization';
     settings.conferenceSubtitle = 'Collaborating organization for ACANS 2026';
-    settings.abstractTemplateFile = 'uploads/templates/Template_for_extended_abstract_ACANS-2026.docx';
-    settings.abstractTemplateName = 'Template for extended abstract (ACANS 2026).docx';
-    settings.abstractInstructions = 'All submissions should conform to the official template format. The extended abstract of contributory papers should not exceed 2 pages including figures, tables, and references in Times New Roman format.';
+    settings.abstractTemplateFile = 'uploads/templates/ACANS-2026-extended-abstract-template.docx';
+    settings.abstractTemplateName = 'ACANS-2026-extended-abstract-template.docx';
+    settings.abstractInstructions = 'All submissions should conform to the official template format. The extended abstract of contributory papers should not exceed one page or 250 words, including figures, tables, and references in Times New Roman format.';
     settings.abstractWordLimit = 250;
+    settings.abstractDeadline = '4 December 2026';
+    settings.importantDates = (settings.importantDates || []).map(item => {
+      const dateItem = typeof item.toObject === 'function' ? item.toObject() : item;
+      return dateItem.label === 'Abstract Submission Deadline'
+        ? { ...dateItem, date: '4 December 2026', confirmed: true }
+        : dateItem;
+    }).filter(item => !/^(?:notice|notification) of acceptance$/i.test(item.label || ''));
+    if (!settings.importantDates.some(item => item.label === 'Abstract Submission Deadline')) {
+      settings.importantDates.push({ label: 'Abstract Submission Deadline', date: '4 December 2026', confirmed: true });
+    }
     settings.fees = { student: 500, research_scholar: 750, faculty: 1000 };
     settings.paymentMethods = { upi: true, cash: true, bank_transfer: true };
     settings.paymentInstructions = 'Please complete the registration fee payment via UPI, Cash, or Bank Transfer as instructed by Dr. A.P.J. Abdul Kalam Women\'s Institute of Technology (WIT), LNMU. After payment, submit your transaction reference ID and details below for administrative verification.';
@@ -38,7 +48,7 @@ async function seedSettings() {
     settings.contactPhone = '9971144418, 9473370707';
 
     // Set about content
-    settings.aboutEvent = `ACANS 2026 is the National Seminar on "Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities." It is hosted by Dr. A.P.J. Abdul Kalam Women's Institute of Technology (WIT), a constituent unit of Lalit Narayan Mithila University (LNMU), Darbhanga, Bihar, in collaboration with the Indian Nuclear Society (INS). The seminar provides a platform for researchers, academicians, scientists, and industry professionals to discuss the intersections of nuclear science and advanced computing.`;
+    settings.aboutEvent = `ACANS 2026 is the National Seminar on "Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities." It is organised by Dr. A.P.J. Abdul Kalam Women's Institute of Technology (WIT), a constituent unit of Lalit Narayan Mithila University (LNMU), Darbhanga, Bihar, in collaboration with the Indian Nuclear Society (INS). The seminar provides a platform for researchers, academicians, scientists, and industry professionals to discuss the intersections of nuclear science and advanced computing.`;
 
     settings.aboutINS = `The Indian Nuclear Society (INS) is a professional body dedicated to promoting the peaceful uses of nuclear energy and radiation technologies in India. INS collaborates with WIT, LNMU in organizing ACANS 2026. Separately, INS organizes its own annual conference, bringing together scientists, engineers, and researchers to share advances in nuclear science, reactor technologies, fuel cycle, radiation applications, and nuclear medicine.`;
 

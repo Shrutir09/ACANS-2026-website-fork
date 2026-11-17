@@ -1,6 +1,6 @@
 export function normalizeEventText(value: string): string {
   if (/joint event brings together|Indian Nuclear Society[’']s Annual Conference/i.test(value)) {
-    return 'ACANS 2026 is the National Seminar on "Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities." It is hosted by Dr. A.P.J. Abdul Kalam Women\'s Institute of Technology (WIT), a constituent unit of Lalit Narayan Mithila University (LNMU), Darbhanga, Bihar, in collaboration with the Indian Nuclear Society (INS). The seminar brings together researchers, academicians, scientists, and industry professionals to explore the intersections of nuclear science and advanced computing.';
+    return 'ACANS 2026 is the National Seminar on "Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities." It is organised by Dr. A.P.J. Abdul Kalam Women\'s Institute of Technology (WIT), a constituent unit of Lalit Narayan Mithila University (LNMU), Darbhanga, Bihar, in collaboration with the Indian Nuclear Society (INS). The seminar brings together researchers, academicians, scientists, and industry professionals to explore the intersections of nuclear science and advanced computing.';
   }
   return value
     .replace(/\bINSAC[ -]?2026\b/gi, 'ACANS 2026')

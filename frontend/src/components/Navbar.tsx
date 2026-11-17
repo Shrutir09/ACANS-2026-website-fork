@@ -66,20 +66,17 @@ export default function Navbar() {
 
     {/* Conference Details */}
     <div className="masthead-center">
-      <div className="masthead-eyebrow">
-        National Seminar
-      </div>
-
       <h1 className="masthead-title">
         ACANS 2026
       </h1>
 
       <div className="masthead-subtitle">
-        &ndash; National Seminar on &ldquo;Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities&rdquo;
+        <span>– National Seminar on “Advanced Computing and Nuclear Science:</span>
+        <span className="masthead-subtitle-detail">Emerging Technologies, Interdisciplinary Applications and Research Opportunities”</span>
       </div>
 
       <div className="masthead-organizer">
-        Hosted by{" "}
+        Organised by{" "}
         <strong>
           Dr. A.P.J. Abdul Kalam Women&apos;s Institute of Technology (WIT)
         </strong>
@@ -389,6 +386,8 @@ export default function Navbar() {
               {[0, 1].map((copy) => (
                 <div className="announcement-group" key={copy} aria-hidden={copy === 1}>
                   <span>★ Official Seminar Paper Template (PDF) is available for download.</span>
+                  <span className="announcement-separator">|</span>
+                  <span><strong>IMPORTANT NOTICE: Last date for Abstract Submission – 4 December 2026.</strong></span>
                   <span className="announcement-separator">|</span>
                   <span>★ Seminar Dates: 7–9 December 2026.</span>
                   <span className="announcement-separator">|</span>

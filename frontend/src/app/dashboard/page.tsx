@@ -197,10 +197,10 @@ export default function ParticipantDashboard() {
           <div className="card" style={{ borderTop: '3px solid #0d5f57' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
               <span style={{ fontSize: '0.785rem', fontWeight: 700, color: '#0d5f57', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Extended Abstract</span>
-              <StatusBadge status={abstractData?.status || 'not_submitted'} />
+              <StatusBadge status={abstractData ? 'submitted' : 'not_submitted'} />
             </div>
             <div style={{ fontSize: '0.75rem', color: '#64748b', textTransform: 'uppercase' }}>
-              Abstract Status
+              Submission Receipt
             </div>
             <div style={{ fontSize: '1.2rem', fontWeight: 800, color: '#0f294a', fontFamily: 'monospace', margin: '0.2rem 0 0.4rem 0' }}>
               {abstractData?.abstractRef || 'NO ABSTRACT'}
@@ -385,7 +385,7 @@ export default function ParticipantDashboard() {
                     <span style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--teal-600)' }}>
                       Ref: {abstractData.abstractRef}
                     </span>
-                    <StatusBadge status={abstractData.status} />
+                    <StatusBadge status="submitted" />
                   </div>
 
                   <h3 style={{ fontSize: '1.1rem', color: 'var(--navy-900)', marginBottom: '0.5rem' }}>
@@ -406,11 +406,6 @@ export default function ParticipantDashboard() {
                     </div>
                   )}
 
-                  {abstractData.revisionComments && (
-                    <div className="alert alert-warning" style={{ fontSize: '0.85rem' }}>
-                      <strong>Reviewer Revision Request:</strong> {abstractData.revisionComments}
-                    </div>
-                  )}
 
                   <Link href="/abstract-submission" className="btn btn-outline-teal btn-sm">
                     Edit / Resubmit Abstract

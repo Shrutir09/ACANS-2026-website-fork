@@ -627,6 +627,14 @@ textarea.form-control {
   min-width: 0;
 }
 
+.committee-member-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 280px));
+  justify-content: center;
+  align-items: stretch;
+  gap: 1rem;
+}
+
 .speaker-card {
   display: flex;
   flex-direction: column;
@@ -984,16 +992,20 @@ header.site-header .masthead-title {
 }
 
 header.site-header .masthead-subtitle {
-  color: var(--slate-700);
-  font-size: clamp(0.78rem, 1.25vw, 0.94rem);
-  font-weight: 600;
-  line-height: 1.32;
+  color: var(--navy-900);
+  font-size: clamp(0.95rem, 1.5vw, 1.15rem);
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+header.site-header .masthead-subtitle span {
+  display: block;
 }
 
 header.site-header .masthead-organizer {
   margin-top: 0.2rem;
-  color: var(--slate-500);
-  font-size: 0.75rem;
+  color: var(--slate-600);
+  font-size: 0.82rem;
   line-height: 1.35;
 }
 
@@ -1087,10 +1099,11 @@ header.site-header .masthead-organizer {
   }
 
   header.site-header .masthead-subtitle {
-    font-size: 0.82rem;
+    font-size: 0.92rem;
+    font-weight: 700;
   }
 
   header.site-header .masthead-organizer {
-    font-size: 0.72rem;
+    font-size: 0.76rem;
   }
 }

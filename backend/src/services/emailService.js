@@ -69,16 +69,6 @@ class EmailService {
     `);
   }
 
-  async sendAbstractStatusUpdate(email, data) {
-    return this.send(email, `Abstract ${data.status} - ${EVENT_SHORT_NAME}`, `
-      <h2>Abstract Status Update</h2>
-      <p>Dear ${data.authorName},</p>
-      <p>Your abstract "<strong>${data.title}</strong>" (Ref: ${data.abstractRef}) has been ${data.status}.</p>
-      ${data.comments ? `<p><strong>Comments:</strong> ${data.comments}</p>` : ''}
-      <p>Please log in to your dashboard for further details.</p>
-    `);
-  }
-
   async sendPaymentStatusUpdate(email, data) {
     return this.send(email, `Payment ${data.status} - ${EVENT_SHORT_NAME}`, `
       <h2>Payment Status Update</h2>

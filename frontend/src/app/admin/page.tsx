@@ -650,7 +650,7 @@ export default function AdminDashboardPage() {
                 Abstract Template File Management
               </h2>
               <p style={{ fontSize: '0.875rem', color: 'var(--slate-600)', marginBottom: '1.25rem', lineHeight: '1.6' }}>
-                Current template: <strong>{normalizeEventText(settings.abstractTemplateName || 'Template for extended abstract (ACANS 2026).docx')}</strong>.
+                Current template: <strong>{normalizeEventText(settings.abstractTemplateName || 'ACANS-2026-extended-abstract-template.docx')}</strong>.
                 You can replace this file at any time without changing application code. The previous file is safely backed up automatically.
               </p>
 
@@ -716,6 +716,8 @@ export default function AdminDashboardPage() {
                     <label className="form-label">Abstract Word Limit</label>
                     <input
                       type="number"
+                      min={1}
+                      max={250}
                       value={settings.abstractWordLimit}
                       onChange={(e) => setSettings({ ...settings, abstractWordLimit: Number(e.target.value) })}
                       className="form-control"

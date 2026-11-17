@@ -85,7 +85,7 @@ export default function HomePage() {
   const speakers = [
     {
       name: 'Dr. Hrishikesh Mishra',
-      image: '/images/speakers/dr-hrishikesh-mishra.png',
+      image: '/images/speakers/dr-hrishikesh-mishra.jpeg',
       role: 'President, INS',
       affiliation: 'Former Distinguished Scientist; Former Director, Engineering Service Group, BARC',
     },
@@ -184,7 +184,8 @@ export default function HomePage() {
             margin: '0 auto 1rem auto',
             lineHeight: 1.4,
           }}>
-            &ndash; National Seminar on &ldquo;Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities&rdquo;
+            <span style={{ display: 'block' }}>– National Seminar on “Advanced Computing and Nuclear Science:</span>
+            <span style={{ display: 'block' }}>Emerging Technologies, Interdisciplinary Applications and Research Opportunities”</span>
           </div>
 
           <p style={{
@@ -194,7 +195,7 @@ export default function HomePage() {
             margin: '0 auto 1.5rem auto',
             lineHeight: 1.6,
           }}>
-            The National Seminar on &ldquo;Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities&rdquo; is hosted by <strong>Dr. A.P.J. Abdul Kalam Women&apos;s Institute of Technology (WIT), Lalit Narayan Mithila University (LNMU)</strong>, in collaboration with the <strong>Indian Nuclear Society (INS)</strong>.
+            The National Seminar on &ldquo;Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities&rdquo; is organised by <strong>Dr. A.P.J. Abdul Kalam Women&apos;s Institute of Technology (WIT), Lalit Narayan Mithila University (LNMU)</strong>, in collaboration with the <strong>Indian Nuclear Society (INS)</strong>.
           </p>
 
           {/* Dates & Venue Info Box */}
@@ -261,7 +262,7 @@ export default function HomePage() {
                     ● Official Template Available
                   </div>
                   <div style={{ marginTop: '0.2rem' }}>
-                    Official ACANS 2026 extended abstract template is available as a PDF. The abstract page limit remains 2 pages.
+                    Abstract submission closes 4 December 2026. Submit a one-page extended abstract of no more than 250 words. Registration remains open after the abstract deadline, subject to arrangements; late abstracts will not be considered for publication.
                   </div>
                   <a
                     href="/downloads/ACANS-2026-extended-abstract-template.pdf"
@@ -312,7 +313,7 @@ export default function HomePage() {
                   ACANS 2026: Advanced Computing and Nuclear Science
                 </h2>
                 <p style={{ color: '#334155', lineHeight: 1.7, marginBottom: '1rem', fontSize: '0.925rem' }}>
-                  ACANS 2026 is the National Seminar on <em>&ldquo;Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities&rdquo;</em>, hosted by <strong>Dr. A.P.J. Abdul Kalam Women&apos;s Institute of Technology (WIT)</strong>, a constituent unit of <strong>Lalit Narayan Mithila University (LNMU)</strong>, Darbhanga, Bihar, in collaboration with the <strong>Indian Nuclear Society (INS)</strong>.
+                  ACANS 2026 is the National Seminar on <em>&ldquo;Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities&rdquo;</em>, organised by <strong>Dr. A.P.J. Abdul Kalam Women&apos;s Institute of Technology (WIT)</strong>, a constituent unit of <strong>Lalit Narayan Mithila University (LNMU)</strong>, Darbhanga, Bihar, in collaboration with the <strong>Indian Nuclear Society (INS)</strong>.
                 </p>
                 <p style={{ color: '#334155', lineHeight: 1.7, marginBottom: '1.25rem', fontSize: '0.925rem' }}>
                   The seminar explores high-performance computing, artificial intelligence, digital twin simulations, nuclear energy safety, radiation applications in agriculture and health sciences, and women in STEM technologies.
@@ -454,7 +455,7 @@ export default function HomePage() {
                 <tbody>
                   <tr>
                     <td><strong>Student</strong></td>
-                    <td>Undergraduate and Postgraduate Students with valid college ID</td>
+                    <td>Undergraduate and Postgraduate Students</td>
                     <td><strong style={{ color: '#0f294a', fontSize: '1.1rem' }}>₹500</strong></td>
                     <td>
                       <Link href="/register?category=student" className="btn btn-primary btn-sm">
@@ -464,7 +465,7 @@ export default function HomePage() {
                   </tr>
                   <tr>
                     <td><strong>Research Scholar</strong></td>
-                    <td>Ph.D. Scholars, Junior/Senior Research Fellows, Postdoctoral Fellows</td>
+                    <td>Ph.D. Scholars and Junior/Senior Research Fellows</td>
                     <td><strong style={{ color: '#0f294a', fontSize: '1.1rem' }}>₹750</strong></td>
                     <td>
                       <Link href="/register?category=research_scholar" className="btn btn-primary btn-sm">
@@ -473,8 +474,8 @@ export default function HomePage() {
                     </td>
                   </tr>
                   <tr>
-                    <td><strong>Faculty Member</strong></td>
-                    <td>Faculty Members, Scientists, and Academic Delegates</td>
+                    <td><strong>Faculty</strong></td>
+                    <td>Faculty, Scientists, and Academic Delegates</td>
                     <td><strong style={{ color: '#0f294a', fontSize: '1.1rem' }}>₹1,000</strong></td>
                     <td>
                       <Link href="/register?category=faculty" className="btn btn-primary btn-sm">
@@ -524,11 +525,6 @@ export default function HomePage() {
                     <td><strong>Extended Abstract Submission</strong></td>
                     <td>Open (250-word summary + official paper template PDF)</td>
                     <td><span className="badge badge-accepted">Active</span></td>
-                  </tr>
-                  <tr>
-                    <td><strong>Notification of Acceptance</strong></td>
-                    <td>To be communicated to authors via email</td>
-                    <td><span className="badge badge-submitted">Upcoming</span></td>
                   </tr>
                   <tr>
                     <td><strong>Delegate Registration Deadline</strong></td>

@@ -74,7 +74,7 @@ export default function TemplateDownloadCard({ compact = false }: TemplateDownlo
           </h3>
 
           <p style={{ fontSize: '0.875rem', color: '#475569', marginBottom: '0.9rem', lineHeight: '1.5' }}>
-            All contributory paper abstracts must strictly follow this official template. Maximum <strong>2 pages</strong> including figures, tables, and references (Title: 14pt Capital Times New Roman, Body: 11pt, 1.5 line spacing).
+            Use the A4 template&apos;s built-in styles. The seminar limit is <strong>one page and 250 words</strong>, including figures, tables, and references.
           </p>
 
           <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'center' }}>
@@ -88,6 +88,14 @@ export default function TemplateDownloadCard({ compact = false }: TemplateDownlo
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
               </svg>
               Download Abstract Template (.pdf)
+            </a>
+
+            <a
+              href="/downloads/ACANS-2026-extended-abstract-template.docx"
+              download="ACANS-2026-extended-abstract-template.docx"
+              className="btn btn-outline-navy"
+            >
+              Download Editable Template (.docx)
             </a>
 
             <span style={{ fontSize: '0.8rem', color: '#64748b' }}>

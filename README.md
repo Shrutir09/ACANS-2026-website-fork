@@ -2,7 +2,7 @@
 # ACANS 2026 National Seminar Website
 ### Joint Academic Event: Dr. A.P.J. Abdul Kalam WIT (LNMU) & Indian Nuclear Society (INS)
 
-A full-stack, secure, production-grade seminar management web application for **ACANS 2026 – National Seminar on "Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities."** The seminar is hosted by Dr. A.P.J. Abdul Kalam Women's Institute of Technology (WIT), Lalit Narayan Mithila University (LNMU), in collaboration with the Indian Nuclear Society (INS).
+A full-stack, secure, production-grade seminar management web application for **ACANS 2026 – National Seminar on "Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities."** The seminar is organised by Dr. A.P.J. Abdul Kalam Women's Institute of Technology (WIT), Lalit Narayan Mithila University (LNMU), in collaboration with the Indian Nuclear Society (INS).
 
 ---
 
@@ -20,15 +20,15 @@ A full-stack, secure, production-grade seminar management web application for **
 4. **Registration Fees**:
    - Students: **₹500**
    - Research Scholars: **₹750**
-   - Faculty Members: **₹1,000**
+   - Faculty: **₹1,000**
 5. **Fee Payment & Reporting Policy**:
    - In accordance with institutional guidelines, **no online payment gateway or automated QR code is generated**.
    - Official payment instructions/accounts are provided by the college.
    - Participants record and report paid details (UPI UTR / transaction ID, cash receipt number, or bank transfer reference) on their dashboard.
    - Authorized administrators manually verify or reject submissions with an audit trail.
 6. **Official Abstract Template**:
-   - Official extended abstract template for ACANS 2026 (1.79 MB).
-   - Max 2 pages, Times New Roman (Title: 14pt Capital Bold, Subtitles: 12pt Bold, Text: 11pt, 1.5 line spacing).
+   - Official A4 extended abstract template for ACANS 2026, available as PDF and editable DOCX.
+   - Maximum one page and 250 words; follow the replacement template's built-in styles.
    - Configurable live word counter (default 250 words) enforced on both client and server.
    - Downloadable directly from the homepage, abstract submission page, and participant dashboard.
    - Admin replaceable through the admin panel without modifying code.
@@ -189,7 +189,7 @@ To access the private Admin Dashboard:
 - **Download Label**: `Template for extended abstract (ACANS 2026).docx`
 - **Format**: Microsoft Word OpenXML (`.docx`)
 - **File Size**: 1.79 MB (1,793,931 bytes)
-- **Local Storage**: `backend/uploads/templates/Template_for_extended_abstract_ACANS-2026.docx` and `frontend/public/downloads/`
+- **Local Storage**: `backend/uploads/templates/ACANS-2026-extended-abstract-template.docx` and `frontend/public/downloads/`
 - **Serving Route**: `GET /api/v1/settings/template/download`
 - **Online Replacement**: Administrators can upload and replace the official template directly via `/admin` (Tab: "Event Content Settings") with automatic timestamped backup versioning.
 
@@ -201,7 +201,7 @@ A comprehensive automated test suite is included in `backend/src/scripts/testSui
 - Public health check and event metadata retrieval
 - Populated committee data matching `Details.docx`
 - Verified registration fee rates (Student: ₹500, Scholar: ₹750, Faculty: ₹1,000)
-- Verified unconfirmed proposed date status
+- Confirmed seminar dates and abstract deadline metadata
 - Official abstract template download (HTTP 200, correct docx MIME type, exact file size)
 - Participant registration, duplicate email rejection, and password hashing
 - HttpOnly cookie authentication and `/auth/me` user retrieval
@@ -211,7 +211,7 @@ A comprehensive automated test suite is included in `backend/src/scripts/testSui
 - Cross-user authorization check (participants blocked from admin endpoints)
 - Administrator authentication and dashboard statistics
 - Payment review and verification with automatic registration confirmation
-- Abstract review and acceptance with review notes hidden from participants
+- Admin-only abstract management, with participant responses limited to submission receipt
 - Session logout and cookie clearing
 
 ### Running the Test Suite:

@@ -39,7 +39,7 @@ async function initDefaults() {
         datesNote: '',
         venue: 'Dr. A.P.J. Abdul Kalam Women\'s Institute of Technology (WIT), Darbhanga, Bihar',
         venueAddress: 'Lalit Narayan Mithila University Campus, Darbhanga, Bihar 846004, India',
-        aboutEvent: `ACANS 2026 is the National Seminar on "Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities." It is hosted by Dr. A.P.J. Abdul Kalam Women's Institute of Technology (WIT), a constituent unit of Lalit Narayan Mithila University (LNMU), Darbhanga, Bihar, in collaboration with the Indian Nuclear Society (INS). The seminar brings together leading scientists, researchers, faculty, and research scholars to explore synergies between nuclear technologies and advanced computing.`,
+        aboutEvent: `ACANS 2026 is the National Seminar on "Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities." It is organised by Dr. A.P.J. Abdul Kalam Women's Institute of Technology (WIT), a constituent unit of Lalit Narayan Mithila University (LNMU), Darbhanga, Bihar, in collaboration with the Indian Nuclear Society (INS). The seminar brings together leading scientists, researchers, faculty, and research scholars to explore synergies between nuclear technologies and advanced computing.`,
         aboutINS: `The Indian Nuclear Society (INS) is a professional body dedicated to the advancement and peaceful applications of nuclear science, technology, and allied disciplines. INS collaborates with WIT, LNMU in organizing ACANS 2026. Separately, INS organizes its own annual conference and other scientific forums.`,
         aboutLNMU: `Lalit Narayan Mithila University (LNMU), established in 1972, is an esteemed state university situated in the historic city of Darbhanga, Bihar. Named in honour of the illustrious leader and philosopher Lalit Narayan Mishra, LNMU is a major hub of higher learning and research in North Bihar, providing quality education across arts, science, commerce, law, medicine, and engineering through numerous constituent and affiliated institutions.`,
         aboutWIT: aboutWITText,
@@ -55,9 +55,10 @@ async function initDefaults() {
         },
         paymentInstructions: 'Please submit registration fees according to instructions provided by Dr. A.P.J. Abdul Kalam Women\'s Institute of Technology (WIT), LNMU. After payment via UPI, Cash, or Bank Transfer, enter your transaction reference ID and proof below for administrative verification.',
         abstractWordLimit: 250,
-        abstractInstructions: 'All submissions must conform to the official ACANS 2026 extended abstract template. Contributory paper abstracts must not exceed 2 pages including figures, tables, and references. The abstract text summary below should be within the configured word limit.',
-        abstractTemplateFile: 'uploads/templates/Template_for_extended_abstract_ACANS-2026.docx',
-        abstractTemplateName: 'Template for extended abstract (ACANS 2026).docx',
+        abstractDeadline: '4 December 2026',
+        abstractInstructions: 'All submissions must conform to the official ACANS 2026 extended abstract template. Contributory paper abstracts must not exceed one page or 250 words, including figures, tables, and references.',
+        abstractTemplateFile: 'uploads/templates/ACANS-2026-extended-abstract-template.docx',
+        abstractTemplateName: 'ACANS-2026-extended-abstract-template.docx',
         registrationOpen: true,
         abstractSubmissionOpen: true,
         contactEmail: 'contact@insac2026.org',
@@ -66,8 +67,7 @@ async function initDefaults() {
         travelInfo: 'Darbhanga is well-connected by air via Darbhanga Airport (DHR) with direct flights from Delhi, Mumbai, Bengaluru, and Kolkata. It is also well-connected by rail to major Indian cities.',
         importantDates: [
           { label: 'Seminar Dates', date: '7–9 December 2026', confirmed: true },
-          { label: 'Abstract Submission Deadline', date: 'To be announced', confirmed: false },
-          { label: 'Notification of Acceptance', date: 'To be announced', confirmed: false },
+          { label: 'Abstract Submission Deadline', date: '4 December 2026', confirmed: true },
           { label: 'Registration Deadline', date: 'To be announced', confirmed: false },
         ],
         committees: [
@@ -175,9 +175,9 @@ async function initDefaults() {
         settings.aboutINS = 'The Indian Nuclear Society (INS) is a professional body dedicated to the advancement and peaceful applications of nuclear science, technology, and allied disciplines. INS collaborates with WIT, LNMU in organizing ACANS 2026. Separately, INS organizes its own annual conference and other scientific forums.';
         settingsUpdated = true;
       }
-      updateText('abstractInstructions', [[/INSAC[ -]?2026/gi, 'ACANS 2026']]);
+      updateText('abstractInstructions', [[/INSAC[ -]?2026/gi, 'ACANS 2026'], [/not exceed 2 pages|maximum 2 pages|maximum of two pages/gi, 'not exceed one page or 250 words'], [/hosted by/gi, 'organised by']]);
       updateText('abstractTemplateName', [[/INSAC[ -]?2026/gi, 'ACANS 2026']]);
-      updateText('abstractTemplateFile', [[/Template_for_extended_abstract_INSAC-2026\.docx/gi, 'Template_for_extended_abstract_ACANS-2026.docx']]);
+      updateText('abstractTemplateFile', [[/Template_for_extended_abstract_INSAC-2026\.docx/gi, 'uploads/templates/ACANS-2026-extended-abstract-template.docx'], [/Template_for_extended_abstract_ACANS-2026\.docx/gi, 'uploads/templates/ACANS-2026-extended-abstract-template.docx']]);
       if (settings.aboutWIT !== aboutWITText) {
         settings.aboutWIT = aboutWITText;
         settingsUpdated = true;
@@ -227,6 +227,44 @@ async function initDefaults() {
         settings.conferenceSubtitle = 'Collaborating organization for ACANS 2026';
         settingsUpdated = true;
       }
+      if (Number(settings.abstractWordLimit) > 250) {
+        settings.abstractWordLimit = 250;
+        settingsUpdated = true;
+      }
+      if (settings.abstractDeadline !== '4 December 2026') {
+        settings.abstractDeadline = '4 December 2026';
+        settingsUpdated = true;
+      }
+      if (Array.isArray(settings.importantDates)) {
+        const filteredDates = settings.importantDates.filter((item) => !/^(?:notice|notification) of acceptance$/i.test(item.label || ''));
+        if (filteredDates.length !== settings.importantDates.length) {
+          settings.importantDates = filteredDates;
+          settingsUpdated = true;
+        }
+        let hasAbstractDeadline = false;
+        settings.importantDates.forEach((item) => {
+          if (item.label === 'Abstract Submission Deadline') {
+            hasAbstractDeadline = true;
+            if (item.date !== '4 December 2026' || item.confirmed !== true) {
+              item.date = '4 December 2026';
+              item.confirmed = true;
+              settingsUpdated = true;
+            }
+          }
+        });
+        if (!hasAbstractDeadline) {
+          settings.importantDates.push({ label: 'Abstract Submission Deadline', date: '4 December 2026', confirmed: true });
+          settingsUpdated = true;
+        }
+      }
+      if (typeof settings.aboutEvent === 'string' && /hosted by/i.test(settings.aboutEvent)) {
+        settings.aboutEvent = settings.aboutEvent.replace(/hosted by/gi, 'organised by');
+        settingsUpdated = true;
+      }
+      if (typeof settings.abstractInstructions === 'string' && /2 pages|two pages/i.test(settings.abstractInstructions)) {
+        settings.abstractInstructions = 'All submissions must conform to the official ACANS 2026 extended abstract template. Contributory paper abstracts must not exceed one page or 250 words, including figures, tables, and references.';
+        settingsUpdated = true;
+      }
       if (Array.isArray(settings.announcements)) {
         settings.announcements.forEach((announcement) => {
           for (const field of ['title', 'content']) {
@@ -265,9 +303,9 @@ async function initDefaults() {
       }
 
       // Ensure template path is set if empty
-      if (!settings.abstractTemplateFile) {
-        settings.abstractTemplateFile = 'uploads/templates/Template_for_extended_abstract_ACANS-2026.docx';
-        settings.abstractTemplateName = 'Template for extended abstract (ACANS 2026).docx';
+      if (!settings.abstractTemplateFile || settings.abstractTemplateName === 'Template for extended abstract (ACANS 2026).docx') {
+        settings.abstractTemplateFile = 'uploads/templates/ACANS-2026-extended-abstract-template.docx';
+        settings.abstractTemplateName = 'ACANS-2026-extended-abstract-template.docx';
         settingsUpdated = true;
       }
 

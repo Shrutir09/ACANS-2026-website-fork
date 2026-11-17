@@ -95,8 +95,9 @@ async function runTests() {
     // 3. Official Template Download
     const templateRes = await makeRequest('GET', '/api/v1/settings/template/download');
     assert(templateRes.statusCode === 200, 'Template download route returns 200');
-    assert(templateRes.headers['content-disposition'].includes('Template for extended abstract (ACANS 2026).docx'), 'Downloaded filename matches the ACANS 2026 template label');
-    assert(templateRes.raw.length > 1700000, `Downloaded file size matches original docx (${(templateRes.raw.length / 1024 / 1024).toFixed(2)} MB)`);
+    assert(templateRes.headers['content-disposition'].includes('ACANS-2026-extended-abstract-template.docx'), 'Downloaded filename matches the replacement ACANS 2026 template');
+    const expectedTemplateSize = fs.statSync(path.join(__dirname, '../../uploads/templates/ACANS-2026-extended-abstract-template.docx')).size;
+    assert(templateRes.raw.length === expectedTemplateSize, 'Downloaded file size matches the replacement DOCX template');
 
     // 4. Participant Registration
     const testEmail = `scholar_${Date.now()}@lnmu.edu.in`;
@@ -263,10 +264,10 @@ async function runTests() {
     }, adminCookie);
     assert(reviewRes.statusCode === 200 && reviewRes.body.abstract.status === 'accepted', 'Admin accepts abstract');
 
-    // 18. Participant Dashboard view reflects accepted status without exposing private review notes
+    // 18. Participant responses confirm receipt without exposing internal review outcomes
     const myAbstract = await makeRequest('GET', '/api/v1/abstracts/my', null, participantCookie);
-    assert(myAbstract.body.abstract.status === 'accepted', 'Participant sees accepted status');
-    assert(myAbstract.body.abstract.reviewNotes === undefined, 'Private admin review notes remain strictly hidden from participant');
+    assert(myAbstract.body.abstract.status === 'submitted', 'Participant sees receipt status only');
+    assert(myAbstract.body.abstract.reviewNotes === undefined && myAbstract.body.abstract.revisionComments === undefined && myAbstract.body.abstract.reviewedAt === undefined, 'Internal review outcomes and comments remain hidden from participant');
 
     // 19. Logout & Session Invalidation
     const logoutRes = await makeRequest('POST', '/api/v1/auth/logout', null, participantCookie);

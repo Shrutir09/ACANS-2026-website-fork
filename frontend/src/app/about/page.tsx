@@ -35,7 +35,7 @@ export default function AboutPage() {
             About ACANS 2026 and the Collaborating Institutions
           </h1>
           <p style={{ color: '#cbd5e1', maxWidth: '750px', fontSize: '0.95rem' }}>
-            ACANS 2026 is the National Seminar hosted by Dr. A.P.J. Abdul Kalam Women&apos;s Institute of Technology (WIT), Lalit Narayan Mithila University (LNMU), in collaboration with the Indian Nuclear Society (INS).
+            ACANS 2026 is the National Seminar organised by Dr. A.P.J. Abdul Kalam Women&apos;s Institute of Technology (WIT), Lalit Narayan Mithila University (LNMU), in collaboration with the Indian Nuclear Society (INS).
           </p>
         </div>
       </section>
@@ -54,7 +54,7 @@ export default function AboutPage() {
               </div>
               <div className="card" style={{ borderLeft: '4px solid #0f294a', lineHeight: '1.8', color: '#334155' }}>
                 <p style={{ marginBottom: '1rem' }}>
-                  {aboutEvent || `ACANS 2026 is the National Seminar on "Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities." It is hosted by Dr. A.P.J. Abdul Kalam Women's Institute of Technology (WIT), a constituent unit of Lalit Narayan Mithila University (LNMU), Darbhanga, Bihar, in collaboration with the Indian Nuclear Society (INS). The seminar brings together researchers, academicians, scientists, and industry professionals to explore the intersections of nuclear science and advanced computing.`}
+                  {aboutEvent || `ACANS 2026 is the National Seminar on "Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities." It is organised by Dr. A.P.J. Abdul Kalam Women's Institute of Technology (WIT), a constituent unit of Lalit Narayan Mithila University (LNMU), Darbhanga, Bihar, in collaboration with the Indian Nuclear Society (INS). The seminar brings together researchers, academicians, scientists, and industry professionals to explore the intersections of nuclear science and advanced computing.`}
                 </p>
                 <p>
                   The seminar is a multidisciplinary platform connecting high-performance computing, artificial intelligence, digital twins, and numerical modeling with nuclear power generation, reactor design, radiation therapy, and nuclear medicine.
@@ -72,7 +72,7 @@ export default function AboutPage() {
               </div>
               <div className="card" style={{ borderLeft: '4px solid #0f294a', lineHeight: '1.8', color: '#334155' }}>
                 <p style={{ marginBottom: '1rem' }}>
-                  {settings?.aboutINS ? normalizeOrganizationText(settings.aboutINS) : `The Indian Nuclear Society (INS) is a professional body dedicated to the advancement and peaceful applications of nuclear science, technology, and allied disciplines. INS collaborates in organizing ACANS 2026, the National Seminar hosted by Dr. A.P.J. Abdul Kalam Women's Institute of Technology (WIT), LNMU. Separately, INS organizes its own annual conference.`}
+                  {settings?.aboutINS ? normalizeOrganizationText(settings.aboutINS) : `The Indian Nuclear Society (INS) is a professional body dedicated to the advancement and peaceful applications of nuclear science, technology, and allied disciplines. INS collaborates in organizing ACANS 2026, the National Seminar organised by Dr. A.P.J. Abdul Kalam Women's Institute of Technology (WIT), LNMU. Separately, INS organizes its own annual conference.`}
                 </p>
                 <p>
                   Through its national symposiums, technical seminars, and outreach, INS cultivates scientific literacy, technological self-reliance, and research collaboration in peaceful nuclear applications throughout the nation.
