@@ -139,7 +139,7 @@ const advisoryCommittee: { department: string; members: CommitteeMember[] }[] = 
   {
     department: 'Department of Physics',
     members: [
-      { name: 'Prof. Naushad Alam', photo: null, photoPosition: 'center 30%' },
+      { name: 'Prof. Naushad Alam', photo: '/images/leadership/naushad alam.png', photoPosition: 'center 30%' },
       { name: 'Dr. Pooja Agarwal', photo: '/images/leadership/Dr. Pooja Agarwal.png', photoPosition: 'center 30%' },
       { name: 'Dr. Sumandeep Kaur', photo: null, photoPosition: 'center 30%' },
     ],
