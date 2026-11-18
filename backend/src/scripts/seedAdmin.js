@@ -15,25 +15,33 @@ async function seedAdmin() {
 
     const User = require('../models/User');
 
-    const existing = await User.findOne({ email: config.admin.email.toLowerCase() });
-    if (existing) {
-      console.log(`Admin user already exists: ${config.admin.email}`);
-      if (existing.role !== 'admin') {
-        existing.role = 'admin';
-        await existing.save();
-        console.log('Role updated to admin.');
-      }
-    } else {
-      await User.create({
-        fullName: config.admin.name,
-        email: config.admin.email.toLowerCase(),
-        password: config.admin.password,
-        role: 'admin',
-        isEmailVerified: true,
-        consentGiven: true,
-      });
-      console.log(`Admin user created: ${config.admin.email}`);
-    }
+   const existing = await User.findOne({
+  email: config.admin.email.toLowerCase().trim()
+}).select('+password');
+
+if (existing) {
+  console.log(`Admin user already exists: ${config.admin.email}`);
+
+  existing.role = 'admin';
+  existing.password = config.admin.password;
+  existing.isEmailVerified = true;
+  existing.consentGiven = true;
+
+  await existing.save();
+
+  console.log('Admin details and password updated successfully.');
+} else {
+  await User.create({
+    fullName: config.admin.name,
+    email: config.admin.email.toLowerCase().trim(),
+    password: config.admin.password,
+    role: 'admin',
+    isEmailVerified: true,
+    consentGiven: true,
+  });
+
+  console.log(`Admin user created: ${config.admin.email}`);
+}
 
     await mongoose.disconnect();
     console.log('Done.');
