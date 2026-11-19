@@ -22,9 +22,9 @@ async function seedSettings() {
     settings.eventSubtitle = 'Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities';
     settings.conferenceTitle = 'Indian Nuclear Society (INS) – Collaborating Organization';
     settings.conferenceSubtitle = 'Collaborating organization for ACANS 2026';
-    settings.abstractTemplateFile = 'uploads/templates/ACANS-2026-extended-abstract-template.docx';
-    settings.abstractTemplateName = 'ACANS-2026-abstract-template.docx';
-    settings.abstractInstructions = 'All submissions should conform to the official template format. The abstract of contributory papers should not exceed one page or 250 words, including figures, tables, and references in Times New Roman format.';
+    settings.abstractTemplateFile = 'uploads/templates/ACANS-2026-Paper-Presentation-Template.docx';
+    settings.abstractTemplateName = 'ACANS-2026-Paper-Presentation-Template.docx';
+    settings.abstractInstructions = 'Prepare your paper presentation using the official ACANS 2026 Paper Presentation Template (DOCX). The online abstract summary must not exceed 250 words.';
     settings.abstractWordLimit = 250;
     settings.abstractDeadline = '3 December 2026';
     settings.importantDates = (settings.importantDates || []).map(item => {

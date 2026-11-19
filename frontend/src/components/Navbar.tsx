@@ -50,15 +50,26 @@ export default function Navbar() {
 <div className="masthead">
   <div className="container masthead-container">
 
-    {/* INS Logo */}
+    {/* WIT and LNMU Logos */}
     <div className="masthead-left">
-      <div className="masthead-logo masthead-logo-ins">
+      <div className="masthead-logo masthead-logo-wit">
         <Image
-          src="/logos/ins_logo-removebg-preview.png"
-          alt="Indian Nuclear Society Logo"
-          width={120}
-          height={120}
-          sizes="(max-width: 720px) 60px, (max-width: 960px) 68px, 96px"
+          src="/logos/wit-logo-transparent.png"
+          alt="Women's Institute of Technology Logo"
+          width={100}
+          height={100}
+          sizes="(max-width: 720px) 48px, (max-width: 960px) 56px, 78px"
+          style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+        />
+      </div>
+
+      <div className="masthead-logo masthead-logo-lnmu">
+        <Image
+          src="/logos/lnmu-logo-transparent.png"
+          alt="Lalit Narayan Mithila University Logo"
+          width={100}
+          height={100}
+          sizes="(max-width: 720px) 48px, (max-width: 960px) 56px, 78px"
           style={{ width: '100%', height: '100%', objectFit: 'contain' }}
         />
       </div>
@@ -84,26 +95,15 @@ export default function Navbar() {
       </div>
     </div>
 
-    {/* LNMU and WIT Logos */}
+    {/* INS Logo */}
     <div className="masthead-right">
-      <div className="masthead-logo masthead-logo-lnmu">
+      <div className="masthead-logo masthead-logo-ins">
         <Image
-          src="/logos/lnmu-logo-transparent.png"
-          alt="Lalit Narayan Mithila University Logo"
-          width={100}
-          height={100}
-          sizes="100px"
-          style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-        />
-      </div>
-
-      <div className="masthead-logo masthead-logo-wit">
-        <Image
-          src="/logos/wit-logo-transparent.png"
-          alt="Women's Institute of Technology Logo"
-          width={100}
-          height={100}
-          sizes="100px"
+          src="/logos/ins_logo-removebg-preview.png"
+          alt="Indian Nuclear Society Logo"
+          width={120}
+          height={120}
+          sizes="(max-width: 720px) 60px, (max-width: 960px) 68px, 96px"
           style={{ width: '100%', height: '100%', objectFit: 'contain' }}
         />
       </div>
@@ -457,9 +457,9 @@ export default function Navbar() {
 
 .masthead-container {
   display: grid;
-  grid-template-columns: clamp(132px, 10vw, 180px) minmax(0, 1fr) clamp(132px, 10vw, 180px);
+  grid-template-columns: clamp(168px, 14vw, 190px) minmax(0, 1fr) clamp(82px, 7vw, 100px);
   align-items: center;
-  gap: clamp(0.85rem, 1.6vw, 2rem);
+  gap: clamp(0.55rem, 1vw, 1rem);
 }
 
 /* Left: INS */
@@ -467,6 +467,7 @@ export default function Navbar() {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  gap: 0.75rem;
 }
 
 /* Right: LNMU and WIT */
@@ -657,6 +658,7 @@ export default function Navbar() {
   .masthead-left {
     grid-area: left;
     justify-content: flex-start;
+    gap: 0.5rem;
   }
 
   .masthead-right {

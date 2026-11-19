@@ -978,9 +978,9 @@ header.site-header .masthead {
 
 header.site-header .masthead-container {
   display: grid;
-  grid-template-columns: clamp(132px, 10vw, 180px) minmax(0, 1fr) clamp(132px, 10vw, 180px);
+  grid-template-columns: clamp(168px, 14vw, 190px) minmax(0, 1fr) clamp(82px, 7vw, 100px);
   align-items: center;
-  gap: clamp(0.85rem, 1.6vw, 2rem);
+  gap: clamp(0.55rem, 1vw, 1rem);
 }
 
 header.site-header .masthead-left,
@@ -992,6 +992,7 @@ header.site-header .masthead-logo {
 
 header.site-header .masthead-left {
   justify-content: flex-start;
+  gap: 0.75rem;
 }
 
 header.site-header .masthead-right {
@@ -1149,6 +1150,7 @@ header.site-header .masthead-organizer {
 
   header.site-header .masthead-left {
     grid-area: left;
+    gap: 0.5rem;
   }
 
   header.site-header .masthead-right {

@@ -187,7 +187,7 @@ function RegisterContent() {
 
             <div className="grid-2">
               <div className="form-group">
-                <label className="form-label" htmlFor="institution">Affiliation / Institution *</label>
+              <label className="form-label" htmlFor="institution">University / College / Institute *</label>
                 <input
                   id="institution"
                   name="institution"
@@ -195,7 +195,7 @@ function RegisterContent() {
                   required
                   value={formData.institution}
                   onChange={handleChange}
-                  placeholder="e.g. LNMU, BARC, IIT..."
+                placeholder="Enter your university, college, or institute"
                   className="form-control"
                 />
               </div>

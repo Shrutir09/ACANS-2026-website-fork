@@ -31,7 +31,6 @@ function AbstractSubmissionContent() {
     contactEmail: '',
   });
 
-  const [file, setFile] = useState<File | null>(null);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState<{ message: string; ref: string } | null>(null);
   const [loading, setLoading] = useState(false);
@@ -70,24 +69,6 @@ function AbstractSubmissionContent() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const selected = e.target.files[0];
-      const validExtensions = ['.pdf', '.doc', '.docx'];
-      const ext = selected.name.substring(selected.name.lastIndexOf('.')).toLowerCase();
-      if (!validExtensions.includes(ext)) {
-        setError('Only .pdf, .doc, or .docx files are permitted for abstract attachment.');
-        return;
-      }
-      if (selected.size > 10 * 1024 * 1024) {
-        setError('File size must not exceed 10 MB.');
-        return;
-      }
-      setError('');
-      setFile(selected);
-    }
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
@@ -98,7 +79,7 @@ function AbstractSubmissionContent() {
     }
 
     if (wordCount > wordLimit) {
-      setError(`Abstract summary text exceeds the limit of ${wordLimit} words (currently ${wordCount} words). Please condense your text or refer to the uploaded document.`);
+      setError(`Abstract summary text exceeds the limit of ${wordLimit} words (currently ${wordCount} words). Please condense your text and refer to the official template for formatting guidance.`);
       return;
     }
 
@@ -115,10 +96,6 @@ function AbstractSubmissionContent() {
       formPayload.append('researchTheme', formData.researchTheme);
       formPayload.append('keywords', formData.keywords);
       formPayload.append('contactEmail', submissionData.contactEmail);
-      if (file) {
-        formPayload.append('attachment', file);
-      }
-
       const res = await api.submitAbstract(formPayload);
       setSuccess({
         message: 'Your abstract has been submitted successfully!',
@@ -335,28 +312,6 @@ function AbstractSubmissionContent() {
                 />
                 {/* Live Word Counter */}
                 <WordCounter currentCount={wordCount} maxLimit={wordLimit} />
-              </div>
-
-              <div className="form-group" style={{ backgroundColor: 'var(--slate-50)', padding: '1.25rem', borderRadius: '8px', border: '1px dashed var(--slate-300)' }}>
-                <label className="form-label" htmlFor="abstractFile">
-                  Upload Abstract Document (.docx, .doc, .pdf)
-                </label>
-                <p style={{ fontSize: '0.825rem', color: 'var(--slate-500)', marginBottom: '0.75rem' }}>
-                  Use the official template. The abstract must fit on one page and contain no more than 250 words, including any figures and tables.
-                </p>
-                <input
-                  id="abstractFile"
-                  type="file"
-                  accept=".docx,.doc,.pdf"
-                  onChange={handleFileChange}
-                  className="form-control"
-                  style={{ backgroundColor: 'var(--white)' }}
-                />
-                {file && (
-                  <div style={{ marginTop: '0.5rem', fontSize: '0.85rem', color: 'var(--teal-600)', fontWeight: 600 }}>
-                    Selected file: {file.name} ({(file.size / 1024 / 1024).toFixed(2)} MB)
-                  </div>
-                )}
               </div>
 
               <button

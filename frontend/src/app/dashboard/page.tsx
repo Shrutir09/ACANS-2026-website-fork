@@ -457,17 +457,17 @@ export default function ParticipantDashboard() {
             {/* Template Card */}
             <div className="card" style={{ borderLeft: '4px solid #0f294a' }}>
               <h3 style={{ fontSize: '1.05rem', color: 'var(--navy-900)', marginBottom: '0.5rem' }}>
-                Official Abstract Template
+                Paper Presentation Template
               </h3>
               <p style={{ fontSize: '0.85rem', color: 'var(--slate-600)', marginBottom: '1rem' }}>
-                Need the official A4 template for preparing contributory papers? Download the public PDF here:
+                Download the editable DOCX template for preparing your paper presentation:
               </p>
               <a
-                href="/downloads/ACANS-2026-extended-abstract-template.pdf"
-                download="ACANS-2026-abstract-template.pdf"
+                href="/downloads/ACANS-2026-Paper-Presentation-Template.docx"
+                download="ACANS-2026-Paper-Presentation-Template.docx"
                 className="btn btn-outline-navy btn-sm"
               >
-                📥 Download Template (.pdf)
+                📥 Download DOCX Template
               </a>
             </div>
 

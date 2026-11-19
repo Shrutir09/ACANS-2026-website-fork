@@ -92,11 +92,11 @@ const eventSettingsSchema = new mongoose.Schema({
   // Abstract settings
   abstractWordLimit: { type: Number, default: 250 },
   abstractDeadline: { type: String, default: '3 December 2026' },
-  abstractTemplateFile: { type: String, default: 'uploads/templates/ACANS-2026-extended-abstract-template.docx' },
-  abstractTemplateName: { type: String, default: 'ACANS-2026-abstract-template.docx' },
+  abstractTemplateFile: { type: String, default: 'uploads/templates/ACANS-2026-Paper-Presentation-Template.docx' },
+  abstractTemplateName: { type: String, default: 'ACANS-2026-Paper-Presentation-Template.docx' },
   abstractInstructions: {
     type: String,
-    default: 'All submissions must conform to the official ACANS 2026 abstract template. Contributory paper abstracts must not exceed one page or 250 words, including figures, tables, and references.',
+    default: 'Prepare your paper presentation using the official ACANS 2026 Paper Presentation Template (DOCX). The online abstract summary must not exceed 250 words.',
   },
 
   // Registration

@@ -229,12 +229,12 @@ export default function HomePage() {
           {/* Action CTAs */}
           <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>
             <a
-              href="/downloads/ACANS-2026-extended-abstract-template.pdf"
-              download="ACANS-2026-abstract-template.pdf"
+              href="/downloads/ACANS-2026-Paper-Presentation-Template.docx"
+              download="ACANS-2026-Paper-Presentation-Template.docx"
               className="btn btn-gold btn-lg"
               id="hero-template-cta"
             >
-              📄 Download Paper Template (.pdf)
+              📄 Download Paper Presentation Template (.docx)
             </a>
             <Link href="/register" className="btn btn-outline-white btn-lg" id="hero-register-cta">
               Register as Participant
@@ -265,11 +265,11 @@ export default function HomePage() {
                     Abstract submission closes 3 December 2026. Submit a one-page abstract of no more than 250 words. Registration remains open after the abstract deadline, subject to arrangements; late abstracts will not be considered for publication.
                   </div>
                   <a
-                    href="/downloads/ACANS-2026-extended-abstract-template.pdf"
-                    download="ACANS-2026-abstract-template.pdf"
+                    href="/downloads/ACANS-2026-Paper-Presentation-Template.docx"
+                    download="ACANS-2026-Paper-Presentation-Template.docx"
                     style={{ color: '#0f294a', fontWeight: 600, display: 'inline-block', marginTop: '0.25rem' }}
                   >
-                    Download Template (.pdf) →
+                    Download Paper Presentation Template (.docx) →
                   </a>
                 </li>
 

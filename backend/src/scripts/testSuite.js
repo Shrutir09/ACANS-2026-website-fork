@@ -95,9 +95,9 @@ async function runTests() {
     // 3. Official Template Download
     const templateRes = await makeRequest('GET', '/api/v1/settings/template/download');
     assert(templateRes.statusCode === 200, 'Template download route returns 200');
-    assert(templateRes.headers['content-disposition'].includes('ACANS-2026-abstract-template.docx'), 'Downloaded filename matches the replacement ACANS 2026 abstract template');
-    const expectedTemplateSize = fs.statSync(path.join(__dirname, '../../uploads/templates/ACANS-2026-extended-abstract-template.docx')).size;
-    assert(templateRes.raw.length === expectedTemplateSize, 'Downloaded file size matches the replacement DOCX template');
+    assert(templateRes.headers['content-disposition'].includes('ACANS-2026-Paper-Presentation-Template.docx'), 'Downloaded filename matches the ACANS 2026 Paper Presentation Template');
+    const expectedTemplateSize = fs.statSync(path.join(__dirname, '../../uploads/templates/ACANS-2026-Paper-Presentation-Template.docx')).size;
+    assert(templateRes.raw.length === expectedTemplateSize, 'Downloaded file size matches the DOCX paper presentation template');
 
     // 4. Participant Registration
     const testEmail = `scholar_${Date.now()}@lnmu.edu.in`;

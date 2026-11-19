@@ -339,15 +339,15 @@ export default function AdminDashboardPage() {
                   Active Template Status
                 </h3>
                 <p style={{ fontSize: '0.9rem', color: 'var(--slate-600)', marginBottom: '1rem', lineHeight: '1.6' }}>
-                  Current public template: <strong>ACANS 2026 Abstract Template (PDF)</strong>
+                  Current public template: <strong>ACANS 2026 Paper Presentation Template (DOCX)</strong>
                 </p>
                 <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
                   <a
-                    href="/downloads/ACANS-2026-extended-abstract-template.pdf"
-                    download="ACANS-2026-abstract-template.pdf"
+                    href="/downloads/ACANS-2026-Paper-Presentation-Template.docx"
+                    download="ACANS-2026-Paper-Presentation-Template.docx"
                     className="btn btn-sm btn-teal"
                   >
-                    📥 Test Download Public PDF
+                    📥 Test Download Public DOCX
                   </a>
                   <button onClick={() => setActiveTab('settings')} className="btn btn-sm btn-secondary">
                     Replace Template File
@@ -646,10 +646,10 @@ export default function AdminDashboardPage() {
             {/* Template Replacement Box */}
             <div className="card" style={{ borderLeft: '4px solid var(--navy-900)' }}>
               <h2 style={{ fontSize: '1.25rem', color: 'var(--navy-900)', marginBottom: '0.75rem' }}>
-                Abstract Template File Management
+                Paper Presentation Template File Management
               </h2>
               <p style={{ fontSize: '0.875rem', color: 'var(--slate-600)', marginBottom: '1.25rem', lineHeight: '1.6' }}>
-                Current template: <strong>ACANS 2026 Abstract Template (DOCX)</strong>.
+                Current template: <strong>ACANS 2026 Paper Presentation Template (DOCX)</strong>.
                 You can replace this file at any time without changing application code. The previous file is safely backed up automatically.
               </p>
 
