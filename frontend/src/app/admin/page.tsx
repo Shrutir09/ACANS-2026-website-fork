@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '../../context/AuthContext';
 import { api } from '../../lib/api';
 import { DashboardStats, Registration, Payment, Abstract, EventSettings } from '../../types';
-import { normalizeEventText } from '../../lib/eventText';
 import StatusBadge from '../../components/StatusBadge';
 
 export default function AdminDashboardPage() {
@@ -309,7 +308,7 @@ export default function AdminDashboardPage() {
               </div>
 
               <div className="card">
-                <div style={{ fontSize: '0.8rem', color: 'var(--slate-500)', textTransform: 'uppercase' }}>Extended Abstracts</div>
+                <div style={{ fontSize: '0.8rem', color: 'var(--slate-500)', textTransform: 'uppercase' }}>Abstracts</div>
                 <div style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--navy-900)', margin: '0.25rem 0' }}>{stats.submittedAbstracts}</div>
                 <div style={{ fontSize: '0.8rem', color: 'var(--slate-600)' }}>
                   {stats.acceptedAbstracts} Accepted • {stats.pendingAbstracts} In Review • {stats.rejectedAbstracts} Rejected
@@ -340,15 +339,15 @@ export default function AdminDashboardPage() {
                   Active Template Status
                 </h3>
                 <p style={{ fontSize: '0.9rem', color: 'var(--slate-600)', marginBottom: '1rem', lineHeight: '1.6' }}>
-                  Current public template: <strong>ACANS-2026-extended-abstract-template.pdf</strong>
+                  Current public template: <strong>ACANS 2026 Paper Presentation Template (DOCX)</strong>
                 </p>
                 <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
                   <a
-                    href="/downloads/ACANS-2026-extended-abstract-template.pdf"
-                    download="ACANS-2026-extended-abstract-template.pdf"
+                    href="/downloads/ACANS-2026-Paper-Presentation-Template.docx"
+                    download="ACANS-2026-Paper-Presentation-Template.docx"
                     className="btn btn-sm btn-teal"
                   >
-                    📥 Test Download Public PDF
+                    📥 Test Download Public DOCX
                   </a>
                   <button onClick={() => setActiveTab('settings')} className="btn btn-sm btn-secondary">
                     Replace Template File
@@ -546,7 +545,7 @@ export default function AdminDashboardPage() {
           <div className="card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
               <h2 style={{ fontSize: '1.35rem', color: 'var(--navy-900)' }}>
-                Contributory Extended Abstracts
+                Contributory Abstracts
               </h2>
               <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
                 <input
@@ -647,10 +646,10 @@ export default function AdminDashboardPage() {
             {/* Template Replacement Box */}
             <div className="card" style={{ borderLeft: '4px solid var(--navy-900)' }}>
               <h2 style={{ fontSize: '1.25rem', color: 'var(--navy-900)', marginBottom: '0.75rem' }}>
-                Abstract Template File Management
+                Paper Presentation Template File Management
               </h2>
               <p style={{ fontSize: '0.875rem', color: 'var(--slate-600)', marginBottom: '1.25rem', lineHeight: '1.6' }}>
-                Current template: <strong>{normalizeEventText(settings.abstractTemplateName || 'ACANS-2026-extended-abstract-template.docx')}</strong>.
+                Current template: <strong>ACANS 2026 Paper Presentation Template (DOCX)</strong>.
                 You can replace this file at any time without changing application code. The previous file is safely backed up automatically.
               </p>
 
@@ -800,7 +799,7 @@ export default function AdminDashboardPage() {
           }}>
             <div className="card" style={{ maxWidth: '500px', width: '100%', padding: '2rem' }}>
               <h3 style={{ fontSize: '1.25rem', color: 'var(--navy-900)', marginBottom: '1rem' }}>
-                {reviewingItem.type === 'payment' ? 'Reject Payment Submission' : 'Review Extended Abstract'}
+                {reviewingItem.type === 'payment' ? 'Reject Payment Submission' : 'Review Abstract'}
               </h3>
 
               {reviewingItem.type === 'abstract' && (

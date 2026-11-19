@@ -50,15 +50,26 @@ export default function Navbar() {
 <div className="masthead">
   <div className="container masthead-container">
 
-    {/* INS Logo */}
+    {/* WIT and LNMU Logos */}
     <div className="masthead-left">
-      <div className="masthead-logo masthead-logo-ins">
+      <div className="masthead-logo masthead-logo-wit">
         <Image
-          src="/logos/ins logo.jpeg"
-          alt="Indian Nuclear Society Logo"
+          src="/logos/wit-logo-transparent.png"
+          alt="Women's Institute of Technology Logo"
           width={100}
           height={100}
-          sizes="100px"
+          sizes="(max-width: 720px) 48px, (max-width: 960px) 56px, 78px"
+          style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+        />
+      </div>
+
+      <div className="masthead-logo masthead-logo-lnmu">
+        <Image
+          src="/logos/lnmu-logo-transparent.png"
+          alt="Lalit Narayan Mithila University Logo"
+          width={100}
+          height={100}
+          sizes="(max-width: 720px) 48px, (max-width: 960px) 56px, 78px"
           style={{ width: '100%', height: '100%', objectFit: 'contain' }}
         />
       </div>
@@ -71,7 +82,7 @@ export default function Navbar() {
       </h1>
 
       <div className="masthead-subtitle">
-        <span>– National Seminar on “Advanced Computing and Nuclear Science:</span>
+        <span> National Seminar on “Advanced Computing and Nuclear Science:</span>
         <span className="masthead-subtitle-detail">Emerging Technologies, Interdisciplinary Applications and Research Opportunities”</span>
       </div>
 
@@ -80,30 +91,19 @@ export default function Navbar() {
         <strong>
           Dr. A.P.J. Abdul Kalam Women&apos;s Institute of Technology (WIT)
         </strong>
-        , Lalit Narayan Mithila University (LNMU), Darbhanga, Bihar, in collaboration with the Indian Nuclear Society (INS)
+        , <strong>Lalit Narayan Mithila University (LNMU)</strong>, Darbhanga, Bihar, in collaboration with the <strong>Indian Nuclear Society (INS)</strong>
       </div>
     </div>
 
-    {/* LNMU and WIT Logos */}
+    {/* INS Logo */}
     <div className="masthead-right">
-      <div className="masthead-logo masthead-logo-lnmu">
+      <div className="masthead-logo masthead-logo-ins">
         <Image
-          src="/logos/lnmu logo.jpeg"
-          alt="Lalit Narayan Mithila University Logo"
-          width={100}
-          height={100}
-          sizes="100px"
-          style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-        />
-      </div>
-
-      <div className="masthead-logo masthead-logo-wit">
-        <Image
-          src="/logos/wit-logo-trimmed.jpg"
-          alt="Women's Institute of Technology Logo"
-          width={100}
-          height={100}
-          sizes="100px"
+          src="/logos/ins_logo-removebg-preview.png"
+          alt="Indian Nuclear Society Logo"
+          width={120}
+          height={120}
+          sizes="(max-width: 720px) 60px, (max-width: 960px) 68px, 96px"
           style={{ width: '100%', height: '100%', objectFit: 'contain' }}
         />
       </div>
@@ -387,7 +387,7 @@ export default function Navbar() {
                 <div className="announcement-group" key={copy} aria-hidden={copy === 1}>
                   <span>★ Official Seminar Paper Template (PDF) is available for download.</span>
                   <span className="announcement-separator">|</span>
-                  <span><strong>IMPORTANT NOTICE: Last date for Abstract Submission – 4 December 2026.</strong></span>
+                  <span><strong>IMPORTANT NOTICE: Last date for Abstract Submission – 3 December 2026.</strong></span>
                   <span className="announcement-separator">|</span>
                   <span>★ Seminar Dates: 7–9 December 2026.</span>
                   <span className="announcement-separator">|</span>
@@ -457,9 +457,9 @@ export default function Navbar() {
 
 .masthead-container {
   display: grid;
-  grid-template-columns: clamp(132px, 10vw, 180px) minmax(0, 1fr) clamp(132px, 10vw, 180px);
+  grid-template-columns: clamp(168px, 14vw, 190px) minmax(0, 1fr) clamp(82px, 7vw, 100px);
   align-items: center;
-  gap: clamp(0.85rem, 1.6vw, 2rem);
+  gap: clamp(0.55rem, 1vw, 1rem);
 }
 
 /* Left: INS */
@@ -467,6 +467,7 @@ export default function Navbar() {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  gap: 0.75rem;
 }
 
 /* Right: LNMU and WIT */
@@ -483,25 +484,26 @@ export default function Navbar() {
   align-items: center;
   justify-content: center;
   user-select: none;
+  background: transparent;
 }
 
-/* INS Logo: Authoritative Institutional Rounded Badge */
+/* INS Logo: Transparent Institutional Mark */
 .masthead-logo-ins {
-  width: clamp(70px, 4.5vw, 86px);
-  height: clamp(70px, 4.5vw, 86px);
-  flex: 0 0 clamp(70px, 4.5vw, 86px);
-  background-color: #000000;
-  border-radius: 8px;
-  border: 1px solid rgba(15, 41, 74, 0.18);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
-  overflow: hidden;
-  padding: 2px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: clamp(82px, 5vw, 96px);
+  height: clamp(82px, 5vw, 96px);
+  flex: 0 0 clamp(82px, 5vw, 96px);
+  background-color: transparent;
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+  overflow: visible;
+  padding: 0;
+  transition: none;
 }
 
 .masthead-logo-ins:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+  transform: none;
+  box-shadow: none;
 }
 
 .masthead-logo-ins img {
@@ -509,25 +511,29 @@ export default function Navbar() {
   height: 100%;
   object-fit: contain;
   display: block;
+  background: transparent;
+  border: none;
+  border-radius: 0;
 }
 
-/* LNMU Logo: Official University Circular Seal */
+/* LNMU and WIT logo images have transparent exterior backgrounds. */
 .masthead-logo-lnmu {
   width: clamp(64px, 3.8vw, 78px);
   height: clamp(64px, 3.8vw, 78px);
   flex: 0 0 clamp(64px, 3.8vw, 78px);
-  background-color: #ffffff;
-  border-radius: 50%;
-  border: 1px solid rgba(15, 41, 74, 0.14);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
-  overflow: hidden;
-  padding: 2px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: visible;
+  padding: 0;
+  transition: none;
 }
 
-.masthead-logo-lnmu:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.masthead-logo-lnmu:hover,
+.masthead-logo-wit:hover {
+  transform: none;
+  box-shadow: none;
 }
 
 .masthead-logo-lnmu img {
@@ -542,17 +548,13 @@ export default function Navbar() {
   width: clamp(64px, 3.8vw, 78px);
   height: clamp(64px, 3.8vw, 78px);
   flex: 0 0 clamp(64px, 3.8vw, 78px);
-  background-color: #ffffff;
-  border-radius: 50%;
-  border: 1px solid rgba(15, 41, 74, 0.14);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
-  overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.masthead-logo-wit:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: visible;
+  padding: 0;
+  transition: none;
 }
 
 .masthead-logo-wit img {
@@ -610,10 +612,10 @@ export default function Navbar() {
   }
 
   .masthead-logo-ins {
-    width: 60px;
-    height: 60px;
-    flex: 0 0 60px;
-    border-radius: 6px;
+    width: 68px;
+    height: 68px;
+    flex: 0 0 68px;
+    border-radius: 0;
   }
 
   .masthead-logo-lnmu {
@@ -656,6 +658,7 @@ export default function Navbar() {
   .masthead-left {
     grid-area: left;
     justify-content: flex-start;
+    gap: 0.5rem;
   }
 
   .masthead-right {
@@ -670,10 +673,10 @@ export default function Navbar() {
   }
 
   .masthead-logo-ins {
-    width: 52px;
-    height: 52px;
-    flex: 0 0 52px;
-    border-radius: 6px;
+    width: 60px;
+    height: 60px;
+    flex: 0 0 60px;
+    border-radius: 0;
   }
 
   .masthead-logo-lnmu {

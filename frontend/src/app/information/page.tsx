@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { api } from '../../lib/api';
 import { EventSettings } from '../../types';
 import TemplateDownloadCard from '../../components/TemplateDownloadCard';
+import OfficialPaymentDetails from '../../components/OfficialPaymentDetails';
 
 export default function InformationPage() {
   const [settings, setSettings] = useState<EventSettings | null>(null);
@@ -34,7 +35,7 @@ export default function InformationPage() {
             Registration for National Seminar and Fee
           </h1>
           <p style={{ color: '#cbd5e1', maxWidth: '750px', fontSize: '0.95rem' }}>
-            Eligibility criteria, registration procedures, fee structures, UPI payment instructions, and extended abstract guidelines.
+            Eligibility criteria, registration procedures, fee structures, UPI payment instructions, and abstract guidelines.
           </p>
         </div>
       </section>
@@ -103,10 +104,10 @@ export default function InformationPage() {
                   <strong>Official College Payment Notice:</strong> Official payment instructions and accounts are communicated by Dr. A.P.J. Abdul Kalam Women&apos;s Institute of Technology (WIT) / LNMU. This website does not generate online payment gateways or QR codes.
                 </div>
               </div>
-
+              <OfficialPaymentDetails />
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', color: '#334155', lineHeight: '1.7', fontSize: '0.9rem' }}>
                 <p>
-                  Participants must follow this workflow to register and verify their registration fee payment:
+                  Participants must follow this workflow below to register and verify their registration fee payment. The registration fee must be transferred to the official bank account provided above.
                 </p>
                 <ol style={{ paddingLeft: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                   <li><strong>Create an Account:</strong> Register your participant profile on this portal to generate a unique registration reference ID (e.g., <code>REG-xxxx</code>).</li>
@@ -120,10 +121,10 @@ export default function InformationPage() {
             {/* 3. Official Abstract Guidelines & Download */}
             <div className="card">
               <h2 style={{ fontSize: '1.35rem', color: '#0f294a', marginBottom: '1rem', borderBottom: '1px solid #e2e8f0', paddingBottom: '0.5rem', fontWeight: 700 }}>
-                3. Extended Abstract Submission Guidelines
+                3. Abstract Submission Guidelines
               </h2>
               <p style={{ color: '#334155', marginBottom: '1.25rem', lineHeight: '1.6', fontSize: '0.9rem' }}>
-                All abstract submissions must strictly adhere to the official format provided in the extended abstract template:
+                All abstract submissions must strictly adhere to the official format provided in the abstract template:
               </p>
 
               <div style={{ marginBottom: '1.75rem' }}>

@@ -27,7 +27,7 @@ A full-stack, secure, production-grade seminar management web application for **
    - Participants record and report paid details (UPI UTR / transaction ID, cash receipt number, or bank transfer reference) on their dashboard.
    - Authorized administrators manually verify or reject submissions with an audit trail.
 6. **Official Abstract Template**:
-   - Official A4 extended abstract template for ACANS 2026, available as PDF and editable DOCX.
+   - Official A4 abstract template for ACANS 2026, available as PDF and editable DOCX.
    - Maximum one page and 250 words; follow the replacement template's built-in styles.
    - Configurable live word counter (default 250 words) enforced on both client and server.
    - Downloadable directly from the homepage, abstract submission page, and participant dashboard.
@@ -77,7 +77,7 @@ insac2026/
 │       │   ├── login/page.tsx    # User & admin authentication
 │       │   ├── forgot-password/page.tsx # Password recovery
 │       │   ├── reset-password/page.tsx  # Secure token password reset
-│       │   ├── abstract-submission/page.tsx # Extended abstract submission form
+│       │   ├── abstract-submission/page.tsx # Abstract submission form
 │       │   ├── dashboard/page.tsx # Participant portal (fee tracking, payment reporting, abstract status)
 │       │   └── admin/page.tsx    # Protected admin control center
 │       ├── components/           # Reusable UI (Navbar, Footer, WordCounter, StatusBadge, TemplateDownloadCard)
@@ -186,7 +186,7 @@ To access the private Admin Dashboard:
 
 - **Source**: Retrieved live from the official conference reference site:  
   `https://www.insac2026.org/pdf/Template%20for%20extended%20abstract%20(INSAC-2026).docx` (the original source URL retained as provenance)
-- **Download Label**: `Template for extended abstract (ACANS 2026).docx`
+- **Download Label**: `ACANS-2026-abstract-template.docx`
 - **Format**: Microsoft Word OpenXML (`.docx`)
 - **File Size**: 1.79 MB (1,793,931 bytes)
 - **Local Storage**: `backend/uploads/templates/ACANS-2026-extended-abstract-template.docx` and `frontend/public/downloads/`

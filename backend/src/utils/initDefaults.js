@@ -55,10 +55,10 @@ async function initDefaults() {
         },
         paymentInstructions: 'Please submit registration fees according to instructions provided by Dr. A.P.J. Abdul Kalam Women\'s Institute of Technology (WIT), LNMU. After payment via UPI, Cash, or Bank Transfer, enter your transaction reference ID and proof below for administrative verification.',
         abstractWordLimit: 250,
-        abstractDeadline: '4 December 2026',
-        abstractInstructions: 'All submissions must conform to the official ACANS 2026 extended abstract template. Contributory paper abstracts must not exceed one page or 250 words, including figures, tables, and references.',
-        abstractTemplateFile: 'uploads/templates/ACANS-2026-extended-abstract-template.docx',
-        abstractTemplateName: 'ACANS-2026-extended-abstract-template.docx',
+        abstractDeadline: '3 December 2026',
+        abstractInstructions: 'Prepare your paper presentation using the official ACANS 2026 Paper Presentation Template (DOCX). The online abstract summary must not exceed 250 words.',
+        abstractTemplateFile: 'uploads/templates/ACANS-2026-Paper-Presentation-Template.docx',
+        abstractTemplateName: 'ACANS-2026-Paper-Presentation-Template.docx',
         registrationOpen: true,
         abstractSubmissionOpen: true,
         contactEmail: 'contact@insac2026.org',
@@ -67,7 +67,7 @@ async function initDefaults() {
         travelInfo: 'Darbhanga is well-connected by air via Darbhanga Airport (DHR) with direct flights from Delhi, Mumbai, Bengaluru, and Kolkata. It is also well-connected by rail to major Indian cities.',
         importantDates: [
           { label: 'Seminar Dates', date: '7–9 December 2026', confirmed: true },
-          { label: 'Abstract Submission Deadline', date: '4 December 2026', confirmed: true },
+          { label: 'Abstract Submission Deadline', date: '3 December 2026', confirmed: true },
           { label: 'Registration Deadline', date: 'To be announced', confirmed: false },
         ],
         committees: [
@@ -175,9 +175,9 @@ async function initDefaults() {
         settings.aboutINS = 'The Indian Nuclear Society (INS) is a professional body dedicated to the advancement and peaceful applications of nuclear science, technology, and allied disciplines. INS collaborates with WIT, LNMU in organizing ACANS 2026. Separately, INS organizes its own annual conference and other scientific forums.';
         settingsUpdated = true;
       }
-      updateText('abstractInstructions', [[/INSAC[ -]?2026/gi, 'ACANS 2026'], [/not exceed 2 pages|maximum 2 pages|maximum of two pages/gi, 'not exceed one page or 250 words'], [/hosted by/gi, 'organised by']]);
-      updateText('abstractTemplateName', [[/INSAC[ -]?2026/gi, 'ACANS 2026']]);
-      updateText('abstractTemplateFile', [[/Template_for_extended_abstract_INSAC-2026\.docx/gi, 'uploads/templates/ACANS-2026-extended-abstract-template.docx'], [/Template_for_extended_abstract_ACANS-2026\.docx/gi, 'uploads/templates/ACANS-2026-extended-abstract-template.docx']]);
+      updateText('abstractInstructions', [[/INSAC[ -]?2026/gi, 'ACANS 2026'], [/not exceed 2 pages|maximum 2 pages|maximum of two pages/gi, 'not exceed one page or 250 words'], [/hosted by/gi, 'organised by'], [/official ACANS 2026 abstract template/gi, 'official ACANS 2026 Paper Presentation Template (DOCX)']]);
+      updateText('abstractTemplateName', [[/INSAC[ -]?2026/gi, 'ACANS 2026'], [/ACANS-2026-(?:extended-)?abstract-template\.docx/gi, 'ACANS-2026-Paper-Presentation-Template.docx']]);
+      updateText('abstractTemplateFile', [[/Template_for_extended_abstract_INSAC-2026\.docx/gi, 'uploads/templates/ACANS-2026-Paper-Presentation-Template.docx'], [/Template_for_extended_abstract_ACANS-2026\.docx/gi, 'uploads/templates/ACANS-2026-Paper-Presentation-Template.docx'], [/uploads\/templates\/ACANS-2026-extended-abstract-template\.docx/gi, 'uploads/templates/ACANS-2026-Paper-Presentation-Template.docx']]);
       if (settings.aboutWIT !== aboutWITText) {
         settings.aboutWIT = aboutWITText;
         settingsUpdated = true;
@@ -231,8 +231,8 @@ async function initDefaults() {
         settings.abstractWordLimit = 250;
         settingsUpdated = true;
       }
-      if (settings.abstractDeadline !== '4 December 2026') {
-        settings.abstractDeadline = '4 December 2026';
+      if (settings.abstractDeadline !== '3 December 2026') {
+        settings.abstractDeadline = '3 December 2026';
         settingsUpdated = true;
       }
       if (Array.isArray(settings.importantDates)) {
@@ -245,15 +245,15 @@ async function initDefaults() {
         settings.importantDates.forEach((item) => {
           if (item.label === 'Abstract Submission Deadline') {
             hasAbstractDeadline = true;
-            if (item.date !== '4 December 2026' || item.confirmed !== true) {
-              item.date = '4 December 2026';
+            if (item.date !== '3 December 2026' || item.confirmed !== true) {
+              item.date = '3 December 2026';
               item.confirmed = true;
               settingsUpdated = true;
             }
           }
         });
         if (!hasAbstractDeadline) {
-          settings.importantDates.push({ label: 'Abstract Submission Deadline', date: '4 December 2026', confirmed: true });
+          settings.importantDates.push({ label: 'Abstract Submission Deadline', date: '3 December 2026', confirmed: true });
           settingsUpdated = true;
         }
       }
@@ -262,7 +262,11 @@ async function initDefaults() {
         settingsUpdated = true;
       }
       if (typeof settings.abstractInstructions === 'string' && /2 pages|two pages/i.test(settings.abstractInstructions)) {
-        settings.abstractInstructions = 'All submissions must conform to the official ACANS 2026 extended abstract template. Contributory paper abstracts must not exceed one page or 250 words, including figures, tables, and references.';
+        settings.abstractInstructions = 'All submissions must conform to the official ACANS 2026 abstract template. Contributory paper abstracts must not exceed one page or 250 words, including figures, tables, and references.';
+        settingsUpdated = true;
+      }
+      if (typeof settings.abstractInstructions === 'string' && /extended\s+abstract/i.test(settings.abstractInstructions)) {
+        settings.abstractInstructions = settings.abstractInstructions.replace(/extended\s+abstract/gi, 'abstract');
         settingsUpdated = true;
       }
       if (Array.isArray(settings.announcements)) {
@@ -271,6 +275,8 @@ async function initDefaults() {
             if (typeof announcement[field] !== 'string') continue;
             const updated = announcement[field]
               .replace(/INSAC[ -]?2026/gi, 'ACANS 2026')
+              .replace(/extended\s+abstract/gi, 'abstract')
+              .replace(/4 December 2026|December 4,? 2026|2026-12-04|12\/04\/2026/gi, '3 December 2026')
               .replace(/National Workshop/gi, 'National Seminar')
               .replace(/Indian Nuclear Society.?s Annual Conference/gi, 'ACANS 2026 National Seminar in collaboration with the Indian Nuclear Society (INS)')
               .replace(/National Seminar on Advanced Computing(?! and Nuclear Science: Emerging Technologies)/gi, 'National Seminar on "Advanced Computing and Nuclear Science: Emerging Technologies, Interdisciplinary Applications and Research Opportunities"');
@@ -302,10 +308,15 @@ async function initDefaults() {
         });
       }
 
+      if (typeof settings.abstractTemplateName === 'string' && /(?:extended-)?abstract-template/i.test(settings.abstractTemplateName)) {
+        settings.abstractTemplateName = 'ACANS-2026-Paper-Presentation-Template.docx';
+        settingsUpdated = true;
+      }
+
       // Ensure template path is set if empty
-      if (!settings.abstractTemplateFile || settings.abstractTemplateName === 'Template for extended abstract (ACANS 2026).docx') {
-        settings.abstractTemplateFile = 'uploads/templates/ACANS-2026-extended-abstract-template.docx';
-        settings.abstractTemplateName = 'ACANS-2026-extended-abstract-template.docx';
+      if (!settings.abstractTemplateFile || /ACANS-2026-extended-abstract-template\.docx/i.test(settings.abstractTemplateFile) || settings.abstractTemplateName === 'Template for extended abstract (ACANS 2026).docx') {
+        settings.abstractTemplateFile = 'uploads/templates/ACANS-2026-Paper-Presentation-Template.docx';
+        settings.abstractTemplateName = 'ACANS-2026-Paper-Presentation-Template.docx';
         settingsUpdated = true;
       }
 

@@ -72,7 +72,7 @@ const organisingCommittee: CommitteeMember[] = [
     name: 'Mr. Krishna Murari',
     designation: 'Administrative Officer, WIT',
     photo: '/images/leadership/Krishna Murari.png',
-    photoPosition: 'center 30%',
+    photoPosition: 'center 20%',
   },
   {
     name: 'Mr. Amit Mishra',
@@ -84,6 +84,7 @@ const organisingCommittee: CommitteeMember[] = [
     name: 'Ms. Kajal Kumari',
     designation: 'Assistant Professor, WIT',
     photo: '/images/leadership/Kajal Kumari.jpeg',
+    photoPosition: 'center 10%',
   },
   {
     name: 'Ms. Prachi Bharti',
@@ -106,7 +107,7 @@ const organisingCommittee: CommitteeMember[] = [
   {
     name: 'Md Ashif Habibi',
     designation: 'Assistant Professor, WIT',
-    photo: null,
+    photo: '/images/leadership/Ashif.jpeg',
     photoPosition: 'center 30%',
   },
   {
@@ -137,30 +138,30 @@ const organisingCommittee: CommitteeMember[] = [
 
 const advisoryCommittee: { department: string; members: CommitteeMember[] }[] = [
   {
-    department: 'Department of Physics',
+    department: 'University Department of Physics',
     members: [
       { name: 'Prof. Naushad Alam', photo: '/images/leadership/naushad alam.png', photoPosition: 'center 30%' },
       { name: 'Dr. Pooja Agarwal', photo: '/images/leadership/Dr. Pooja Agarwal.png', photoPosition: 'center 30%' },
-      { name: 'Dr. Sumandeep Kaur', photo: null, photoPosition: 'center 30%' },
+      { name: 'Dr. Sumandeep Kaur', photo: '/images/leadership/Sumandeep .jpeg', photoPosition: 'center 50%' },
     ],
   },
   {
-    department: 'Department of Chemistry',
+    department: 'University Department of Chemistry',
     members: [
       { name: 'Dr. Abhishek Rai', photo: '/images/leadership/Abhishek Rai.jpeg', photoPosition: 'center 30%' },
       { name: 'Dr. Arindra Sharma', photo: '/images/leadership/Arindra Sharma.jpeg', photoPosition: 'center 30%' },
     ],
   },
   {
-    department: 'Department of Zoology',
+    department: 'University Department of Zoology',
     members: [
       { name: 'Dr. Parul Banerjee', photo: '/images/leadership/Dr. Parul Banerjee.jpeg', photoPosition: 'center 30%' },
     ],
   },
   {
-    department: 'Department of Botany',
+    department: 'University Department of Botany',
     members: [
-      { name: 'Dr. Aniket Kumar Singh', photo: null, photoPosition: 'center 30%' },
+      { name: 'Dr. Ankit Kumar Singh', photo: '/images/leadership/Ankit kumar.jpeg', photoPosition: 'center 30%' },
     ],
   },
   {
@@ -168,16 +169,13 @@ const advisoryCommittee: { department: string; members: CommitteeMember[] }[] = 
     members: [
       { name: 'Mr. Amit Kumar Mishra', photo: '/images/leadership/Amit Mishra.png', photoPosition: 'center 30%' },
       { name: 'Mrs. Neha Kumari', photo:'/images/leadership/Neha Kumari.png' , photoPosition: 'center 30%' },
-      { name: 'Mr. Ashif Habibi', photo: null, photoPosition: 'center 30%' },
+      { name: 'Mr. Ashif Habibi', photo: '/images/leadership/Ashif.jpeg', photoPosition: 'center 30%' },
       { name: 'Dr. Zakirullah Shamim', photo: '/images/leadership/Dr. M.Z. Shamim.png', photoPosition: 'center 30%' },
       { name: 'Dr. Avinash Chandra', photo: '/images/leadership/avinash chandra.png', photoPosition: 'center 30%' },
     ],
   },
 ];
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   Photo placeholder – shown when image file is not yet present
-   ───────────────────────────────────────────────────────────────────────────── */
 function PhotoPlaceholder({ name }: { name: string }) {
   const initials = name
     .split(' ')

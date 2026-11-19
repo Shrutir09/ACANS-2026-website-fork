@@ -7,20 +7,20 @@ interface TemplateDownloadCardProps {
 }
 
 export default function TemplateDownloadCard({ compact = false }: TemplateDownloadCardProps) {
-  const downloadUrl = '/downloads/ACANS-2026-extended-abstract-template.pdf';
+  const downloadUrl = '/downloads/ACANS-2026-Paper-Presentation-Template.docx';
 
   if (compact) {
     return (
       <a
         href={downloadUrl}
-        download="ACANS-2026-extended-abstract-template.pdf"
+        download="ACANS-2026-Paper-Presentation-Template.docx"
         className="btn btn-primary btn-sm"
         id="download-template-compact-btn"
       >
         <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
         </svg>
-        Download Abstract Template (.pdf)
+        Download Paper Presentation Template (.docx)
       </a>
     );
   }
@@ -65,41 +65,33 @@ export default function TemplateDownloadCard({ compact = false }: TemplateDownlo
               Official Template
             </span>
             <span style={{ fontSize: '0.8rem', color: '#64748b' }}>
-              PDF (.pdf)
+              DOCX (.docx)
             </span>
           </div>
 
           <h3 style={{ fontSize: '1.1rem', color: '#0f294a', marginBottom: '0.35rem', fontWeight: 700 }}>
-            Official ACANS 2026 Extended Abstract Template
+            ACANS 2026 Paper Presentation Template
           </h3>
 
           <p style={{ fontSize: '0.875rem', color: '#475569', marginBottom: '0.9rem', lineHeight: '1.5' }}>
-            Use the A4 template&apos;s built-in styles. The seminar limit is <strong>one page and 250 words</strong>, including figures, tables, and references.
+            Use the official editable document to prepare your paper presentation. The abstract summary limit is <strong>250 words</strong>.
           </p>
 
           <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'center' }}>
             <a
               href={downloadUrl}
-              download="ACANS-2026-extended-abstract-template.pdf"
+              download="ACANS-2026-Paper-Presentation-Template.docx"
               className="btn btn-primary"
               id="download-official-template-btn"
             >
               <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
               </svg>
-              Download Abstract Template (.pdf)
-            </a>
-
-            <a
-              href="/downloads/ACANS-2026-extended-abstract-template.docx"
-              download="ACANS-2026-extended-abstract-template.docx"
-              className="btn btn-outline-navy"
-            >
-              Download Editable Template (.docx)
+              Download Paper Presentation Template (.docx)
             </a>
 
             <span style={{ fontSize: '0.8rem', color: '#64748b' }}>
-              A4 extended abstract format
+              Editable DOCX format
             </span>
           </div>
         </div>
