@@ -9,6 +9,7 @@ import { Registration, Payment, Abstract, EventSettings } from '../../types';
 import { normalizeEventText } from '../../lib/eventText';
 import StatusBadge from '../../components/StatusBadge';
 import TemplateDownloadCard from '../../components/TemplateDownloadCard';
+import OfficialPaymentDetails from '../../components/OfficialPaymentDetails';
 
 export default function ParticipantDashboard() {
   const router = useRouter();
@@ -29,6 +30,26 @@ export default function ParticipantDashboard() {
   const [paymentSubmitting, setPaymentSubmitting] = useState(false);
   const [paymentError, setPaymentError] = useState('');
   const [paymentSuccess, setPaymentSuccess] = useState('');
+  const [registrationConfirmation, setRegistrationConfirmation] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
+
+  useEffect(() => {
+    let noticeTimer: number | undefined;
+    try {
+      const storedConfirmation = sessionStorage.getItem('registrationConfirmation');
+      if (storedConfirmation) {
+        const confirmation = JSON.parse(storedConfirmation);
+        if ((confirmation.type === 'success' || confirmation.type === 'error') && typeof confirmation.message === 'string') {
+          noticeTimer = window.setTimeout(() => setRegistrationConfirmation(confirmation), 0);
+        }
+        sessionStorage.removeItem('registrationConfirmation');
+      }
+    } catch {
+      // Ignore unavailable browser storage and keep the dashboard usable.
+    }
+    return () => {
+      if (noticeTimer !== undefined) window.clearTimeout(noticeTimer);
+    };
+  }, []);
 
   // Initial Load
   useEffect(() => {
@@ -117,6 +138,12 @@ export default function ParticipantDashboard() {
   return (
     <div style={{ backgroundColor: 'var(--slate-50)', padding: '3.5rem 0 5rem 0' }}>
       <div className="container">
+        {registrationConfirmation && (
+          <div className={`alert ${registrationConfirmation.type === 'success' ? 'alert-success' : 'alert-danger'}`} role="status" style={{ marginBottom: '1.5rem' }}>
+            {registrationConfirmation.message}
+          </div>
+        )}
+
         {/* Dashboard Top Header */}
         <div style={{
           display: 'flex',
@@ -196,7 +223,7 @@ export default function ParticipantDashboard() {
           {/* Card 3: Abstract Status */}
           <div className="card" style={{ borderTop: '3px solid #0d5f57' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-              <span style={{ fontSize: '0.785rem', fontWeight: 700, color: '#0d5f57', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Extended Abstract</span>
+              <span style={{ fontSize: '0.785rem', fontWeight: 700, color: '#0d5f57', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Abstract</span>
               <StatusBadge status={abstractData ? 'submitted' : 'not_submitted'} />
             </div>
             <div style={{ fontSize: '0.75rem', color: '#64748b', textTransform: 'uppercase' }}>
@@ -212,12 +239,14 @@ export default function ParticipantDashboard() {
                 </span>
               ) : (
                 <Link href="/abstract-submission" style={{ color: 'var(--teal-600)', fontWeight: 600 }}>
-                  Submit extended abstract →
+                  Submit abstract →
                 </Link>
               )}
             </div>
           </div>
         </div>
+
+        <OfficialPaymentDetails />
 
         {/* Detailed Sections Tabs / Split */}
         <div className="grid-2">
@@ -243,6 +272,7 @@ export default function ParticipantDashboard() {
                 </div>
                 <div style={{ fontSize: '0.875rem', color: 'var(--slate-700)', lineHeight: '1.7' }}>
                   <div><strong>Amount Verified:</strong> ₹{payment.amountPaid}</div>
+                  <div><strong></strong></div>
                   <div><strong>Payer UPI ID:</strong> {payment.payerUpiId || '—'}</div>
                   <div><strong>UPI UTR / Transaction ID:</strong> <code style={{ fontWeight: 700 }}>{payment.transactionId}</code></div>
                   <div style={{ marginTop: '0.75rem', color: 'var(--success-600)', fontWeight: 600 }}>
@@ -376,7 +406,7 @@ export default function ParticipantDashboard() {
             {/* Abstract Details Card */}
             <div className="card">
               <h2 style={{ fontSize: '1.25rem', color: 'var(--navy-900)', marginBottom: '1rem', borderBottom: '1px solid var(--slate-100)', paddingBottom: '0.5rem' }}>
-                Your Extended Abstract
+                Your Abstract
               </h2>
 
               {abstractData ? (
@@ -415,7 +445,7 @@ export default function ParticipantDashboard() {
                 <div style={{ textAlign: 'center', padding: '1.5rem 0' }}>
                   <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>📑</div>
                   <p style={{ color: 'var(--slate-600)', fontSize: '0.9rem', marginBottom: '1rem' }}>
-                    You have not submitted an extended abstract yet.
+                    You have not submitted an abstract yet.
                   </p>
                   <Link href="/abstract-submission" className="btn btn-teal btn-sm">
                     Submit Abstract Now →
@@ -434,7 +464,7 @@ export default function ParticipantDashboard() {
               </p>
               <a
                 href="/downloads/ACANS-2026-extended-abstract-template.pdf"
-                download="ACANS-2026-extended-abstract-template.pdf"
+                download="ACANS-2026-abstract-template.pdf"
                 className="btn btn-outline-navy btn-sm"
               >
                 📥 Download Template (.pdf)

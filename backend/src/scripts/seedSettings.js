@@ -23,18 +23,18 @@ async function seedSettings() {
     settings.conferenceTitle = 'Indian Nuclear Society (INS) – Collaborating Organization';
     settings.conferenceSubtitle = 'Collaborating organization for ACANS 2026';
     settings.abstractTemplateFile = 'uploads/templates/ACANS-2026-extended-abstract-template.docx';
-    settings.abstractTemplateName = 'ACANS-2026-extended-abstract-template.docx';
-    settings.abstractInstructions = 'All submissions should conform to the official template format. The extended abstract of contributory papers should not exceed one page or 250 words, including figures, tables, and references in Times New Roman format.';
+    settings.abstractTemplateName = 'ACANS-2026-abstract-template.docx';
+    settings.abstractInstructions = 'All submissions should conform to the official template format. The abstract of contributory papers should not exceed one page or 250 words, including figures, tables, and references in Times New Roman format.';
     settings.abstractWordLimit = 250;
-    settings.abstractDeadline = '4 December 2026';
+    settings.abstractDeadline = '3 December 2026';
     settings.importantDates = (settings.importantDates || []).map(item => {
       const dateItem = typeof item.toObject === 'function' ? item.toObject() : item;
       return dateItem.label === 'Abstract Submission Deadline'
-        ? { ...dateItem, date: '4 December 2026', confirmed: true }
+        ? { ...dateItem, date: '3 December 2026', confirmed: true }
         : dateItem;
     }).filter(item => !/^(?:notice|notification) of acceptance$/i.test(item.label || ''));
     if (!settings.importantDates.some(item => item.label === 'Abstract Submission Deadline')) {
-      settings.importantDates.push({ label: 'Abstract Submission Deadline', date: '4 December 2026', confirmed: true });
+      settings.importantDates.push({ label: 'Abstract Submission Deadline', date: '3 December 2026', confirmed: true });
     }
     settings.fees = { student: 500, research_scholar: 750, faculty: 1000 };
     settings.paymentMethods = { upi: true, cash: true, bank_transfer: true };

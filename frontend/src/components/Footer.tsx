@@ -50,7 +50,7 @@ export default function Footer() {
               <li><Link href="/themes" style={{ color: '#cbd5e1' }}>Technical Themes &amp; Tracks</Link></li>
               <li><Link href="/committees" style={{ color: '#cbd5e1' }}>Organizing &amp; Advisory Committees</Link></li>
               <li><Link href="/information" style={{ color: '#cbd5e1' }}>Registration for National Seminar and Fee</Link></li>
-              <li><Link href="/abstract-submission" style={{ color: '#cbd5e1' }}>Extended Abstract Submission</Link></li>
+              <li><Link href="/abstract-submission" style={{ color: '#cbd5e1' }}>Abstract Submission</Link></li>
             </ul>
           </div>
 

@@ -36,18 +36,13 @@ function AbstractSubmissionContent() {
   const [success, setSuccess] = useState<{ message: string; ref: string } | null>(null);
   const [loading, setLoading] = useState(false);
 
-  // Pre-fill user details if logged in
-  useEffect(() => {
-    if (user) {
-      setFormData(prev => ({
-        ...prev,
-        authorName: prev.authorName || user.fullName || '',
-        contactEmail: prev.contactEmail || user.email || '',
-        institution: prev.institution || user.institution || '',
-        department: prev.department || user.department || '',
-      }));
-    }
-  }, [user]);
+  const submissionData = {
+    ...formData,
+    authorName: formData.authorName || user?.fullName || '',
+    contactEmail: formData.contactEmail || user?.email || '',
+    institution: formData.institution || user?.institution || '',
+    department: formData.department || user?.department || '',
+  };
 
   // Load settings & themes
   useEffect(() => {
@@ -113,20 +108,20 @@ function AbstractSubmissionContent() {
       const formPayload = new FormData();
       formPayload.append('title', formData.title);
       formPayload.append('abstractText', formData.abstractText);
-      formPayload.append('authorName', formData.authorName);
+      formPayload.append('authorName', submissionData.authorName);
       formPayload.append('coAuthors', formData.coAuthors);
-      formPayload.append('institution', formData.institution);
-      formPayload.append('department', formData.department);
+      formPayload.append('institution', submissionData.institution);
+      formPayload.append('department', submissionData.department);
       formPayload.append('researchTheme', formData.researchTheme);
       formPayload.append('keywords', formData.keywords);
-      formPayload.append('contactEmail', formData.contactEmail);
+      formPayload.append('contactEmail', submissionData.contactEmail);
       if (file) {
-        formPayload.append('document', file);
+        formPayload.append('attachment', file);
       }
 
       const res = await api.submitAbstract(formPayload);
       setSuccess({
-        message: 'Your extended abstract has been submitted successfully!',
+        message: 'Your abstract has been submitted successfully!',
         ref: res.abstract.abstractRef,
       });
 
@@ -154,7 +149,7 @@ function AbstractSubmissionContent() {
             <span>Abstract Submission</span>
           </div>
           <h1 style={{ fontSize: '1.85rem', color: '#ffffff', marginBottom: '0.35rem', fontWeight: 700 }}>
-            Extended Abstract Submission
+            Abstract Submission
           </h1>
           <p style={{ color: '#cbd5e1', maxWidth: '750px', fontSize: '0.95rem' }}>
             Submit your research contribution to ACANS 2026: Advanced Computing and Nuclear Science.
@@ -170,7 +165,7 @@ function AbstractSubmissionContent() {
           </div>
 
           <div className="alert alert-info" style={{ marginBottom: '2rem', borderLeft: '4px solid #b45309' }}>
-            <strong>Important abstract notice:</strong> Submit by <strong>4 December 2026</strong>. Registration remains open after this date, subject to arrangements. Late abstracts will not be considered for publication.
+            <strong>Important abstract notice:</strong> Submit by <strong>3 December 2026</strong>. Registration remains open after this date, subject to arrangements. Late abstracts (after 3rd of December) will not be considered for publication.
           </div>
 
           {!user && (
@@ -241,7 +236,7 @@ function AbstractSubmissionContent() {
                     name="authorName"
                     type="text"
                     required
-                    value={formData.authorName}
+                    value={submissionData.authorName}
                     onChange={handleInputChange}
                     placeholder="Full name of presenting author"
                     className="form-control"
@@ -255,7 +250,7 @@ function AbstractSubmissionContent() {
                     name="contactEmail"
                     type="email"
                     required
-                    value={formData.contactEmail}
+                    value={submissionData.contactEmail}
                     onChange={handleInputChange}
                     placeholder="author@institution.edu"
                     className="form-control"
@@ -285,7 +280,7 @@ function AbstractSubmissionContent() {
                     name="institution"
                     type="text"
                     required
-                    value={formData.institution}
+                    value={submissionData.institution}
                     onChange={handleInputChange}
                     placeholder="e.g. Dr. A.P.J. Abdul Kalam WIT, BARC, IIT"
                     className="form-control"
@@ -298,7 +293,7 @@ function AbstractSubmissionContent() {
                     id="abs-department"
                     name="department"
                     type="text"
-                    value={formData.department}
+                    value={submissionData.department}
                     onChange={handleInputChange}
                     placeholder="e.g. Computer Science & Engineering"
                     className="form-control"
@@ -344,10 +339,10 @@ function AbstractSubmissionContent() {
 
               <div className="form-group" style={{ backgroundColor: 'var(--slate-50)', padding: '1.25rem', borderRadius: '8px', border: '1px dashed var(--slate-300)' }}>
                 <label className="form-label" htmlFor="abstractFile">
-                  Upload Extended Abstract Document (.docx, .doc, .pdf)
+                  Upload Abstract Document (.docx, .doc, .pdf)
                 </label>
                 <p style={{ fontSize: '0.825rem', color: 'var(--slate-500)', marginBottom: '0.75rem' }}>
-                  Use the official template. The extended abstract must fit on one page and contain no more than 250 words, including any figures and tables.
+                  Use the official template. The abstract must fit on one page and contain no more than 250 words, including any figures and tables.
                 </p>
                 <input
                   id="abstractFile"
@@ -371,7 +366,7 @@ function AbstractSubmissionContent() {
                 style={{ width: '100%', marginTop: '1rem' }}
                 id="submit-abstract-btn"
               >
-                {loading ? 'Submitting Abstract...' : 'Submit Extended Abstract'}
+                {loading ? 'Submitting Abstract...' : 'Submit Abstract'}
               </button>
             </form>
           </div>

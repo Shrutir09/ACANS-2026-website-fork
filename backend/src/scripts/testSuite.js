@@ -3,7 +3,7 @@ const https = require('https');
 const fs = require('fs');
 const path = require('path');
 
-const BASE_URL = 'http://localhost:5001';
+const BASE_URL = process.env.TEST_API_URL || 'http://localhost:5001';
 
 // Helper for making HTTP requests with cookie handling
 function makeRequest(method, endpoint, body = null, cookie = null, isFormData = false) {
@@ -95,7 +95,7 @@ async function runTests() {
     // 3. Official Template Download
     const templateRes = await makeRequest('GET', '/api/v1/settings/template/download');
     assert(templateRes.statusCode === 200, 'Template download route returns 200');
-    assert(templateRes.headers['content-disposition'].includes('ACANS-2026-extended-abstract-template.docx'), 'Downloaded filename matches the replacement ACANS 2026 template');
+    assert(templateRes.headers['content-disposition'].includes('ACANS-2026-abstract-template.docx'), 'Downloaded filename matches the replacement ACANS 2026 abstract template');
     const expectedTemplateSize = fs.statSync(path.join(__dirname, '../../uploads/templates/ACANS-2026-extended-abstract-template.docx')).size;
     assert(templateRes.raw.length === expectedTemplateSize, 'Downloaded file size matches the replacement DOCX template');
 
@@ -209,6 +209,7 @@ async function runTests() {
     validMultipart += `--${boundary}\r\nContent-Disposition: form-data; name="researchTheme"\r\n\r\nAI and Digital Twins for Nuclear Reactor Monitoring and Safety\r\n`;
     validMultipart += `--${boundary}\r\nContent-Disposition: form-data; name="contactEmail"\r\n\r\n${testEmail}\r\n`;
     validMultipart += `--${boundary}\r\nContent-Disposition: form-data; name="keywords"\r\n\r\nDigital Twins, Reactor Safety, Neural Operators, Sensor Validation\r\n`;
+    validMultipart += `--${boundary}\r\nContent-Disposition: form-data; name="attachment"; filename="test-abstract.pdf"\r\nContent-Type: application/pdf\r\n\r\n%PDF-1.4 test attachment\r\n`;
     validMultipart += `--${boundary}--\r\n`;
 
     const validAbstractRes = await new Promise((resolve) => {
@@ -230,8 +231,12 @@ async function runTests() {
       req.write(validMultipart);
       req.end();
     });
-    assert(validAbstractRes.statusCode === 201 && validAbstractRes.body.success === true, 'Valid extended abstract submitted successfully (201)');
+    assert(validAbstractRes.statusCode === 201 && validAbstractRes.body.success === true, 'Valid abstract submitted successfully (201)');
     const abstractId = validAbstractRes.body.abstract._id;
+    assert(validAbstractRes.body.abstract.attachmentOriginalName === 'test-abstract.pdf', 'Abstract document upload uses the expected attachment field');
+    if (validAbstractRes.body.abstract.attachmentPath && fs.existsSync(validAbstractRes.body.abstract.attachmentPath)) {
+      fs.unlinkSync(validAbstractRes.body.abstract.attachmentPath);
+    }
 
     // 12. Security Check: Participant cannot access admin endpoints
     const unauthAdmin = await makeRequest('GET', '/api/v1/settings/admin/stats', null, participantCookie);

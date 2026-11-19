@@ -75,13 +75,32 @@ function RegisterContent() {
       });
 
       // 2. Automatically create initial registration with fee snapshot
+      let confirmation = {
+        type: 'success',
+        message: 'Your registration form has been submitted successfully.',
+      };
+
       if (formData.participantCategory) {
-        await api.createRegistration({
-          category: formData.participantCategory,
-          institution: formData.institution,
-          department: formData.department,
-          designation: formData.designation,
-        }).catch(err => console.warn('Registration creation note:', err.message));
+        try {
+          const registration = await api.createRegistration({
+            category: formData.participantCategory,
+            institution: formData.institution,
+            department: formData.department,
+            designation: formData.designation,
+          });
+          confirmation.message = `Your registration form has been submitted successfully. Reference ID: ${registration.registration.registrationRef}.`;
+        } catch {
+          confirmation = {
+            type: 'error',
+            message: 'Your account was created, but event registration could not be completed. Please contact the helpdesk before making payment.',
+          };
+        }
+      }
+
+      try {
+        sessionStorage.setItem('registrationConfirmation', JSON.stringify(confirmation));
+      } catch {
+        // The account and registration are already saved; a storage issue should not block navigation.
       }
 
       await refreshUser();

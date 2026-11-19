@@ -84,10 +84,11 @@ export default function HomePage() {
   ];
   const speakers = [
     {
-      name: 'Dr. Hrishikesh Mishra',
-      image: '/images/speakers/dr-hrishikesh-mishra.jpeg',
-      role: 'President, INS',
-      affiliation: 'Former Distinguished Scientist; Former Director, Engineering Service Group, BARC',
+      name: 'V.K. Manchanda',
+      image: '/images/speakers/manchanda.jpeg',
+      objectPosition: 'center 0%',
+      role: 'Head, Radiochemistry Division, BARC',
+      affiliation: 'Former Professor, Sung Kyun Kwan University, South Korea',
     },
     {
       name: 'Anadi Kumar Sinha',
@@ -102,11 +103,10 @@ export default function HomePage() {
       affiliation: 'Chief Coordinator, INS',
     },
     {
-      name: 'V.K. Manchanda',
-      image: '/images/speakers/manchanda.jpeg',
-      objectPosition: 'center 0%',
-      role: 'Head, Radiochemistry Division, BARC',
-      affiliation: 'Former Professor, Sung Kyun Kwan University, South Korea',
+      name: 'Dr. Hrishikesh Mishra',
+      image: '/images/speakers/dr-hrishikesh-mishra.jpeg',
+      role: 'President, INS',
+      affiliation: 'Former Distinguished Scientist; Former Director, Engineering Service Group, BARC',
     },
     {
       name: 'Dr. Jimmy Kansal',
@@ -184,7 +184,7 @@ export default function HomePage() {
             margin: '0 auto 1rem auto',
             lineHeight: 1.4,
           }}>
-            <span style={{ display: 'block' }}>– National Seminar on “Advanced Computing and Nuclear Science:</span>
+            <span style={{ display: 'block' }}>National Seminar on “Advanced Computing and Nuclear Science:</span>
             <span style={{ display: 'block' }}>Emerging Technologies, Interdisciplinary Applications and Research Opportunities”</span>
           </div>
 
@@ -230,7 +230,7 @@ export default function HomePage() {
           <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>
             <a
               href="/downloads/ACANS-2026-extended-abstract-template.pdf"
-              download="ACANS-2026-extended-abstract-template.pdf"
+              download="ACANS-2026-abstract-template.pdf"
               className="btn btn-gold btn-lg"
               id="hero-template-cta"
             >
@@ -240,7 +240,7 @@ export default function HomePage() {
               Register as Participant
             </Link>
             <Link href="/abstract-submission" className="btn btn-outline-white btn-lg" id="hero-abstract-cta">
-              Submit Extended Abstract
+              Submit Abstract
             </Link>
           </div>
         </div>
@@ -262,11 +262,11 @@ export default function HomePage() {
                     ● Official Template Available
                   </div>
                   <div style={{ marginTop: '0.2rem' }}>
-                    Abstract submission closes 4 December 2026. Submit a one-page extended abstract of no more than 250 words. Registration remains open after the abstract deadline, subject to arrangements; late abstracts will not be considered for publication.
+                    Abstract submission closes 3 December 2026. Submit a one-page abstract of no more than 250 words. Registration remains open after the abstract deadline, subject to arrangements; late abstracts will not be considered for publication.
                   </div>
                   <a
                     href="/downloads/ACANS-2026-extended-abstract-template.pdf"
-                    download="ACANS-2026-extended-abstract-template.pdf"
+                    download="ACANS-2026-abstract-template.pdf"
                     style={{ color: '#0f294a', fontWeight: 600, display: 'inline-block', marginTop: '0.25rem' }}
                   >
                     Download Template (.pdf) →
@@ -306,7 +306,7 @@ export default function HomePage() {
             </div>
 
             {/* Right Column (2 cols): About the Seminar */}
-            <div style={{ gridColumn: 'span 2' }}>
+            <div className="home-about-main">
               <div style={{ marginBottom: '1.5rem' }}>
                 <span className="section-tag">About the Seminar</span>
                 <h2 style={{ fontSize: '1.65rem', color: '#0f294a', margin: '0.35rem 0 0.75rem 0', fontWeight: 700 }}>
@@ -522,8 +522,8 @@ export default function HomePage() {
                     <td><span className="badge badge-accepted">Confirmed</span></td>
                   </tr>
                   <tr>
-                    <td><strong>Extended Abstract Submission</strong></td>
-                    <td>Open (250-word summary + official paper template PDF)</td>
+                    <td><strong>Abstract Submission</strong></td>
+                    <td>Deadline: 3 December 2026 (250-word summary + official paper template PDF)</td>
                     <td><span className="badge badge-accepted">Active</span></td>
                   </tr>
                   <tr>

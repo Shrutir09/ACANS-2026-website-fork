@@ -13,7 +13,7 @@ export default function TemplateDownloadCard({ compact = false }: TemplateDownlo
     return (
       <a
         href={downloadUrl}
-        download="ACANS-2026-extended-abstract-template.pdf"
+        download="ACANS-2026-abstract-template.pdf"
         className="btn btn-primary btn-sm"
         id="download-template-compact-btn"
       >
@@ -70,7 +70,7 @@ export default function TemplateDownloadCard({ compact = false }: TemplateDownlo
           </div>
 
           <h3 style={{ fontSize: '1.1rem', color: '#0f294a', marginBottom: '0.35rem', fontWeight: 700 }}>
-            Official ACANS 2026 Extended Abstract Template
+            Official ACANS 2026 Abstract Template
           </h3>
 
           <p style={{ fontSize: '0.875rem', color: '#475569', marginBottom: '0.9rem', lineHeight: '1.5' }}>
@@ -80,7 +80,7 @@ export default function TemplateDownloadCard({ compact = false }: TemplateDownlo
           <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'center' }}>
             <a
               href={downloadUrl}
-              download="ACANS-2026-extended-abstract-template.pdf"
+              download="ACANS-2026-abstract-template.pdf"
               className="btn btn-primary"
               id="download-official-template-btn"
             >
@@ -92,14 +92,14 @@ export default function TemplateDownloadCard({ compact = false }: TemplateDownlo
 
             <a
               href="/downloads/ACANS-2026-extended-abstract-template.docx"
-              download="ACANS-2026-extended-abstract-template.docx"
+              download="ACANS-2026-abstract-template.docx"
               className="btn btn-outline-navy"
             >
               Download Editable Template (.docx)
             </a>
 
             <span style={{ fontSize: '0.8rem', color: '#64748b' }}>
-              A4 extended abstract format
+              A4 abstract format
             </span>
           </div>
         </div>
