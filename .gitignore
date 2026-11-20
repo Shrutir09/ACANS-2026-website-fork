@@ -22,4 +22,7 @@ yarn-error.log*
 # OS Files
 .DS_Store
 Thumbs.db
+# Environment files
 backend/.env
+atlas-credentials.env
+*.env
