@@ -4,6 +4,7 @@ import React, { useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { api } from '../../lib/api';
+import PasswordInput from '../../components/PasswordInput';
 
 function ResetPasswordContent() {
   const router = useRouter();
@@ -75,9 +76,8 @@ function ResetPasswordContent() {
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label className="form-label" htmlFor="reset-new-password">New Password</label>
-              <input
+              <PasswordInput
                 id="reset-new-password"
-                type="password"
                 required
                 minLength={8}
                 value={password}
@@ -89,9 +89,8 @@ function ResetPasswordContent() {
 
             <div className="form-group">
               <label className="form-label" htmlFor="reset-confirm-password">Confirm New Password</label>
-              <input
+              <PasswordInput
                 id="reset-confirm-password"
-                type="password"
                 required
                 minLength={8}
                 value={confirmPassword}

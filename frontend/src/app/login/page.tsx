@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../../context/AuthContext';
+import PasswordInput from '../../components/PasswordInput';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -77,9 +78,8 @@ export default function LoginPage() {
                   Forgot password?
                 </Link>
               </div>
-              <input
+              <PasswordInput
                 id="login-password"
-                type="password"
                 required
                 value={formData.password}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}

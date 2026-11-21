@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '../../context/AuthContext';
 import { api } from '../../lib/api';
+import PasswordInput from '../../components/PasswordInput';
+
 
 function RegisterContent() {
   const router = useRouter();
@@ -113,16 +115,11 @@ function RegisterContent() {
     }
   };
 
-  const feePreview: Record<string, string> = {
-    student: '₹500',
-    research_scholar: '₹750',
-    faculty: '₹1,000',
-  };
 
   return (
     <div style={{ backgroundColor: '#f8fafc', padding: '3rem 0' }}>
       <div className="container-narrow">
-        <div className="card" style={{ maxWidth: '640px', margin: '0 auto', padding: '2rem', borderTop: '4px solid #0f294a' }}>
+        <div id="participant-registration-form" className="card" style={{ maxWidth: '640px', margin: '0 auto', padding: '2rem', borderTop: '4px solid #0f294a' }}>
           <div style={{ textAlign: 'center', marginBottom: '1.75rem', borderBottom: '1px solid #e2e8f0', paddingBottom: '1rem' }}>
             <div style={{ fontSize: '0.785rem', fontWeight: 700, color: '#0f294a', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
               ACANS 2026 National Seminar Registration
@@ -242,19 +239,15 @@ function RegisterContent() {
                   <option value="research_scholar">Research Scholar (₹750)</option>
                   <option value="faculty">Faculty (₹1,000)</option>
                 </select>
-                <div className="form-hint">
-                  Applicable seminar fee: <strong>{feePreview[formData.participantCategory] || '₹500'}</strong>
-                </div>
               </div>
             </div>
 
             <div className="grid-2">
               <div className="form-group">
                 <label className="form-label" htmlFor="password">Password *</label>
-                <input
+                <PasswordInput
                   id="password"
                   name="password"
-                  type="password"
                   required
                   minLength={8}
                   value={formData.password}
@@ -266,10 +259,9 @@ function RegisterContent() {
 
               <div className="form-group">
                 <label className="form-label" htmlFor="confirmPassword">Confirm Password *</label>
-                <input
+                <PasswordInput
                   id="confirmPassword"
                   name="confirmPassword"
-                  type="password"
                   required
                   minLength={8}
                   value={formData.confirmPassword}
