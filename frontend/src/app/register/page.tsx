@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '../../context/AuthContext';
 import { api } from '../../lib/api';
+import PasswordInput from '../../components/PasswordInput';
 
 
 function RegisterContent() {
@@ -244,10 +245,9 @@ function RegisterContent() {
             <div className="grid-2">
               <div className="form-group">
                 <label className="form-label" htmlFor="password">Password *</label>
-                <input
+                <PasswordInput
                   id="password"
                   name="password"
-                  type="password"
                   required
                   minLength={8}
                   value={formData.password}
@@ -259,10 +259,9 @@ function RegisterContent() {
 
               <div className="form-group">
                 <label className="form-label" htmlFor="confirmPassword">Confirm Password *</label>
-                <input
+                <PasswordInput
                   id="confirmPassword"
                   name="confirmPassword"
-                  type="password"
                   required
                   minLength={8}
                   value={formData.confirmPassword}
