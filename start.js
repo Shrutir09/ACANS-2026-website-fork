@@ -31,11 +31,11 @@ backendProcess.on('error', (err) => {
   console.error('[Backend Error]', err);
 });
 
-// 2. Start Frontend Next.js on port 3000 (proxied by MilesWeb)
+// 2. Start Frontend Next.js on 0.0.0.0:3000 (required by MilesWeb Proxy)
 const frontendPort = process.env.PORT || '3000';
 const nextBin = path.join(frontendDir, 'node_modules', 'next', 'dist', 'bin', 'next');
 
-const frontendProcess = spawn(process.execPath, [nextBin, 'start', '-p', frontendPort], {
+const frontendProcess = spawn(process.execPath, [nextBin, 'start', '-H', '0.0.0.0', '-p', frontendPort], {
   cwd: frontendDir,
   env: {
     ...process.env,
