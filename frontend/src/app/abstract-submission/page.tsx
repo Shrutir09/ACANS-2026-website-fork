@@ -5,8 +5,8 @@ import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '../../context/AuthContext';
 import { api } from '../../lib/api';
-import { EventSettings, EventTheme, Registration } from '../../types';
-import { normalizeEventText } from '../../lib/eventText';
+import { EventSettings, Registration } from '../../types';
+import { officialThemes, officialThemeTitle } from '../../lib/officialThemes';
 import TemplateDownloadCard from '../../components/TemplateDownloadCard';
 import WordCounter from '../../components/WordCounter';
 import SuccessModal from '../../components/SuccessModal';
@@ -22,9 +22,10 @@ function AbstractSubmissionContent() {
   const [acknowledged, setAcknowledged] = useState(false);
 
   const [settings, setSettings] = useState<EventSettings | null>(null);
-  const [themes, setThemes] = useState<EventTheme[]>([]);
-
-  const initialTheme = searchParams.get('theme') || '';
+  const requestedTheme = officialThemeTitle(searchParams.get('theme'));
+  const initialTheme = officialThemes.some(theme => theme.title === requestedTheme)
+    ? requestedTheme
+    : officialThemes[0].title;
 
   const [formData, setFormData] = useState({
     title: '',
@@ -73,20 +74,12 @@ function AbstractSubmissionContent() {
     return () => { active = false; };
   }, [authLoading, user, router]);
 
-  // Load settings & themes
+  // Load event settings for the configured abstract word limit.
   useEffect(() => {
     api.getPublicSettings().then(res => {
       setSettings(res.settings);
-      setThemes((res.settings?.themes || []).map(theme => ({
-        ...theme,
-        title: normalizeEventText(theme.title),
-        description: theme.description ? normalizeEventText(theme.description) : theme.description,
-      })));
-      if (!initialTheme && res.settings?.themes?.length > 0) {
-        setFormData(prev => ({ ...prev, researchTheme: prev.researchTheme || res.settings.themes[0].title }));
-      }
     }).catch(err => console.error('Error fetching settings:', err));
-  }, [initialTheme]);
+  }, []);
 
   // Count words helper
   const wordLimit = Math.min(settings?.abstractWordLimit || 250, 250);
@@ -236,9 +229,9 @@ function AbstractSubmissionContent() {
                   className="form-control"
                 >
                   <option value="">-- Select Relevant Research Theme --</option>
-                  {themes.map((t, idx) => (
+                  {officialThemes.map((t, idx) => (
                     <option key={idx} value={t.title}>
-                      [{t.category === 'workshop' ? 'Seminar Theme' : 'Related Topic'}] {t.title}
+                      {t.title}
                     </option>
                   ))}
                 </select>

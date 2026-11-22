@@ -11,6 +11,7 @@ import StatusBadge from '../../components/StatusBadge';
 import TemplateDownloadCard from '../../components/TemplateDownloadCard';
 import OfficialPaymentDetails from '../../components/OfficialPaymentDetails';
 import SuccessModal from '../../components/SuccessModal';
+import { officialThemeTitle } from '../../lib/officialThemes';
 
 export default function ParticipantDashboard() {
   const router = useRouter();
@@ -457,7 +458,7 @@ export default function ParticipantDashboard() {
                   </h3>
 
                   <div style={{ fontSize: '0.85rem', color: 'var(--slate-500)', marginBottom: '0.75rem' }}>
-                    Theme: <strong>{abstractData.researchTheme}</strong>
+                    Theme: <strong>{officialThemeTitle(abstractData.researchTheme)}</strong>
                   </div>
 
                   <p style={{ fontSize: '0.875rem', color: 'var(--slate-600)', lineHeight: '1.6', marginBottom: '1rem', backgroundColor: 'var(--slate-50)', padding: '0.75rem', borderRadius: '6px' }}>
