@@ -79,6 +79,9 @@ The Seminar will explore cutting-edge advancements in artificial intelligence, m
                 <p>
                   Through its national symposiums, technical seminars, and outreach, INS cultivates scientific literacy, technological self-reliance, and research collaboration in peaceful nuclear applications throughout the nation.
                 </p>
+                <a href="https://ins-india.org/" target="_blank" rel="noopener noreferrer" className="btn btn-outline-navy" style={{ marginTop: '1rem' }}>
+                  Explore More
+                </a>
               </div>
             </div>
 
@@ -97,6 +100,9 @@ The Seminar will explore cutting-edge advancements in artificial intelligence, m
                 <p>
                   LNMU has consistently promoted advanced scientific inquiry and interdisciplinary research, providing a vibrant intellectual ecosystem for regional and national conferences.
                 </p>
+                <a href="https://www.lnmu.ac.in/" target="_blank" rel="noopener noreferrer" className="btn btn-outline-navy" style={{ marginTop: '1rem' }}>
+                  Explore More
+                </a>
               </div>
             </div>
 
@@ -114,6 +120,9 @@ The Seminar will explore cutting-edge advancements in artificial intelligence, m
                   <br />
                   Today, the Institute is committed to empowering women through quality technical education, research, innovation, and skill development. We offer undergraduate and postgraduate programmes in Engineering & Technology and Computer Applications, supported by experienced faculty and guided by the principles of academic excellence, interdisciplinary research, and the National Education Policy (NEP) 2020.
                 </p>
+                <a href="https://witlnmu.ac.in/" target="_blank" rel="noopener noreferrer" className="btn btn-outline-navy" style={{ marginTop: '1rem' }}>
+                  Explore More
+                </a>
               </div>
             </div>
           </div>

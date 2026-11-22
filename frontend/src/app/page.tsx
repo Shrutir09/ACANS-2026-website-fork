@@ -47,22 +47,22 @@ export default function HomePage() {
     {
       role: 'Chief Patron',
       name: 'Prof. Sanjay Kumar Choudhary',
-      designation: 'Vice Chancellor, LNMU',
+      designation: 'Vice Chancellor',
       institution: 'Lalit Narayan Mithila University, Darbhanga',
       image: '/images/leadership/prof-sanjay-kumar-choudhary.png',
     },
     {
       role: 'Patron',
       name: 'Dr. Divya Rani Hansda',
-      designation: 'Registrar, LNMU',
+      designation: 'Registrar',
       institution: 'Lalit Narayan Mithila University, Darbhanga',
       image: '/images/leadership/dr-divya-rani.png',
     },
     {
       role: 'President',
       name: 'Dr. Amod Kumar',
-      designation: 'Director, WIT',
-      institution: 'Dr. A.P.J. Abdul Kalam Women\'s Institute of Technology, LNMU',
+      designation: 'Director',
+      institution: 'Dr. A.P.J. Abdul Kalam Women\'s Institute of Technology, Lalit Narayan Mithila University',
       image: '/images/leadership/dr-amod-kumar.png',
     },
   ];
