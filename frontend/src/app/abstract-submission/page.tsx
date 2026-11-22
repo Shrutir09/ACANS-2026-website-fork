@@ -10,6 +10,7 @@ import { officialThemes, officialThemeTitle } from '../../lib/officialThemes';
 import TemplateDownloadCard from '../../components/TemplateDownloadCard';
 import WordCounter from '../../components/WordCounter';
 import SuccessModal from '../../components/SuccessModal';
+import OfficialPaymentDetails from '../../components/OfficialPaymentDetails';
 
 function AbstractSubmissionContent() {
   const searchParams = useSearchParams();
@@ -19,7 +20,12 @@ function AbstractSubmissionContent() {
   const [registration, setRegistration] = useState<Registration | null>(null);
   const [accessLoading, setAccessLoading] = useState(true);
   const [accessError, setAccessError] = useState('');
-  const [acknowledged, setAcknowledged] = useState(false);
+  const [paymentConfirmation, setPaymentConfirmation] = useState<'yes' | 'no' | ''>('');
+  const [payerUpiId, setPayerUpiId] = useState('');
+  const [transactionId, setTransactionId] = useState('');
+  const [paymentError, setPaymentError] = useState('');
+  const [paymentStepComplete, setPaymentStepComplete] = useState(false);
+  const [showOfficialPayment, setShowOfficialPayment] = useState(false);
 
   const [settings, setSettings] = useState<EventSettings | null>(null);
   const requestedTheme = officialThemeTitle(searchParams.get('theme'));
@@ -92,16 +98,48 @@ function AbstractSubmissionContent() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  const handlePaymentContinue = () => {
+    setPaymentError('');
+    if (paymentConfirmation !== 'yes') {
+      setPaymentError('Select “Yes, I have completed the payment” before continuing.');
+      return;
+    }
+
+    const normalizedPayerUpiId = payerUpiId.trim();
+    if (!normalizedPayerUpiId) {
+      setPaymentError('Enter the Payer UPI ID and Transaction ID/UTR Number used for the registration payment.');
+      return;
+    }
+    if (!/^[A-Za-z0-9._-]+@[A-Za-z0-9.-]+$/.test(normalizedPayerUpiId)) {
+      setPaymentError('Enter a valid UPI ID in the format name@bank.');
+      return;
+    }
+
+    const normalizedTransactionId = transactionId.trim();
+    if (!normalizedTransactionId) {
+      setPaymentError('Enter the Transaction ID / UTR Number used for the payment.');
+      return;
+    }
+    if (!/^[A-Za-z0-9][A-Za-z0-9._/-]{5,34}$/.test(normalizedTransactionId)) {
+      setPaymentError('Enter a valid UTR / Transaction ID using 6–35 letters, numbers, or . _ / - characters.');
+      return;
+    }
+
+    setShowOfficialPayment(false);
+    setPaymentStepComplete(true);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    setPaymentError('');
 
     if (!user || !registration || loading) {
       return;
     }
 
-    if (!acknowledged) {
-      setError('Please confirm that you have completed the payment before submitting your abstract.');
+    if (paymentConfirmation !== 'yes' || !paymentStepComplete || !payerUpiId.trim() || !transactionId.trim()) {
+      setPaymentError('Complete the payment-details step before submitting your abstract.');
       return;
     }
 
@@ -164,14 +202,16 @@ function AbstractSubmissionContent() {
 
       <section className="section" style={{ backgroundColor: '#ffffff' }}>
         <div className="container-narrow">
-          {/* Download Official Template Highlight */}
-          <div style={{ marginBottom: '2.5rem' }}>
-            <TemplateDownloadCard />
-          </div>
-
-          <div className="alert alert-info" style={{ marginBottom: '2rem', borderLeft: '4px solid #b45309' }}>
-            <strong>Important abstract notice:</strong> Submit by <strong>3 December 2026</strong>. Registration remains open after this date, subject to arrangements. Late abstracts (after 3rd of December) will not be considered for publication.
-          </div>
+          {paymentStepComplete && (
+            <>
+              <div style={{ marginBottom: '2.5rem' }}>
+                <TemplateDownloadCard />
+              </div>
+              <div className="alert alert-info" style={{ marginBottom: '2rem', borderLeft: '4px solid #b45309' }}>
+                <strong>Important abstract notice:</strong> Submit by <strong>3 December 2026</strong>. Registration remains open after this date, subject to arrangements. Late abstracts (after 3rd of December) will not be considered for publication.
+              </div>
+            </>
+          )}
 
           {accessLoading || authLoading ? <div className="alert alert-info">Checking your participant registration…</div> : null}
           {accessError && <div className="alert alert-danger" style={{ marginBottom: '1.5rem' }}>{accessError}</div>}
@@ -185,25 +225,19 @@ function AbstractSubmissionContent() {
           )}
           <div className="card" style={{ padding: '2.5rem' }}>
             <h2 style={{ fontSize: '1.5rem', color: 'var(--navy-900)', marginBottom: '1.5rem', borderBottom: '1px solid var(--slate-100)', paddingBottom: '0.75rem' }}>
-              Abstract Submission Form
+              {paymentStepComplete ? 'Abstract Submission Form' : 'Payment Confirmation'}
             </h2>
 
             {registration && !accessLoading && !accessError ? (
-            <form onSubmit={handleSubmit} onInvalidCapture={(event) => {
-              if (event.target instanceof HTMLInputElement && event.target.type === 'checkbox') {
-                setError('Please confirm that you have completed the payment before submitting your abstract.');
-              }
-            }}>
-              <section aria-labelledby="payment-confirmation-heading" style={{ marginBottom: '1.75rem', padding: '1.25rem', border: '1px solid #bfdbfe', borderRadius: '8px', background: '#eff6ff' }}>
-                <h3 id="payment-confirmation-heading" style={{ color: '#1e3a8a', marginBottom: '0.75rem' }}>Payment Confirmation</h3>
-                <label style={{ display: 'flex', alignItems: 'flex-start', gap: '0.65rem', color: 'var(--slate-800)', lineHeight: 1.5 }}>
-                  <input type="checkbox" required checked={acknowledged} onChange={(event) => {
-                    setAcknowledged(event.target.checked);
-                    if (event.target.checked) setError('');
-                  }} style={{ marginTop: '0.25rem' }} />
-                  <span>I have completed the payment.</span>
-                </label>
-              </section>
+            paymentStepComplete ? (
+            <form onSubmit={handleSubmit}>
+              <button type="button" className="btn btn-outline-navy btn-sm" style={{ marginBottom: '1.25rem' }} onClick={() => setPaymentStepComplete(false)}>
+                Back to Payment Confirmation
+              </button>
+              <div className="form-hint" style={{ marginBottom: '1.25rem' }}>
+                Payment details entered here are for this frontend submission flow only and do not verify payment.
+              </div>
+              {/* Existing abstract submission fields and API flow remain unchanged. */}
               <div className="form-group">
                 <label className="form-label" htmlFor="abstract-title">Paper / Abstract Title *</label>
                 <input
@@ -220,142 +254,110 @@ function AbstractSubmissionContent() {
 
               <div className="form-group">
                 <label className="form-label" htmlFor="researchTheme">Research Theme / Topic *</label>
-                <select
-                  id="researchTheme"
-                  name="researchTheme"
-                  required
-                  value={formData.researchTheme}
-                  onChange={handleInputChange}
-                  className="form-control"
-                >
+                <select id="researchTheme" name="researchTheme" required value={formData.researchTheme} onChange={handleInputChange} className="form-control">
                   <option value="">-- Select Relevant Research Theme --</option>
-                  {officialThemes.map((t, idx) => (
-                    <option key={idx} value={t.title}>
-                      {t.title}
-                    </option>
-                  ))}
+                  {officialThemes.map((t, idx) => <option key={idx} value={t.title}>{t.title}</option>)}
                 </select>
               </div>
 
               <div className="grid-2">
                 <div className="form-group">
                   <label className="form-label" htmlFor="authorName">Presenting Author Name *</label>
-                  <input
-                    id="authorName"
-                    name="authorName"
-                    type="text"
-                    required
-                    value={submissionData.authorName}
-                    onChange={handleInputChange}
-                    placeholder="Full name of presenting author"
-                    className="form-control"
-                  />
+                  <input id="authorName" name="authorName" type="text" required value={submissionData.authorName} onChange={handleInputChange} placeholder="Full name of presenting author" className="form-control" />
                 </div>
-
                 <div className="form-group">
                   <label className="form-label" htmlFor="contactEmail">Contact / Corresponding Email *</label>
-                  <input
-                    id="contactEmail"
-                    name="contactEmail"
-                    type="email"
-                    required
-                    value={submissionData.contactEmail}
-                    onChange={handleInputChange}
-                    placeholder="author@institution.edu"
-                    className="form-control"
-                  />
+                  <input id="contactEmail" name="contactEmail" type="email" required value={submissionData.contactEmail} onChange={handleInputChange} placeholder="author@institution.edu" className="form-control" />
                 </div>
               </div>
 
               <div className="form-group">
                 <label className="form-label" htmlFor="coAuthors">Co-Author(s) Details</label>
-                <input
-                  id="coAuthors"
-                  name="coAuthors"
-                  type="text"
-                  value={formData.coAuthors}
-                  onChange={handleInputChange}
-                  placeholder="e.g. Author 2 (Dept, Inst), Author 3 (Dept, Inst)"
-                  className="form-control"
-                />
+                <input id="coAuthors" name="coAuthors" type="text" value={formData.coAuthors} onChange={handleInputChange} placeholder="e.g. Author 2 (Dept, Inst), Author 3 (Dept, Inst)" className="form-control" />
                 <div className="form-hint">List all co-authors with affiliations separated by commas.</div>
               </div>
 
               <div className="grid-2">
                 <div className="form-group">
                   <label className="form-label" htmlFor="abs-institution">Institution / Organization *</label>
-                  <input
-                    id="abs-institution"
-                    name="institution"
-                    type="text"
-                    required
-                    value={submissionData.institution}
-                    onChange={handleInputChange}
-                    placeholder="e.g. Dr. A.P.J. Abdul Kalam WIT, BARC, IIT"
-                    className="form-control"
-                  />
+                  <input id="abs-institution" name="institution" type="text" required value={submissionData.institution} onChange={handleInputChange} placeholder="e.g. Dr. A.P.J. Abdul Kalam WIT, BARC, IIT" className="form-control" />
                 </div>
-
                 <div className="form-group">
                   <label className="form-label" htmlFor="abs-department">Department</label>
-                  <input
-                    id="abs-department"
-                    name="department"
-                    type="text"
-                    value={submissionData.department}
-                    onChange={handleInputChange}
-                    placeholder="e.g. Computer Science & Engineering"
-                    className="form-control"
-                  />
+                  <input id="abs-department" name="department" type="text" value={submissionData.department} onChange={handleInputChange} placeholder="e.g. Computer Science & Engineering" className="form-control" />
                 </div>
               </div>
 
               <div className="form-group">
                 <label className="form-label" htmlFor="keywords">Keywords *</label>
-                <input
-                  id="keywords"
-                  name="keywords"
-                  type="text"
-                  required
-                  value={formData.keywords}
-                  onChange={handleInputChange}
-                  placeholder="e.g. Nuclear Science, AI Digital Twins, Reactor Safety, High Performance Computing"
-                  className="form-control"
-                />
+                <input id="keywords" name="keywords" type="text" required value={formData.keywords} onChange={handleInputChange} placeholder="e.g. Nuclear Science, AI Digital Twins, Reactor Safety, High Performance Computing" className="form-control" />
                 <div className="form-hint">At least four (4) keywords as required by the official template.</div>
               </div>
 
               <div className="form-group">
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <label className="form-label" htmlFor="abstractText">Abstract Summary Text *</label>
-                  <span style={{ fontSize: '0.8rem', color: 'var(--slate-500)' }}>
-                    Max {wordLimit} words
-                  </span>
+                  <span style={{ fontSize: '0.8rem', color: 'var(--slate-500)' }}>Max {wordLimit} words</span>
                 </div>
-                <textarea
-                  id="abstractText"
-                  name="abstractText"
-                  required
-                  rows={6}
-                  value={formData.abstractText}
-                  onChange={handleInputChange}
-                  placeholder="Paste or write the structured summary of your research (Introduction, Methods, Results, Conclusions)..."
-                  className="form-control"
-                />
-                {/* Live Word Counter */}
+                <textarea id="abstractText" name="abstractText" required rows={6} value={formData.abstractText} onChange={handleInputChange} placeholder="Paste or write the structured summary of your research (Introduction, Methods, Results, Conclusions)..." className="form-control" />
                 <WordCounter currentCount={wordCount} maxLimit={wordLimit} />
               </div>
 
-              <button
-                type="submit"
-                disabled={loading || success || !user || wordCount > wordLimit || !registration}
-                className="btn btn-teal btn-lg"
-                style={{ width: '100%', marginTop: '1rem' }}
-                id="submit-abstract-btn"
-              >
+              <button type="submit" disabled={loading || success || !user || wordCount > wordLimit || !registration} className="btn btn-teal btn-lg" style={{ width: '100%', marginTop: '1rem' }} id="submit-abstract-btn">
                 {loading ? 'Submitting Abstract...' : 'Submit Abstract'}
               </button>
             </form>
+            ) : (
+            <section aria-labelledby="payment-confirmation-heading" style={{ padding: '1.25rem', border: '1px solid #bfdbfe', borderRadius: '8px', background: '#eff6ff' }}>
+                <fieldset style={{ border: 0, padding: 0, margin: 0 }}>
+                  <legend id="payment-confirmation-heading" style={{ marginBottom: '0.75rem', color: 'var(--slate-800)', fontWeight: 600 }}>Have you completed the registration payment?</legend>
+                  <div style={{ display: 'grid', gap: '0.65rem' }}>
+                    <label style={{ display: 'flex', alignItems: 'flex-start', gap: '0.65rem', color: 'var(--slate-800)', lineHeight: 1.5 }}>
+                      <input type="radio" name="paymentConfirmation" value="yes" required checked={paymentConfirmation === 'yes'} onChange={() => {
+                        setPaymentConfirmation('yes');
+                        setPaymentStepComplete(false);
+                        setPaymentError('');
+                        setShowOfficialPayment(false);
+                      }} style={{ marginTop: '0.25rem' }} />
+                      <span>Yes, I have completed the payment.</span>
+                    </label>
+                    <label style={{ display: 'flex', alignItems: 'flex-start', gap: '0.65rem', color: 'var(--slate-800)', lineHeight: 1.5 }}>
+                      <input type="radio" name="paymentConfirmation" value="no" required checked={paymentConfirmation === 'no'} onChange={() => {
+                        setPaymentConfirmation('no');
+                        setPaymentStepComplete(false);
+                        setPaymentError('');
+                      }} style={{ marginTop: '0.25rem' }} />
+                      <span>No, I have not completed the payment.</span>
+                    </label>
+                  </div>
+                </fieldset>
+                {paymentConfirmation === 'yes' && (
+                  <div style={{ marginTop: '1.25rem' }}>
+                    <div className="form-group">
+                      <label className="form-label" htmlFor="payerUpiId">Payer UPI ID *</label>
+                      <input id="payerUpiId" type="text" required autoComplete="off" value={payerUpiId} onChange={(event) => { setPayerUpiId(event.target.value); setPaymentError(''); }} placeholder="e.g. name@bank" className="form-control" aria-invalid={Boolean(paymentError)} />
+                    </div>
+                    <div className="form-group" style={{ marginBottom: '1rem' }}>
+                      <label className="form-label" htmlFor="transactionId">Transaction ID / UTR Number *</label>
+                      <input id="transactionId" type="text" required minLength={6} maxLength={35} autoComplete="off" value={transactionId} onChange={(event) => { setTransactionId(event.target.value); setPaymentError(''); }} placeholder="Enter your UTR / Transaction ID" className="form-control" aria-invalid={Boolean(paymentError)} />
+                    </div>
+                    <button type="button" onClick={handlePaymentContinue} className="btn btn-teal">Continue to Abstract Submission</button>
+                  </div>
+                )}
+                {paymentConfirmation === 'no' && (
+                  <div style={{ marginTop: '1rem' }}>
+                    <p style={{ marginBottom: '0.75rem', color: 'var(--slate-800)', lineHeight: 1.6 }}>
+                      Please complete your registration payment first. After making the payment, fill out the Payment Report form. Once completed, return here, confirm your payment, and proceed with abstract submission.
+                    </p>
+                    <button type="button" onClick={() => setShowOfficialPayment(value => !value)} className="btn btn-primary">
+                      {showOfficialPayment ? 'Hide Payment Details' : 'Pay Now'}
+                    </button>
+                    {showOfficialPayment && <OfficialPaymentDetails title="Official ACANS 2026 Payment Details" showAction={false} />}
+                  </div>
+                )}
+                {paymentError && <div className="alert alert-danger" role="alert" style={{ marginTop: '1rem', marginBottom: 0 }}>{paymentError}</div>}
+              </section>
+            )
             ) : null}
           </div>
         </div>

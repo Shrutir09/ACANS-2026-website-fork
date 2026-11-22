@@ -12,7 +12,7 @@ const leadershipOfficeBearers = [
   {
     role: 'Chief Patron',
     name: 'Prof. Sanjay Kumar Choudhary',
-    designation: 'Vice Chancellor, LNMU',
+    designation: 'Vice Chancellor',
     institution: 'Lalit Narayan Mithila University, Darbhanga',
     photo: '/images/leadership/prof-sanjay-kumar-choudhary.png',
     alt: 'Prof. Sanjay Kumar Choudhary, Vice Chancellor, LNMU',
@@ -20,7 +20,7 @@ const leadershipOfficeBearers = [
   {
     role: 'Patron',
     name: 'Dr. Divya Rani Hansda',
-    designation: 'Registrar, LNMU',
+    designation: 'Registrar',
     institution: 'Lalit Narayan Mithila University, Darbhanga',
     photo: '/images/leadership/dr-divya-rani.png',
     alt: 'Dr. Divya Rani Hansda, Registrar, LNMU',
@@ -28,7 +28,7 @@ const leadershipOfficeBearers = [
   {
     role: 'President',
     name: 'Dr. Amod Kumar',
-    designation: 'Director, WIT',
+    designation: 'Director',
     institution: 'Dr. A.P.J. Abdul Kalam Women\'s Institute of Technology, LNMU',
     photo: '/images/leadership/dr-amod-kumar.png',
     alt: 'Dr. Amod Kumar, Director, WIT',
@@ -179,7 +179,7 @@ const advisoryCommittee: { department: string; members: CommitteeMember[] }[] = 
   {
     department: 'Dr. A.P.J. Abdul Kalam Women\'s Institute of Technology',
     members: [
-      { name: 'Dr. Priyanka Rai', designation: 'Deputy Registrar, WIT', photo: '/images/leadership/dr Priyanka Rai.png', photoPosition: 'center 34%' },
+      { name: 'Dr. Priyanka Rai',  photo: '/images/leadership/dr Priyanka Rai.png', photoPosition: 'center 34%' },
       { name: 'Mr. Amit Kumar Mishra', photo: '/images/leadership/Amit Mishra.png', photoPosition: 'center 30%' },
       { name: 'Mrs. Neha Kumari', photo:'/images/leadership/Neha Kumari.png' , photoPosition: 'center 30%' },
       { name: 'Mr. Ashif Habibi', photo: '/images/leadership/Ashif.jpeg', photoPosition: 'center 30%' },
