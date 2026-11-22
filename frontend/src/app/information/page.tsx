@@ -168,10 +168,6 @@ export default function InformationPage() {
                       <td><strong>Sections</strong></td>
                       <td>Use the abstract and keyword sections provided in the template.</td>
                     </tr>
-                    <tr>
-                      <td><strong>Allowed File Types</strong></td>
-                      <td><code>.docx</code>, <code>.doc</code>, <code>.pdf</code> (Up to 10 MB).</td>
-                    </tr>
                   </tbody>
                 </table>
               </div>
