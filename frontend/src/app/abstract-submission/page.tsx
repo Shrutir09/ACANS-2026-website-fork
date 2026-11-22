@@ -2,17 +2,24 @@
 
 import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '../../context/AuthContext';
 import { api } from '../../lib/api';
-import { EventSettings, EventTheme } from '../../types';
+import { EventSettings, EventTheme, Registration } from '../../types';
 import { normalizeEventText } from '../../lib/eventText';
 import TemplateDownloadCard from '../../components/TemplateDownloadCard';
 import WordCounter from '../../components/WordCounter';
+import SuccessModal from '../../components/SuccessModal';
 
 function AbstractSubmissionContent() {
   const searchParams = useSearchParams();
-  const { user } = useAuth();
+  const router = useRouter();
+  const { user, loading: authLoading } = useAuth();
+
+  const [registration, setRegistration] = useState<Registration | null>(null);
+  const [accessLoading, setAccessLoading] = useState(true);
+  const [accessError, setAccessError] = useState('');
+  const [acknowledged, setAcknowledged] = useState(false);
 
   const [settings, setSettings] = useState<EventSettings | null>(null);
   const [themes, setThemes] = useState<EventTheme[]>([]);
@@ -32,7 +39,7 @@ function AbstractSubmissionContent() {
   });
 
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState<{ message: string; ref: string } | null>(null);
+  const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const submissionData = {
@@ -42,6 +49,29 @@ function AbstractSubmissionContent() {
     institution: formData.institution || user?.institution || '',
     department: formData.department || user?.department || '',
   };
+
+  useEffect(() => {
+    if (authLoading) return;
+    if (!user) {
+      const currentPath = `${window.location.pathname}${window.location.search}`;
+      router.replace(`/login?next=${encodeURIComponent(currentPath)}`);
+      return;
+    }
+
+    let active = true;
+    api.getMyRegistration()
+      .then((registrationRes) => {
+        if (!active) return;
+        setRegistration(registrationRes.registration);
+      })
+      .catch((err: unknown) => {
+        if (active) setAccessError(err instanceof Error ? err.message : 'Unable to verify your registration status. Please try again.');
+      })
+      .finally(() => {
+        if (active) setAccessLoading(false);
+      });
+    return () => { active = false; };
+  }, [authLoading, user, router]);
 
   // Load settings & themes
   useEffect(() => {
@@ -73,8 +103,12 @@ function AbstractSubmissionContent() {
     e.preventDefault();
     setError('');
 
-    if (!user) {
-      setError('Please sign in or create an account before submitting your abstract so it can be managed from your participant dashboard.');
+    if (!user || !registration || loading) {
+      return;
+    }
+
+    if (!acknowledged) {
+      setError('Please confirm that you have completed the payment before submitting your abstract.');
       return;
     }
 
@@ -97,10 +131,11 @@ function AbstractSubmissionContent() {
       formPayload.append('keywords', formData.keywords);
       formPayload.append('contactEmail', submissionData.contactEmail);
       const res = await api.submitAbstract(formPayload);
-      setSuccess({
-        message: 'Your abstract has been submitted successfully!',
-        ref: res.abstract.abstractRef,
-      });
+      if (res.success) {
+        setSuccess(true);
+      } else {
+        setError(res.message || 'Submission could not be confirmed. Please try again.');
+      }
 
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : 'Submission failed. Please check required fields.';
@@ -145,33 +180,37 @@ function AbstractSubmissionContent() {
             <strong>Important abstract notice:</strong> Submit by <strong>3 December 2026</strong>. Registration remains open after this date, subject to arrangements. Late abstracts (after 3rd of December) will not be considered for publication.
           </div>
 
-          {!user && (
-            <div className="alert alert-info" style={{ marginBottom: '2rem' }}>
-              <div>
-                <strong>Account Required:</strong> Please{' '}
-                <Link href="/login" style={{ textDecoration: 'underline', fontWeight: 600 }}>log in</Link> or{' '}
-                <Link href="/register" style={{ textDecoration: 'underline', fontWeight: 600 }}>create an account</Link>{' '}
-                to associate your abstract with your participant profile and access your submission record.
-              </div>
-            </div>
-          )}
-
+          {accessLoading || authLoading ? <div className="alert alert-info">Checking your participant registration…</div> : null}
+          {accessError && <div className="alert alert-danger" style={{ marginBottom: '1.5rem' }}>{accessError}</div>}
           {error && <div className="alert alert-danger" style={{ marginBottom: '1.5rem' }}>{error}</div>}
-          {success && (
-            <div className="alert alert-success" style={{ marginBottom: '2rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-              <div><strong>Success!</strong> {success.message}</div>
-              <div>Your Abstract Reference ID is: <strong>{success.ref}</strong></div>
-              <div style={{ fontSize: '0.85rem' }}>This confirms receipt only; it is not a review or publication decision.</div>
-              <Link href="/dashboard" style={{ color: 'var(--navy-900)', fontWeight: 600 }}>View participant dashboard →</Link>
+
+          {!accessLoading && !authLoading && !accessError && user && !registration && (
+            <div className="alert alert-info" style={{ marginBottom: '2rem' }}>
+              <strong>Complete participant registration before submitting an abstract.</strong>{' '}
+              <Link href="/register" className="btn btn-primary btn-sm" style={{ marginLeft: '0.5rem' }}>Go to Registration</Link>
             </div>
           )}
-
           <div className="card" style={{ padding: '2.5rem' }}>
             <h2 style={{ fontSize: '1.5rem', color: 'var(--navy-900)', marginBottom: '1.5rem', borderBottom: '1px solid var(--slate-100)', paddingBottom: '0.75rem' }}>
               Abstract Submission Form
             </h2>
 
-            <form onSubmit={handleSubmit}>
+            {registration && !accessLoading && !accessError ? (
+            <form onSubmit={handleSubmit} onInvalidCapture={(event) => {
+              if (event.target instanceof HTMLInputElement && event.target.type === 'checkbox') {
+                setError('Please confirm that you have completed the payment before submitting your abstract.');
+              }
+            }}>
+              <section aria-labelledby="payment-confirmation-heading" style={{ marginBottom: '1.75rem', padding: '1.25rem', border: '1px solid #bfdbfe', borderRadius: '8px', background: '#eff6ff' }}>
+                <h3 id="payment-confirmation-heading" style={{ color: '#1e3a8a', marginBottom: '0.75rem' }}>Payment Confirmation</h3>
+                <label style={{ display: 'flex', alignItems: 'flex-start', gap: '0.65rem', color: 'var(--slate-800)', lineHeight: 1.5 }}>
+                  <input type="checkbox" required checked={acknowledged} onChange={(event) => {
+                    setAcknowledged(event.target.checked);
+                    if (event.target.checked) setError('');
+                  }} style={{ marginTop: '0.25rem' }} />
+                  <span>I have completed the payment.</span>
+                </label>
+              </section>
               <div className="form-group">
                 <label className="form-label" htmlFor="abstract-title">Paper / Abstract Title *</label>
                 <input
@@ -316,7 +355,7 @@ function AbstractSubmissionContent() {
 
               <button
                 type="submit"
-                disabled={loading || !user || wordCount > wordLimit}
+                disabled={loading || success || !user || wordCount > wordLimit || !registration}
                 className="btn btn-teal btn-lg"
                 style={{ width: '100%', marginTop: '1rem' }}
                 id="submit-abstract-btn"
@@ -324,9 +363,15 @@ function AbstractSubmissionContent() {
                 {loading ? 'Submitting Abstract...' : 'Submit Abstract'}
               </button>
             </form>
+            ) : null}
           </div>
         </div>
       </section>
+      {success && <SuccessModal
+        heading="Abstract submitted successfully"
+        message="Your abstract has been submitted successfully! You will receive an acknowledgement email after verification."
+        onClose={() => setSuccess(false)}
+      />}
     </div>
   );
 }

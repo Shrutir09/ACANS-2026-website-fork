@@ -14,7 +14,7 @@ type OfficialPaymentDetailsProps = {
 
 export default function OfficialPaymentDetails({
   title = 'Complete Your Registration Payment',
-  actionHref = '#payment-report',
+  actionHref = '/dashboard#payment-report',
   actionLabel = 'Submit Payment Report',
   showAction = true,
 }: OfficialPaymentDetailsProps) {

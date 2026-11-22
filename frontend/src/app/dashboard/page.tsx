@@ -10,6 +10,7 @@ import { normalizeEventText } from '../../lib/eventText';
 import StatusBadge from '../../components/StatusBadge';
 import TemplateDownloadCard from '../../components/TemplateDownloadCard';
 import OfficialPaymentDetails from '../../components/OfficialPaymentDetails';
+import SuccessModal from '../../components/SuccessModal';
 
 export default function ParticipantDashboard() {
   const router = useRouter();
@@ -30,6 +31,7 @@ export default function ParticipantDashboard() {
   const [paymentSubmitting, setPaymentSubmitting] = useState(false);
   const [paymentError, setPaymentError] = useState('');
   const [paymentSuccess, setPaymentSuccess] = useState('');
+  const [paymentSuccessModal, setPaymentSuccessModal] = useState(false);
   const [registrationConfirmation, setRegistrationConfirmation] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
 
   useEffect(() => {
@@ -54,7 +56,8 @@ export default function ParticipantDashboard() {
   // Initial Load
   useEffect(() => {
     if (!authLoading && !user) {
-      router.push('/login');
+      const returnPath = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+      router.replace(`/login?next=${encodeURIComponent(returnPath)}`);
       return;
     }
 
@@ -87,6 +90,12 @@ export default function ParticipantDashboard() {
     }
   }, [user, authLoading, router]);
 
+  useEffect(() => {
+    if (loading || !window.location.hash) return;
+    const targetId = decodeURIComponent(window.location.hash.slice(1));
+    document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, [loading]);
+
   const handlePaymentSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setPaymentError('');
@@ -118,9 +127,11 @@ export default function ParticipantDashboard() {
         paymentDate,
         remarks: paymentRemarks,
       });
+      if (!res.success) throw new Error(res.message || 'Payment report could not be confirmed. Please try again.');
 
       setPayment(res.payment);
       setPaymentSuccess('UPI payment details submitted successfully for administrative verification.');
+      setPaymentSuccessModal(true);
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : 'Failed to submit payment details.';
       setPaymentError(message);
@@ -143,10 +154,8 @@ export default function ParticipantDashboard() {
   return (
     <div style={{ backgroundColor: 'var(--slate-50)', padding: '3.5rem 0 5rem 0' }}>
       <div className="container">
-        {registrationConfirmation && (
-          <div className={`alert ${registrationConfirmation.type === 'success' ? 'alert-success' : 'alert-danger'}`} role="status" style={{ marginBottom: '1.5rem' }}>
-            {registrationConfirmation.message}
-          </div>
+        {registrationConfirmation && registrationConfirmation.type === 'error' && (
+          <div className="alert alert-danger" role="status" style={{ marginBottom: '1.5rem' }}>{registrationConfirmation.message}</div>
         )}
 
         {/* Dashboard Top Header */}
@@ -257,8 +266,8 @@ export default function ParticipantDashboard() {
             actionHref={!registration
               ? '/register'
               : payment?.status === 'submitted' || payment?.status === 'under_verification'
-              ? '#payment-status'
-              : '#payment-report'}
+              ? '/dashboard#payment-status'
+              : '/dashboard#payment-report'}
             actionLabel={!registration
               ? 'Complete Participant Registration'
               : payment?.status === 'submitted' || payment?.status === 'under_verification'
@@ -281,7 +290,6 @@ export default function ParticipantDashboard() {
               </div>
             </div>
 
-            {paymentSuccess && <div className="alert alert-success">{paymentSuccess}</div>}
             {paymentError && <div className="alert alert-danger">{paymentError}</div>}
 
             {!registration ? (
@@ -516,6 +524,7 @@ export default function ParticipantDashboard() {
           </div>
         </div>
       </div>
+      {paymentSuccessModal && <SuccessModal heading="Payment report submitted" message={paymentSuccess} onClose={() => setPaymentSuccessModal(false)} />}
     </div>
   );
 }

@@ -61,6 +61,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const login = async (credentials: { email: string; password: string }) => {
     const res = await api.login(credentials);
+    if (!res.success) throw new Error(res.message || 'Sign in could not be confirmed. Please try again.');
     setUser(res.user);
   };
 
