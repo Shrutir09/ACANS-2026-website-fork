@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { api } from '../lib/api';
 import { EventSettings } from '../types';
 import { normalizeEventText } from '../lib/eventText';
+import { useAuth } from '../context/AuthContext';
 import { defaultThemes } from '../lib/defaultThemes';
 import TemplateDownloadCard from '../components/TemplateDownloadCard';
 
@@ -42,6 +43,7 @@ function ProfilePortrait({
 }
 
 export default function HomePage() {
+  const { user } = useAuth();
   const [settings, setSettings] = useState<EventSettings | null>(null);
   const [settingsLoadError, setSettingsLoadError] = useState(false);
   const [activeThemeTab, setActiveThemeTab] = useState<'all' | 'workshop' | 'conference'>('all');
@@ -245,9 +247,9 @@ export default function HomePage() {
             <Link href="/register" className="btn btn-outline-white btn-lg" id="hero-register-cta">
               Register as Participant
             </Link>
-            <Link href="/abstract-submission" className="btn btn-outline-white btn-lg" id="hero-abstract-cta">
+            {user && <Link href="/abstract-submission" className="btn btn-outline-white btn-lg" id="hero-abstract-cta">
               Submit Abstract
-            </Link>
+            </Link>}
           </div>
         </div>
       </section>
@@ -610,9 +612,9 @@ export default function HomePage() {
                   )}
                 </div>
                 <div style={{ marginTop: '0.75rem', paddingTop: '0.5rem', borderTop: '1px solid #f1f5f9' }}>
-                  <Link href={`/abstract-submission?theme=${encodeURIComponent(theme.title)}`} style={{ fontSize: '0.825rem', color: '#0f294a', fontWeight: 600 }}>
+                  {user && <Link href={`/abstract-submission?theme=${encodeURIComponent(theme.title)}`} style={{ fontSize: '0.825rem', color: '#0f294a', fontWeight: 600 }}>
                     Submit abstract under this track →
-                  </Link>
+                  </Link>}
                 </div>
               </div>
             ))}

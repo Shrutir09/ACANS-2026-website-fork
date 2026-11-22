@@ -161,7 +161,7 @@ const advisoryCommittee: { department: string; members: CommitteeMember[] }[] = 
     department: 'University Department of Chemistry',
     members: [
       { name: 'Dr. Abhishek Rai', photo: '/images/leadership/Abhishek Rai.jpeg', photoPosition: 'center 30%' },
-      { name: 'Dr. Arindra Sharma', photo: '/images/leadership/Arindra Sharma.jpeg', photoPosition: 'center 30%' },
+      { name: 'Dr. Anindra Sharma', photo: '/images/leadership/Arindra Sharma.jpeg', photoPosition: 'center 30%' },
     ],
   },
   {

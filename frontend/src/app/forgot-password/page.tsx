@@ -3,11 +3,13 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { api } from '../../lib/api';
+import SuccessModal from '../../components/SuccessModal';
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<{ success: boolean; message: string } | null>(null);
   const [loading, setLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -16,7 +18,8 @@ export default function ForgotPasswordPage() {
 
     try {
       const res = await api.forgotPassword(email);
-      setStatus({ success: true, message: res.message });
+      if (!res.success) throw new Error(res.message || 'Password recovery request could not be confirmed.');
+      setSuccessMessage(res.message);
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : 'Password reset request failed.';
       setStatus({ success: false, message });
@@ -39,11 +42,7 @@ export default function ForgotPasswordPage() {
             </p>
           </div>
 
-          {status && (
-            <div className={`alert ${status.success ? 'alert-success' : 'alert-danger'}`} style={{ marginBottom: '1.5rem' }}>
-              {status.message}
-            </div>
-          )}
+          {status && !status.success && <div className="alert alert-danger" style={{ marginBottom: '1.5rem' }}>{status.message}</div>}
 
           <form onSubmit={handleSubmit}>
             <div className="form-group">
@@ -76,6 +75,7 @@ export default function ForgotPasswordPage() {
           </div>
         </div>
       </div>
+      {successMessage && <SuccessModal heading="Request submitted" message={successMessage} onClose={() => setSuccessMessage('')} />}
     </div>
   );
 }

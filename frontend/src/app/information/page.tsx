@@ -115,6 +115,9 @@ export default function InformationPage() {
                   <li><strong>Submit Payment Report:</strong> Navigate to your <em>Participant Dashboard</em> and submit your <strong>Payer UPI ID</strong> and <strong>12-digit UPI UTR / Transaction ID</strong>.</li>
                   <li><strong>Administrative Verification:</strong> The organizing committee verifies the UPI transaction against bank records. Upon verification, your registration status is updated to <em>Confirmed</em> in your dashboard.</li>
                 </ol>
+                <Link href="/dashboard#payment-report" className="btn btn-primary" style={{ alignSelf: 'flex-start', marginTop: '0.5rem' }}>
+                  Submit Payment Report
+                </Link>
               </div>
             </div>
 

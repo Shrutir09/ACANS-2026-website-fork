@@ -6,8 +6,10 @@ import { api } from '../../lib/api';
 import { EventTheme } from '../../types';
 import { normalizeEventText } from '../../lib/eventText';
 import { defaultThemes } from '../../lib/defaultThemes';
+import { useAuth } from '../../context/AuthContext';
 
 export default function ThemesPage() {
+  const { user } = useAuth();
   const [themes, setThemes] = useState<EventTheme[]>(defaultThemes);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState('');
@@ -167,12 +169,12 @@ export default function ThemesPage() {
 
                 <div style={{ marginTop: '1rem', paddingTop: '0.5rem', borderTop: '1px solid #f1f5f9', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <span style={{ fontSize: '0.75rem', color: '#64748b' }}>Contributory Abstract</span>
-                  <Link
+                  {user && <Link
                     href={`/abstract-submission?theme=${encodeURIComponent(theme.title)}`}
                     className="btn btn-sm btn-outline-navy"
                   >
                     Submit Abstract →
-                  </Link>
+                  </Link>}
                 </div>
               </div>
             ))}

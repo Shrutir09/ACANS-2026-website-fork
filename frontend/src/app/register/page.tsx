@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '../../context/AuthContext';
 import { api } from '../../lib/api';
 import PasswordInput from '../../components/PasswordInput';
+import SuccessModal from '../../components/SuccessModal';
 
 
 function RegisterContent() {
@@ -30,6 +31,7 @@ function RegisterContent() {
 
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
@@ -64,7 +66,7 @@ function RegisterContent() {
 
     try {
       // 1. Register user
-      await api.register({
+      const registerRes = await api.register({
         fullName: formData.fullName,
         email: formData.email,
         password: formData.password,
@@ -75,12 +77,10 @@ function RegisterContent() {
         participantCategory: formData.participantCategory,
         consentGiven: formData.consentGiven,
       });
+      if (!registerRes.success) throw new Error(registerRes.message || 'Registration could not be confirmed. Please try again.');
 
       // 2. Automatically create initial registration with fee snapshot
-      let confirmation = {
-        type: 'success',
-        message: 'Your registration form has been submitted successfully.',
-      };
+      let confirmationMessage = 'Your registration form has been submitted successfully.';
 
       if (formData.participantCategory) {
         try {
@@ -90,23 +90,16 @@ function RegisterContent() {
             department: formData.department,
             designation: formData.designation,
           });
-          confirmation.message = `Your registration form has been submitted successfully. Reference ID: ${registration.registration.registrationRef}.`;
-        } catch {
-          confirmation = {
-            type: 'error',
-            message: 'Your account was created, but event registration could not be completed. Please contact the helpdesk before making payment.',
-          };
+          if (!registration.success) throw new Error(registration.message || 'Event registration could not be confirmed.');
+          confirmationMessage = `Your registration form has been submitted successfully. Reference ID: ${registration.registration.registrationRef}.`;
+        } catch (registrationError: unknown) {
+          await refreshUser();
+          setError(`Your account was created, but event registration could not be completed. ${registrationError instanceof Error ? registrationError.message : 'Please contact the helpdesk before making payment.'}`);
+          return;
         }
       }
-
-      try {
-        sessionStorage.setItem('registrationConfirmation', JSON.stringify(confirmation));
-      } catch {
-        // The account and registration are already saved; a storage issue should not block navigation.
-      }
-
       await refreshUser();
-      router.push('/dashboard');
+      setSuccessMessage(confirmationMessage);
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : 'Registration failed. Please try again.';
       setError(message);
@@ -117,6 +110,7 @@ function RegisterContent() {
 
 
   return (
+    <>
     <div style={{ backgroundColor: '#f8fafc', padding: '3rem 0' }}>
       <div className="container-narrow">
         <div id="participant-registration-form" className="card" style={{ maxWidth: '640px', margin: '0 auto', padding: '2rem', borderTop: '4px solid #0f294a' }}>
@@ -304,10 +298,17 @@ function RegisterContent() {
             <Link href="/login" style={{ color: '#0f294a', fontWeight: 700 }}>
               Sign In here
             </Link>
+            <div style={{ marginTop: '0.85rem' }}>
+              <Link href="/dashboard#payment-report" className="btn btn-outline-navy btn-sm">
+                Submit Payment Report
+              </Link>
+            </div>
           </div>
         </div>
       </div>
     </div>
+    {successMessage && <SuccessModal heading="Registration complete" message={successMessage} onClose={() => router.push('/dashboard')} />}
+    </>
   );
 }
 

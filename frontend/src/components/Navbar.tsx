@@ -249,7 +249,7 @@ export default function Navbar() {
               Registration
             </Link>
 
-            <Link
+            {user && <Link
               href="/abstract-submission"
               style={{
                 padding: '0.75rem 1rem',
@@ -263,7 +263,7 @@ export default function Navbar() {
               }}
             >
               Abstract Submission
-            </Link>
+            </Link>}
           </div>
 
           {/* Right Action / Auth */}
@@ -411,7 +411,7 @@ export default function Navbar() {
           <Link href="/committees" onClick={() => setMobileMenuOpen(false)} style={{ padding: '0.4rem 0', fontWeight: 600, color: '#0f294a' }}>Committees</Link>
           <Link href="/themes" onClick={() => setMobileMenuOpen(false)} style={{ padding: '0.4rem 0', fontWeight: 600, color: '#0f294a' }}>Themes &amp; Topics</Link>
           <Link href="/information" onClick={() => setMobileMenuOpen(false)} style={{ padding: '0.4rem 0', fontWeight: 600, color: '#0f294a' }}>Registration</Link>
-          <Link href="/abstract-submission" onClick={() => setMobileMenuOpen(false)} style={{ padding: '0.4rem 0', fontWeight: 600, color: '#0f294a' }}>Abstract Submission</Link>
+          {user && <Link href="/abstract-submission" onClick={() => setMobileMenuOpen(false)} style={{ padding: '0.4rem 0', fontWeight: 600, color: '#0f294a' }}>Abstract Submission</Link>}
           <hr style={{ border: 'none', borderTop: '1px solid #e2e8f0', margin: '0.5rem 0' }} />
           {user ? (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
