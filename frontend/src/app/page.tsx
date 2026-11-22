@@ -1,13 +1,10 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { api } from '../lib/api';
-import { EventSettings } from '../types';
-import { normalizeEventText } from '../lib/eventText';
 import { useAuth } from '../context/AuthContext';
-import { defaultThemes } from '../lib/defaultThemes';
+import { officialThemes } from '../lib/officialThemes';
 import TemplateDownloadCard from '../components/TemplateDownloadCard';
 
 function ProfilePortrait({
@@ -44,28 +41,7 @@ function ProfilePortrait({
 
 export default function HomePage() {
   const { user } = useAuth();
-  const [settings, setSettings] = useState<EventSettings | null>(null);
-  const [settingsLoadError, setSettingsLoadError] = useState(false);
-  const [activeThemeTab, setActiveThemeTab] = useState<'all' | 'workshop' | 'conference'>('all');
-
-  useEffect(() => {
-    api.getPublicSettings()
-      .then(res => setSettings(res.settings))
-      .catch(err => {
-        console.error('Error loading settings:', err);
-        setSettingsLoadError(true);
-      });
-  }, []);
-
-  const publishedThemes = settings?.themes?.length ? settings.themes : defaultThemes;
-  const themes = [...publishedThemes].sort((a, b) => a.sortOrder - b.sortOrder).map((theme) => ({
-    ...theme,
-    title: normalizeEventText(theme.title),
-    description: theme.description ? normalizeEventText(theme.description) : theme.description,
-  }));
-  const filteredThemes = activeThemeTab === 'all'
-    ? themes
-    : themes.filter(t => t.category === activeThemeTab);
+  const themes = officialThemes;
 
   const homepageLeaders = [
     {
@@ -552,39 +528,11 @@ export default function HomePage() {
           <div className="section-header">
             <span className="section-tag">Research Scope</span>
             <h2 className="section-title">Technical Themes &amp; Tracks</h2>
-            <p className="section-subtitle">
-              Seminar themes and related topics in advanced computing and nuclear science.
-            </p>
-            {settingsLoadError && (
-              <p role="status" style={{ marginTop: '0.5rem', color: '#64748b', fontSize: '0.85rem' }}>
-                Showing the approved ACANS 2026 themes while event settings are unavailable.
-              </p>
-            )}
-
-            <div className="theme-filter-controls" style={{ display: 'inline-flex', gap: '0.4rem', marginTop: '1rem', backgroundColor: '#f1f5f9', padding: '0.25rem', borderRadius: '4px', border: '1px solid #e2e8f0' }}>
-              <button
-                onClick={() => setActiveThemeTab('all')}
-                className={`btn btn-sm ${activeThemeTab === 'all' ? 'btn-primary' : 'btn-secondary'}`}
-              >
-                All Themes ({themes.length})
-              </button>
-              <button
-                onClick={() => setActiveThemeTab('workshop')}
-                className={`btn btn-sm ${activeThemeTab === 'workshop' ? 'btn-primary' : 'btn-secondary'}`}
-              >
-                Seminar Themes
-              </button>
-              <button
-                onClick={() => setActiveThemeTab('conference')}
-                className={`btn btn-sm ${activeThemeTab === 'conference' ? 'btn-primary' : 'btn-secondary'}`}
-              >
-                Related Technical Topics
-              </button>
-            </div>
+            <p className="section-subtitle">Explore the eight official ACANS 2026 research themes.</p>
           </div>
 
           <div className="grid-2">
-            {filteredThemes.slice(0, 8).map((theme, idx) => (
+            {themes.map((theme, idx) => (
               <div key={idx} className="card card-interactive" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                 <div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
@@ -598,18 +546,13 @@ export default function HomePage() {
                       border: '1px solid #e2e8f0',
                       textTransform: 'uppercase',
                     }}>
-                      {theme.category === 'workshop' ? 'Seminar Theme' : 'Related Topic'}
+                      Official Theme
                     </span>
                     <span style={{ fontSize: '0.8rem', color: '#94a3b8' }}>#{idx + 1}</span>
                   </div>
                   <h4 style={{ fontSize: '1rem', color: '#0f294a', lineHeight: 1.4, marginBottom: '0.4rem' }}>
                     {theme.title}
                   </h4>
-                  {theme.description && (
-                    <p style={{ fontSize: '0.85rem', color: '#475569', lineHeight: 1.5 }}>
-                      {theme.description}
-                    </p>
-                  )}
                 </div>
                 <div style={{ marginTop: '0.75rem', paddingTop: '0.5rem', borderTop: '1px solid #f1f5f9' }}>
                   {user && <Link href={`/abstract-submission?theme=${encodeURIComponent(theme.title)}`} style={{ fontSize: '0.825rem', color: '#0f294a', fontWeight: 600 }}>
@@ -622,7 +565,7 @@ export default function HomePage() {
 
           <div style={{ textAlign: 'center', marginTop: '2rem' }}>
             <Link href="/themes" className="btn btn-outline-navy">
-              View All {themes.length} Technical Themes &amp; Topics →
+              View All {themes.length} Official Themes →
             </Link>
           </div>
         </div>

@@ -8,6 +8,7 @@ import { api } from '../../lib/api';
 import { DashboardStats, Registration, Payment, Abstract, EventSettings } from '../../types';
 import StatusBadge from '../../components/StatusBadge';
 import SuccessModal from '../../components/SuccessModal';
+import { officialThemeTitle } from '../../lib/officialThemes';
 
 export default function AdminDashboardPage() {
   const router = useRouter();
@@ -622,7 +623,7 @@ export default function AdminDashboardPage() {
                       <td><strong>{abs.abstractRef}</strong></td>
                       <td style={{ maxWidth: '300px' }}>
                         <div style={{ fontWeight: 600, color: 'var(--navy-900)' }}>{abs.title}</div>
-                        <div style={{ fontSize: '0.8rem', color: 'var(--teal-600)', marginTop: '0.2rem' }}>{abs.researchTheme}</div>
+                        <div style={{ fontSize: '0.8rem', color: 'var(--teal-600)', marginTop: '0.2rem' }}>{officialThemeTitle(abs.researchTheme)}</div>
                       </td>
                       <td>
                         <div style={{ fontWeight: 600 }}>{abs.authorName}</div>

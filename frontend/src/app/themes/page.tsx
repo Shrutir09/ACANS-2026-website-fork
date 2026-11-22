@@ -1,54 +1,17 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
-import { api } from '../../lib/api';
-import { EventTheme } from '../../types';
-import { normalizeEventText } from '../../lib/eventText';
-import { defaultThemes } from '../../lib/defaultThemes';
 import { useAuth } from '../../context/AuthContext';
+import { officialThemes } from '../../lib/officialThemes';
 
 export default function ThemesPage() {
   const { user } = useAuth();
-  const [themes, setThemes] = useState<EventTheme[]>(defaultThemes);
-  const [loading, setLoading] = useState(true);
-  const [loadError, setLoadError] = useState('');
-  const [filter, setFilter] = useState<'all' | 'workshop' | 'conference'>('all');
   const [searchTerm, setSearchTerm] = useState('');
-
-  useEffect(() => {
-    let isCurrent = true;
-    api.getPublicSettings()
-      .then(res => {
-        if (!isCurrent) return;
-        const apiThemes = (res.settings?.themes || []).filter(theme => theme.isPublished).map(theme => ({
-          ...theme,
-          title: normalizeEventText(theme.title),
-          description: theme.description ? normalizeEventText(theme.description) : theme.description,
-        }));
-        if (apiThemes.length > 0) {
-          setThemes(apiThemes.sort((a, b) => a.sortOrder - b.sortOrder));
-        } else {
-          setLoadError('Showing the published ACANS 2026 theme list while the online theme list is unavailable.');
-        }
-      })
-      .catch(err => {
-        console.error('Error fetching themes:', err);
-        if (isCurrent) setLoadError('Showing the published ACANS 2026 theme list while the online theme list is unavailable.');
-      })
-      .finally(() => {
-        if (isCurrent) setLoading(false);
-      });
-    return () => {
-      isCurrent = false;
-    };
-  }, []);
+  const themes = officialThemes;
 
   const filteredThemes = themes.filter(theme => {
-    const matchesCategory = filter === 'all' || theme.category === filter;
-    const matchesSearch = theme.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (theme.description && theme.description.toLowerCase().includes(searchTerm.toLowerCase()));
-    return matchesCategory && matchesSearch;
+    return theme.title.toLowerCase().includes(searchTerm.toLowerCase());
   });
 
   return (
@@ -70,7 +33,7 @@ export default function ThemesPage() {
             Technical Themes &amp; Research Topics
           </h1>
           <p style={{ color: '#cbd5e1', maxWidth: '750px', fontSize: '0.95rem' }}>
-            Explore interdisciplinary research themes covering advanced computing applications, nuclear engineering, radiation physics, and healthcare.
+            Explore the eight official ACANS 2026 research themes.
           </p>
         </div>
       </section>
@@ -90,25 +53,8 @@ export default function ThemesPage() {
             borderRadius: '4px',
             border: '1px solid #e2e8f0',
           }}>
-            <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
-              <button
-                onClick={() => setFilter('all')}
-                className={`btn btn-sm ${filter === 'all' ? 'btn-primary' : 'btn-secondary'}`}
-              >
-                All Themes ({themes.length})
-              </button>
-              <button
-                onClick={() => setFilter('workshop')}
-                className={`btn btn-sm ${filter === 'workshop' ? 'btn-primary' : 'btn-secondary'}`}
-              >
-                Seminar Themes ({themes.filter(t => t.category === 'workshop').length})
-              </button>
-              <button
-                onClick={() => setFilter('conference')}
-                className={`btn btn-sm ${filter === 'conference' ? 'btn-primary' : 'btn-secondary'}`}
-              >
-                Related Topics ({themes.filter(t => t.category === 'conference').length})
-              </button>
+            <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', alignItems: 'center' }}>
+              <span className="badge badge-submitted">{themes.length} Official Themes</span>
             </div>
 
             <div style={{ flex: '1 1 260px', minWidth: 0, maxWidth: '100%' }}>
@@ -149,7 +95,7 @@ export default function ThemesPage() {
                       border: '1px solid #e2e8f0',
                       textTransform: 'uppercase',
                     }}>
-                      {theme.category === 'workshop' ? 'National Seminar Theme' : 'Related Technical Topic'}
+                      Official Theme
                     </span>
                     <span style={{ fontSize: '0.8rem', color: '#94a3b8' }}>
                       #{index + 1}
@@ -160,11 +106,6 @@ export default function ThemesPage() {
                     {theme.title}
                   </h3>
 
-                  {theme.description && (
-                    <p style={{ fontSize: '0.85rem', color: '#475569', lineHeight: 1.6 }}>
-                      {theme.description}
-                    </p>
-                  )}
                 </div>
 
                 <div style={{ marginTop: '1rem', paddingTop: '0.5rem', borderTop: '1px solid #f1f5f9', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -180,19 +121,7 @@ export default function ThemesPage() {
             ))}
           </div>
 
-          {loading && (
-            <div role="status" style={{ textAlign: 'center', padding: '3rem 0', color: '#64748b' }}>
-              Loading conference themes...
-            </div>
-          )}
-
-          {!loading && loadError && (
-            <div role="status" className="alert alert-info" style={{ marginTop: '1rem' }}>
-              {loadError}
-            </div>
-          )}
-
-          {!loading && !loadError && filteredThemes.length === 0 && (
+          {filteredThemes.length === 0 && (
             <div style={{ textAlign: 'center', padding: '3rem 0', color: '#64748b' }}>
               No themes found matching your search.
             </div>
