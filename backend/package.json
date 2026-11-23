@@ -1,11 +1,13 @@
-
 {
   "name": "insac2026-backend",
   "version": "1.0.0",
-  "private": true,
+  "description": "Backend API for ACANS 2026 – National Seminar on Advanced Computing and Nuclear Science",
+  "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
-    "dev": "nodemon src/server.js"
+    "dev": "nodemon src/server.js",
+    "seed:admin": "node src/scripts/seedAdmin.js",
+    "seed:settings": "node src/scripts/seedSettings.js"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
