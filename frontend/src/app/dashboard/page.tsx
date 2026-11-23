@@ -10,6 +10,8 @@ import { normalizeEventText } from '../../lib/eventText';
 import StatusBadge from '../../components/StatusBadge';
 import TemplateDownloadCard from '../../components/TemplateDownloadCard';
 import OfficialPaymentDetails from '../../components/OfficialPaymentDetails';
+import SuccessModal from '../../components/SuccessModal';
+import { officialThemeTitle } from '../../lib/officialThemes';
 
 export default function ParticipantDashboard() {
   const router = useRouter();
@@ -30,6 +32,7 @@ export default function ParticipantDashboard() {
   const [paymentSubmitting, setPaymentSubmitting] = useState(false);
   const [paymentError, setPaymentError] = useState('');
   const [paymentSuccess, setPaymentSuccess] = useState('');
+  const [paymentSuccessModal, setPaymentSuccessModal] = useState(false);
   const [registrationConfirmation, setRegistrationConfirmation] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
 
   useEffect(() => {
@@ -54,7 +57,8 @@ export default function ParticipantDashboard() {
   // Initial Load
   useEffect(() => {
     if (!authLoading && !user) {
-      router.push('/login');
+      const returnPath = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+      router.replace(`/login?next=${encodeURIComponent(returnPath)}`);
       return;
     }
 
@@ -87,6 +91,12 @@ export default function ParticipantDashboard() {
     }
   }, [user, authLoading, router]);
 
+  useEffect(() => {
+    if (loading || !window.location.hash) return;
+    const targetId = decodeURIComponent(window.location.hash.slice(1));
+    document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, [loading]);
+
   const handlePaymentSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setPaymentError('');
@@ -102,6 +112,11 @@ export default function ParticipantDashboard() {
       return;
     }
 
+    if (!/^\d{12}$/.test(transactionId.trim())) {
+      setPaymentError('UPI UTR / Transaction ID must be exactly 12 digits.');
+      return;
+    }
+
     setPaymentSubmitting(true);
 
     try {
@@ -113,9 +128,11 @@ export default function ParticipantDashboard() {
         paymentDate,
         remarks: paymentRemarks,
       });
+      if (!res.success) throw new Error(res.message || 'Payment report could not be confirmed. Please try again.');
 
       setPayment(res.payment);
       setPaymentSuccess('UPI payment details submitted successfully for administrative verification.');
+      setPaymentSuccessModal(true);
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : 'Failed to submit payment details.';
       setPaymentError(message);
@@ -138,10 +155,8 @@ export default function ParticipantDashboard() {
   return (
     <div style={{ backgroundColor: 'var(--slate-50)', padding: '3.5rem 0 5rem 0' }}>
       <div className="container">
-        {registrationConfirmation && (
-          <div className={`alert ${registrationConfirmation.type === 'success' ? 'alert-success' : 'alert-danger'}`} role="status" style={{ marginBottom: '1.5rem' }}>
-            {registrationConfirmation.message}
-          </div>
+        {registrationConfirmation && registrationConfirmation.type === 'error' && (
+          <div className="alert alert-danger" role="status" style={{ marginBottom: '1.5rem' }}>{registrationConfirmation.message}</div>
         )}
 
         {/* Dashboard Top Header */}
@@ -246,12 +261,26 @@ export default function ParticipantDashboard() {
           </div>
         </div>
 
-        <OfficialPaymentDetails />
+        {payment?.status !== 'verified' && registration?.status !== 'confirmed' && (
+          <OfficialPaymentDetails
+            title="Complete Your Registration Payment"
+            actionHref={!registration
+              ? '/register'
+              : payment?.status === 'submitted' || payment?.status === 'under_verification'
+              ? '/dashboard#payment-status'
+              : '/dashboard#payment-report'}
+            actionLabel={!registration
+              ? 'Complete Participant Registration'
+              : payment?.status === 'submitted' || payment?.status === 'under_verification'
+              ? 'Check Payment Verification Status'
+              : 'Submit Payment Report'}
+          />
+        )}
 
         {/* Detailed Sections Tabs / Split */}
         <div className="grid-2">
           {/* Left Column: Payment Reporting Form */}
-          <div className="card">
+          <div className="card" id="payment-report">
             <h2 style={{ fontSize: '1.25rem', color: 'var(--navy-900)', marginBottom: '1rem', borderBottom: '1px solid var(--slate-100)', paddingBottom: '0.5rem' }}>
               Report Fee Payment Details (UPI)
             </h2>
@@ -262,10 +291,14 @@ export default function ParticipantDashboard() {
               </div>
             </div>
 
-            {paymentSuccess && <div className="alert alert-success">{paymentSuccess}</div>}
             {paymentError && <div className="alert alert-danger">{paymentError}</div>}
 
-            {payment && payment.status === 'verified' ? (
+            {!registration ? (
+              <div className="alert alert-info" id="payment-status">
+                Complete participant registration before submitting a payment report.{' '}
+                <Link href="/register" style={{ fontWeight: 700 }}>Go to registration</Link>
+              </div>
+            ) : payment && payment.status === 'verified' ? (
               <div style={{ padding: '1.5rem', backgroundColor: 'var(--success-50)', borderRadius: '8px', border: '1px solid #a7f3d0' }}>
                 <div style={{ color: 'var(--success-500)', fontWeight: 700, marginBottom: '0.5rem', fontSize: '1.05rem' }}>
                   ✓ Fee Payment Verified
@@ -281,7 +314,7 @@ export default function ParticipantDashboard() {
                 </div>
               </div>
             ) : payment && (payment.status === 'submitted' || payment.status === 'under_verification') ? (
-              <div style={{ padding: '1.25rem', backgroundColor: '#eff6ff', borderRadius: '8px', border: '1px solid #bfdbfe' }}>
+              <div id="payment-status" style={{ padding: '1.25rem', backgroundColor: '#eff6ff', borderRadius: '8px', border: '1px solid #bfdbfe' }}>
                 <div style={{ color: 'var(--teal-700)', fontWeight: 700, marginBottom: '0.5rem' }}>
                   ⏳ UPI Payment Details Under Verification
                 </div>
@@ -294,13 +327,13 @@ export default function ParticipantDashboard() {
                     {payment.remarks && <div><strong>Remarks:</strong> {payment.remarks}</div>}
                   </div>
                   <p style={{ fontSize: '0.8rem', color: 'var(--slate-500)', margin: 0 }}>
-                    College administration is verifying your transaction. Need to correct details? Update the form below.
+                    The organizing committee is checking this transaction against official bank records. Your dashboard status will update after the review.
                   </p>
                 </div>
               </div>
             ) : null}
 
-            {(!payment || payment.status === 'rejected' || payment.status === 'submitted' || payment.status === 'under_verification') && (
+            {registration && (!payment || payment.status === 'rejected') && (
               <form onSubmit={handlePaymentSubmit} style={{ marginTop: payment ? '1.5rem' : '0' }}>
                 {payment && payment.status === 'rejected' && (
                   <div className="alert alert-danger" style={{ marginBottom: '1rem' }}>
@@ -354,6 +387,8 @@ export default function ParticipantDashboard() {
                     id="upi-utr"
                     type="text"
                     required
+                    inputMode="numeric"
+                    maxLength={12}
                     value={transactionId}
                     onChange={(e) => setTransactionId(e.target.value)}
                     placeholder="e.g. 12-digit UPI UTR (e.g. 431209876543)"
@@ -423,7 +458,7 @@ export default function ParticipantDashboard() {
                   </h3>
 
                   <div style={{ fontSize: '0.85rem', color: 'var(--slate-500)', marginBottom: '0.75rem' }}>
-                    Theme: <strong>{abstractData.researchTheme}</strong>
+                    Theme: <strong>{officialThemeTitle(abstractData.researchTheme)}</strong>
                   </div>
 
                   <p style={{ fontSize: '0.875rem', color: 'var(--slate-600)', lineHeight: '1.6', marginBottom: '1rem', backgroundColor: 'var(--slate-50)', padding: '0.75rem', borderRadius: '6px' }}>
@@ -460,11 +495,11 @@ export default function ParticipantDashboard() {
                 Paper Presentation Template
               </h3>
               <p style={{ fontSize: '0.85rem', color: 'var(--slate-600)', marginBottom: '1rem' }}>
-                Download the editable DOCX template for preparing your paper presentation:
+                Download the DOCX template for preparing your paper presentation:
               </p>
               <a
-                href="/downloads/ACANS-2026-Paper-Presentation-Template.docx"
-                download="ACANS-2026-Paper-Presentation-Template.docx"
+                href="/downloads/Paper-presentation-templete.docx"
+                download="Paper-presentation-templete.docx"
                 className="btn btn-outline-navy btn-sm"
               >
                 📥 Download DOCX Template
@@ -490,6 +525,7 @@ export default function ParticipantDashboard() {
           </div>
         </div>
       </div>
+      {paymentSuccessModal && <SuccessModal heading="Payment report submitted" message={paymentSuccess} onClose={() => setPaymentSuccessModal(false)} />}
     </div>
   );
 }

@@ -16,7 +16,7 @@ export default function Navbar() {
 
   return (
     <header className="site-header" style={{ width: '100%', zIndex: 1000, position: 'relative' }}>
-      {/* 1. Top Institutional Utility Strip */}
+      {/* Top Institutional Utility Strip */}
       <div style={{
         backgroundColor: '#071529',
         color: '#cbd5e1',
@@ -27,8 +27,6 @@ export default function Navbar() {
         <div className="container utility-strip-content">
           <div className="utility-strip-institutions">
             <span>Dr. A.P.J. Abdul Kalam Women&apos;s Institute of Technology (WIT), LNMU Darbhanga</span>
-            <span className="utility-divider" style={{ color: '#64748b' }}>|</span>
-            <span style={{ color: '#fcd34d' }}>In Collaboration with Indian Nuclear Society (INS)</span>
           </div>
           <div className="utility-strip-links">
             <Link href="/information#venue" style={{ color: '#cbd5e1' }}>Venue &amp; Travel</Link>
@@ -36,9 +34,7 @@ export default function Navbar() {
             <Link href="/information#contact" style={{ color: '#cbd5e1' }}>Helpdesk</Link>
             <span className="utility-divider" style={{ color: '#64748b' }}>|</span>
             {user ? (
-              <span style={{ color: '#67e8f9' }}>
-                Signed in as: <strong>{user.fullName}</strong>
-              </span>
+              <span style={{ color: '#67e8f9' }}>Signed in as: <strong>{user.fullName}</strong></span>
             ) : (
               <Link href="/login" style={{ color: '#fcd34d', fontWeight: 600 }}>Participant Login</Link>
             )}
@@ -46,7 +42,7 @@ export default function Navbar() {
         </div>
       </div>
 
-{/* 2. Institutional Header / Masthead */}
+      {/* Institutional Header / Masthead */}
 <div className="masthead">
   <div className="container masthead-container">
 
@@ -112,7 +108,7 @@ export default function Navbar() {
   </div>
 </div>
 
-      {/* 3. Solid Academic Navigation Bar */}
+      {/* Solid Academic Navigation Bar */}
       <nav style={{
         backgroundColor: '#0f294a',
         boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
@@ -253,7 +249,7 @@ export default function Navbar() {
               Registration
             </Link>
 
-            <Link
+            {user && <Link
               href="/abstract-submission"
               style={{
                 padding: '0.75rem 1rem',
@@ -267,7 +263,7 @@ export default function Navbar() {
               }}
             >
               Abstract Submission
-            </Link>
+            </Link>}
           </div>
 
           {/* Right Action / Auth */}
@@ -415,7 +411,7 @@ export default function Navbar() {
           <Link href="/committees" onClick={() => setMobileMenuOpen(false)} style={{ padding: '0.4rem 0', fontWeight: 600, color: '#0f294a' }}>Committees</Link>
           <Link href="/themes" onClick={() => setMobileMenuOpen(false)} style={{ padding: '0.4rem 0', fontWeight: 600, color: '#0f294a' }}>Themes &amp; Topics</Link>
           <Link href="/information" onClick={() => setMobileMenuOpen(false)} style={{ padding: '0.4rem 0', fontWeight: 600, color: '#0f294a' }}>Registration</Link>
-          <Link href="/abstract-submission" onClick={() => setMobileMenuOpen(false)} style={{ padding: '0.4rem 0', fontWeight: 600, color: '#0f294a' }}>Abstract Submission</Link>
+          {user && <Link href="/abstract-submission" onClick={() => setMobileMenuOpen(false)} style={{ padding: '0.4rem 0', fontWeight: 600, color: '#0f294a' }}>Abstract Submission</Link>}
           <hr style={{ border: 'none', borderTop: '1px solid #e2e8f0', margin: '0.5rem 0' }} />
           {user ? (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>

@@ -59,7 +59,7 @@ export default function AboutPage() {
                 <p>
                   As India advances towards the vision of Viksit Bharat @2047 and a sustainable energy future with an ambitious target of achieving 100 GWe of nuclear power capacity, the integration of advanced computing technologies and nuclear science has emerged as a key driver of scientific innovation and technological progress. In this context, the Seminar on Advanced Computing & Nuclear Science (ACANS 2026) provides a distinguished multidisciplinary platform that brings together eminent researchers, scientists, academicians, engineers, industry experts, and policymakers to deliberate on emerging trends and future challenges at the intersection of computing and nuclear technologies.
 
-The Seminar will explore cutting-edge advancements in artificial intelligence, machine learning, high-performance computing, digital twins, cybersecurity, data analytics, and intelligent reactor monitoring, highlighting their transformative role in enhancing nuclear safety, reactor design, healthcare, medical diagnostics, radiation applications, and predictive risk assessment. Through keynote lectures, technical sessions, and collaborative discussions, ACANS 2026 aims to foster meaningful partnerships among academia, research organizations, government agencies, and industry, thereby promoting knowledge exchange, interdisciplinary research, and technological innovation in support of India's scientific excellence, energy security, and sustainable national development.
+The Seminar will explore cutting-edge advancements in artificial intelligence, machine learning, high-performance computing, digital twins, cybersecurity, data analytics, and intelligent reactor monitoring, highlighting their transformative role in enhancing nuclear safety, reactor design, healthcare, medical diagnostics, radiation applications, and predictive risk assessment. Through keynote lectures, technical sessions, and collaborative discussions, ACANS 2026 aims to foster meaningful partnerships among academia, research organizations, government agencies, and industry, thereby promoting knowledge exchange, interdisciplinary research, and technological innovation in support of India&apos;s scientific excellence, energy security, and sustainable national development.
                 </p>
               </div>
             </div>
@@ -79,6 +79,9 @@ The Seminar will explore cutting-edge advancements in artificial intelligence, m
                 <p>
                   Through its national symposiums, technical seminars, and outreach, INS cultivates scientific literacy, technological self-reliance, and research collaboration in peaceful nuclear applications throughout the nation.
                 </p>
+                <a href="https://ins-india.org/" target="_blank" rel="noopener noreferrer" className="btn btn-outline-navy" style={{ marginTop: '1rem' }}>
+                  Explore More
+                </a>
               </div>
             </div>
 
@@ -97,6 +100,9 @@ The Seminar will explore cutting-edge advancements in artificial intelligence, m
                 <p>
                   LNMU has consistently promoted advanced scientific inquiry and interdisciplinary research, providing a vibrant intellectual ecosystem for regional and national conferences.
                 </p>
+                <a href="https://www.lnmu.ac.in/" target="_blank" rel="noopener noreferrer" className="btn btn-outline-navy" style={{ marginTop: '1rem' }}>
+                  Explore More
+                </a>
               </div>
             </div>
 
@@ -110,10 +116,13 @@ The Seminar will explore cutting-edge advancements in artificial intelligence, m
               </div>
               <div className="card" style={{ borderLeft: '4px solid #0d5f57', lineHeight: '1.8', color: '#334155' }}>
                 <p style={{ marginBottom: '1rem' }}>
-                   Established in 2004 as a constituent unit of Lalit Narayan Mithila University, Darbhanga, our Institute is approved by the All India Council for Technical Education (AICTE). It is the first Women's Institute of Technology in the Eastern Zone, dedicated to providing quality technical education to women in Bihar, with a special focus on the Mithilanchal region. The Institute was inaugurated by Bharat Ratna Dr. A.P.J. Abdul Kalam on 30 December 2005.
+                   Established in 2004 as a constituent unit of Lalit Narayan Mithila University, Darbhanga, our Institute is approved by the All India Council for Technical Education (AICTE). It is the first Women&apos;s Institute of Technology in the Eastern Zone, dedicated to providing quality technical education to women in Bihar, with a special focus on the Mithilanchal region. The Institute was inaugurated by Bharat Ratna Dr. A.P.J. Abdul Kalam on 30 December 2005.
                   <br />
                   Today, the Institute is committed to empowering women through quality technical education, research, innovation, and skill development. We offer undergraduate and postgraduate programmes in Engineering & Technology and Computer Applications, supported by experienced faculty and guided by the principles of academic excellence, interdisciplinary research, and the National Education Policy (NEP) 2020.
                 </p>
+                <a href="https://witlnmu.ac.in/" target="_blank" rel="noopener noreferrer" className="btn btn-outline-navy" style={{ marginTop: '1rem' }}>
+                  Explore More
+                </a>
               </div>
             </div>
           </div>

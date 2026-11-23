@@ -7,6 +7,8 @@ import { useAuth } from '../../context/AuthContext';
 import { api } from '../../lib/api';
 import { DashboardStats, Registration, Payment, Abstract, EventSettings } from '../../types';
 import StatusBadge from '../../components/StatusBadge';
+import SuccessModal from '../../components/SuccessModal';
+import { officialThemeTitle } from '../../lib/officialThemes';
 
 export default function AdminDashboardPage() {
   const router = useRouter();
@@ -33,7 +35,6 @@ export default function AdminDashboardPage() {
 
   // Settings state
   const [settings, setSettings] = useState<EventSettings | null>(null);
-  const [settingsSuccess, setSettingsSuccess] = useState('');
   const [settingsError, setSettingsError] = useState('');
   const [templateFile, setTemplateFile] = useState<File | null>(null);
   const [templateMsg, setTemplateMsg] = useState('');
@@ -47,6 +48,10 @@ export default function AdminDashboardPage() {
   const [actionReason, setActionReason] = useState('');
   const [abstractDecision, setAbstractDecision] = useState<'accepted' | 'rejected' | 'revision_requested'>('accepted');
   const [modalLoading, setModalLoading] = useState(false);
+  const [successNotice, setSuccessNotice] = useState('');
+  const [processingPaymentId, setProcessingPaymentId] = useState('');
+  const [settingsSubmitting, setSettingsSubmitting] = useState(false);
+  const [templateSubmitting, setTemplateSubmitting] = useState(false);
 
   // Authentication check
   useEffect(() => {
@@ -76,7 +81,14 @@ export default function AdminDashboardPage() {
 
   useEffect(() => {
     if (isAdmin) {
-      loadData();
+      let isCurrent = true;
+      void Promise.resolve().then(() => {
+        if (isCurrent) return loadData();
+        return undefined;
+      });
+      return () => {
+        isCurrent = false;
+      };
     }
   }, [isAdmin, loadData]);
 
@@ -101,13 +113,19 @@ export default function AdminDashboardPage() {
 
   // Actions
   const handleVerifyPayment = async (id: string) => {
+    if (processingPaymentId) return;
+    setProcessingPaymentId(id);
     try {
-      await api.verifyPayment(id);
+      const res = await api.verifyPayment(id);
+      if (!res.success) throw new Error(res.message || 'Payment verification was not confirmed.');
+      setSuccessNotice('Payment verified successfully.');
       loadData();
       const pRes = await api.getAdminPayments({ search: paySearch, status: payStatusFilter });
       setPayments(pRes.payments);
     } catch (err: unknown) {
       alert(err instanceof Error ? err.message : 'Error verifying payment');
+    } finally {
+      setProcessingPaymentId('');
     }
   };
 
@@ -115,7 +133,9 @@ export default function AdminDashboardPage() {
     if (!reviewingItem) return;
     setModalLoading(true);
     try {
-      await api.rejectPayment(reviewingItem.id, actionReason || 'Payment details could not be verified.');
+      const res = await api.rejectPayment(reviewingItem.id, actionReason || 'Payment details could not be verified.');
+      if (!res.success) throw new Error(res.message || 'Payment rejection was not confirmed.');
+      setSuccessNotice('Payment rejection submitted successfully.');
       setReviewingItem(null);
       setActionReason('');
       loadData();
@@ -132,11 +152,13 @@ export default function AdminDashboardPage() {
     if (!reviewingItem) return;
     setModalLoading(true);
     try {
-      await api.reviewAbstract(reviewingItem.id, {
+      const res = await api.reviewAbstract(reviewingItem.id, {
         status: abstractDecision,
         reviewNotes: actionReason,
         revisionComments: abstractDecision === 'revision_requested' ? actionReason : undefined,
       });
+      if (!res.success) throw new Error(res.message || 'Abstract review was not confirmed.');
+      setSuccessNotice('Abstract review submitted successfully.');
       setReviewingItem(null);
       setActionReason('');
       loadData();
@@ -152,31 +174,40 @@ export default function AdminDashboardPage() {
   const handleSettingsSave = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!settings) return;
-    setSettingsSuccess('');
     setSettingsError('');
+    if (settingsSubmitting) return;
+    setSettingsSubmitting(true);
 
     try {
-      await api.updateSettings(settings);
-      setSettingsSuccess('Event settings updated successfully.');
+      const res = await api.updateSettings(settings);
+      if (!res.success) throw new Error(res.message || 'Event settings update was not confirmed.');
+      setSuccessNotice('Event settings updated successfully.');
     } catch (err: unknown) {
       setSettingsError(err instanceof Error ? err.message : 'Failed to update settings.');
+    } finally {
+      setSettingsSubmitting(false);
     }
   };
 
   const handleTemplateUpload = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!templateFile) return;
+    if (templateSubmitting) return;
     setTemplateMsg('');
+    setTemplateSubmitting(true);
 
     try {
       const formData = new FormData();
       formData.append('template', templateFile);
       const res = await api.uploadTemplate(formData);
-      setTemplateMsg(`Template replaced successfully: ${res.filename}`);
+      if (!res.success) throw new Error(res.message || 'Template upload was not confirmed.');
+      setSuccessNotice(`Template replaced successfully: ${res.filename}`);
       setTemplateFile(null);
       loadData();
     } catch (err: unknown) {
       setTemplateMsg(err instanceof Error ? err.message : 'Failed to upload template.');
+    } finally {
+      setTemplateSubmitting(false);
     }
   };
 
@@ -343,8 +374,8 @@ export default function AdminDashboardPage() {
                 </p>
                 <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
                   <a
-                    href="/downloads/ACANS-2026-Paper-Presentation-Template.docx"
-                    download="ACANS-2026-Paper-Presentation-Template.docx"
+                    href="/downloads/Paper-presentation-templete.docx"
+                    download="Paper-presentation-templete.docx"
                     className="btn btn-sm btn-teal"
                   >
                     📥 Test Download Public DOCX
@@ -507,6 +538,7 @@ export default function AdminDashboardPage() {
                             {pay.status !== 'verified' && (
                               <button
                                 onClick={() => handleVerifyPayment(pay._id)}
+                                disabled={Boolean(processingPaymentId)}
                                 className="btn btn-sm btn-teal"
                                 title="Verify this payment"
                               >
@@ -591,7 +623,7 @@ export default function AdminDashboardPage() {
                       <td><strong>{abs.abstractRef}</strong></td>
                       <td style={{ maxWidth: '300px' }}>
                         <div style={{ fontWeight: 600, color: 'var(--navy-900)' }}>{abs.title}</div>
-                        <div style={{ fontSize: '0.8rem', color: 'var(--teal-600)', marginTop: '0.2rem' }}>{abs.researchTheme}</div>
+                        <div style={{ fontSize: '0.8rem', color: 'var(--teal-600)', marginTop: '0.2rem' }}>{officialThemeTitle(abs.researchTheme)}</div>
                       </td>
                       <td>
                         <div style={{ fontWeight: 600 }}>{abs.authorName}</div>
@@ -640,7 +672,6 @@ export default function AdminDashboardPage() {
         {/* TAB 5: SETTINGS */}
         {activeTab === 'settings' && settings && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-            {settingsSuccess && <div className="alert alert-success">{settingsSuccess}</div>}
             {settingsError && <div className="alert alert-danger">{settingsError}</div>}
 
             {/* Template Replacement Box */}
@@ -664,8 +695,8 @@ export default function AdminDashboardPage() {
                   className="form-control"
                   style={{ width: '320px' }}
                 />
-                <button type="submit" className="btn btn-teal btn-sm" id="upload-new-template-btn">
-                  Upload &amp; Replace Template
+                <button type="submit" disabled={templateSubmitting} className="btn btn-teal btn-sm" id="upload-new-template-btn">
+                  {templateSubmitting ? 'Uploading…' : 'Upload &amp; Replace Template'}
                 </button>
               </form>
             </div>
@@ -777,8 +808,8 @@ export default function AdminDashboardPage() {
                   />
                 </div>
 
-                <button type="submit" className="btn btn-primary" id="save-settings-btn">
-                  Save Event Settings
+                <button type="submit" disabled={settingsSubmitting} className="btn btn-primary" id="save-settings-btn">
+                  {settingsSubmitting ? 'Saving…' : 'Save Event Settings'}
                 </button>
               </form>
             </div>
@@ -858,6 +889,7 @@ export default function AdminDashboardPage() {
           </div>
         )}
       </div>
+      {successNotice && <SuccessModal message={successNotice} onClose={() => setSuccessNotice('')} />}
     </div>
   );
 }

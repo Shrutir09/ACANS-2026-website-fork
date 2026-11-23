@@ -1,11 +1,10 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { api } from '../lib/api';
-import { EventSettings } from '../types';
-import { normalizeEventText } from '../lib/eventText';
+import { useAuth } from '../context/AuthContext';
+import { officialThemes } from '../lib/officialThemes';
 import TemplateDownloadCard from '../components/TemplateDownloadCard';
 
 function ProfilePortrait({
@@ -41,44 +40,29 @@ function ProfilePortrait({
 }
 
 export default function HomePage() {
-  const [settings, setSettings] = useState<EventSettings | null>(null);
-  const [activeThemeTab, setActiveThemeTab] = useState<'all' | 'workshop' | 'conference'>('all');
-
-  useEffect(() => {
-    api.getPublicSettings()
-      .then(res => setSettings(res.settings))
-      .catch(err => console.error('Error loading settings:', err));
-  }, []);
-
-  const themes = (settings?.themes || []).map((theme) => ({
-    ...theme,
-    title: normalizeEventText(theme.title),
-    description: theme.description ? normalizeEventText(theme.description) : theme.description,
-  }));
-  const filteredThemes = activeThemeTab === 'all'
-    ? themes
-    : themes.filter(t => t.category === activeThemeTab);
+  const { user } = useAuth();
+  const themes = officialThemes;
 
   const homepageLeaders = [
     {
       role: 'Chief Patron',
       name: 'Prof. Sanjay Kumar Choudhary',
-      designation: 'Vice Chancellor, LNMU',
+      designation: 'Vice Chancellor',
       institution: 'Lalit Narayan Mithila University, Darbhanga',
       image: '/images/leadership/prof-sanjay-kumar-choudhary.png',
     },
     {
       role: 'Patron',
-      name: 'Dr. Divya Rani',
-      designation: 'Registrar, LNMU',
+      name: 'Dr. Divya Rani Hansda',
+      designation: 'Registrar',
       institution: 'Lalit Narayan Mithila University, Darbhanga',
       image: '/images/leadership/dr-divya-rani.png',
     },
     {
       role: 'President',
       name: 'Dr. Amod Kumar',
-      designation: 'Director, WIT',
-      institution: 'Dr. A.P.J. Abdul Kalam Women\'s Institute of Technology, LNMU',
+      designation: 'Director',
+      institution: 'Dr. A.P.J. Abdul Kalam Women\'s Institute of Technology, Lalit Narayan Mithila University',
       image: '/images/leadership/dr-amod-kumar.png',
     },
   ];
@@ -229,8 +213,8 @@ export default function HomePage() {
           {/* Action CTAs */}
           <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>
             <a
-              href="/downloads/ACANS-2026-Paper-Presentation-Template.docx"
-              download="ACANS-2026-Paper-Presentation-Template.docx"
+              href="/downloads/Paper-presentation-templete.docx"
+              download="Paper-presentation-templete.docx"
               className="btn btn-gold btn-lg"
               id="hero-template-cta"
             >
@@ -239,9 +223,9 @@ export default function HomePage() {
             <Link href="/register" className="btn btn-outline-white btn-lg" id="hero-register-cta">
               Register as Participant
             </Link>
-            <Link href="/abstract-submission" className="btn btn-outline-white btn-lg" id="hero-abstract-cta">
+            {user && <Link href="/abstract-submission" className="btn btn-outline-white btn-lg" id="hero-abstract-cta">
               Submit Abstract
-            </Link>
+            </Link>}
           </div>
         </div>
       </section>
@@ -265,8 +249,8 @@ export default function HomePage() {
                     Abstract submission closes 3 December 2026. Submit a one-page abstract of no more than 250 words. Registration remains open after the abstract deadline, subject to arrangements; late abstracts will not be considered for publication.
                   </div>
                   <a
-                    href="/downloads/ACANS-2026-Paper-Presentation-Template.docx"
-                    download="ACANS-2026-Paper-Presentation-Template.docx"
+                    href="/downloads/Paper-presentation-templete.docx"
+                    download="Paper-presentation-templete.docx"
                     style={{ color: '#0f294a', fontWeight: 600, display: 'inline-block', marginTop: '0.25rem' }}
                   >
                     Download Paper Presentation Template (.docx) →
@@ -544,34 +528,11 @@ export default function HomePage() {
           <div className="section-header">
             <span className="section-tag">Research Scope</span>
             <h2 className="section-title">Technical Themes &amp; Tracks</h2>
-            <p className="section-subtitle">
-              Seminar themes and related topics in advanced computing and nuclear science.
-            </p>
-
-            <div className="theme-filter-controls" style={{ display: 'inline-flex', gap: '0.4rem', marginTop: '1rem', backgroundColor: '#f1f5f9', padding: '0.25rem', borderRadius: '4px', border: '1px solid #e2e8f0' }}>
-              <button
-                onClick={() => setActiveThemeTab('all')}
-                className={`btn btn-sm ${activeThemeTab === 'all' ? 'btn-primary' : 'btn-secondary'}`}
-              >
-                All Themes ({themes.length})
-              </button>
-              <button
-                onClick={() => setActiveThemeTab('workshop')}
-                className={`btn btn-sm ${activeThemeTab === 'workshop' ? 'btn-primary' : 'btn-secondary'}`}
-              >
-                Seminar Themes
-              </button>
-              <button
-                onClick={() => setActiveThemeTab('conference')}
-                className={`btn btn-sm ${activeThemeTab === 'conference' ? 'btn-primary' : 'btn-secondary'}`}
-              >
-                Related Technical Topics
-              </button>
-            </div>
+            <p className="section-subtitle">Explore the eight official ACANS 2026 research themes.</p>
           </div>
 
           <div className="grid-2">
-            {filteredThemes.slice(0, 8).map((theme, idx) => (
+            {themes.map((theme, idx) => (
               <div key={idx} className="card card-interactive" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                 <div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
@@ -585,23 +546,18 @@ export default function HomePage() {
                       border: '1px solid #e2e8f0',
                       textTransform: 'uppercase',
                     }}>
-                      {theme.category === 'workshop' ? 'Seminar Theme' : 'Related Topic'}
+                      Official Theme
                     </span>
                     <span style={{ fontSize: '0.8rem', color: '#94a3b8' }}>#{idx + 1}</span>
                   </div>
                   <h4 style={{ fontSize: '1rem', color: '#0f294a', lineHeight: 1.4, marginBottom: '0.4rem' }}>
                     {theme.title}
                   </h4>
-                  {theme.description && (
-                    <p style={{ fontSize: '0.85rem', color: '#475569', lineHeight: 1.5 }}>
-                      {theme.description}
-                    </p>
-                  )}
                 </div>
                 <div style={{ marginTop: '0.75rem', paddingTop: '0.5rem', borderTop: '1px solid #f1f5f9' }}>
-                  <Link href={`/abstract-submission?theme=${encodeURIComponent(theme.title)}`} style={{ fontSize: '0.825rem', color: '#0f294a', fontWeight: 600 }}>
+                  {user && <Link href={`/abstract-submission?theme=${encodeURIComponent(theme.title)}`} style={{ fontSize: '0.825rem', color: '#0f294a', fontWeight: 600 }}>
                     Submit abstract under this track →
-                  </Link>
+                  </Link>}
                 </div>
               </div>
             ))}
@@ -609,7 +565,7 @@ export default function HomePage() {
 
           <div style={{ textAlign: 'center', marginTop: '2rem' }}>
             <Link href="/themes" className="btn btn-outline-navy">
-              View All {themes.length} Technical Themes &amp; Topics →
+              View All {themes.length} Official Themes →
             </Link>
           </div>
         </div>

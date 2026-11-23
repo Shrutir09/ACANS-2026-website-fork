@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../../context/AuthContext';
+import PasswordInput from '../../components/PasswordInput';
+import SuccessModal from '../../components/SuccessModal';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -16,6 +18,7 @@ export default function LoginPage() {
 
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,7 +28,7 @@ export default function LoginPage() {
     try {
       await login(formData);
       await refreshUser();
-      router.push('/dashboard');
+      setSuccess(true);
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : 'Invalid email or password.';
       setError(message);
@@ -35,6 +38,7 @@ export default function LoginPage() {
   };
 
   return (
+    <>
     <div style={{ backgroundColor: '#f8fafc', padding: '3.5rem 0' }}>
       <div className="container-narrow">
         <div className="card" style={{ maxWidth: '440px', margin: '0 auto', padding: '2rem', borderTop: '4px solid #0f294a' }}>
@@ -77,9 +81,8 @@ export default function LoginPage() {
                   Forgot password?
                 </Link>
               </div>
-              <input
+              <PasswordInput
                 id="login-password"
-                type="password"
                 required
                 value={formData.password}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
@@ -108,5 +111,11 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+    {success && <SuccessModal heading="Signed in successfully" message="You are now signed in to your ACANS 2026 account." onClose={() => {
+      const requestedPath = new URLSearchParams(window.location.search).get('next');
+      const safePath = requestedPath?.startsWith('/') && !requestedPath.startsWith('//') ? requestedPath : '/dashboard';
+      router.push(safePath);
+    }} />}
+    </>
   );
 }

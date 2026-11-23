@@ -42,11 +42,26 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   useEffect(() => {
-    refreshUser();
-  }, [refreshUser]);
+    let isMounted = true;
+    api.getCurrentUser()
+      .then(res => {
+        if (isMounted) setUser(res.user);
+      })
+      .catch(() => {
+        if (isMounted) setUser(null);
+      })
+      .finally(() => {
+        if (isMounted) setLoading(false);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const login = async (credentials: { email: string; password: string }) => {
     const res = await api.login(credentials);
+    if (!res.success) throw new Error(res.message || 'Sign in could not be confirmed. Please try again.');
     setUser(res.user);
   };
 

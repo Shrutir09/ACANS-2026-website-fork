@@ -101,10 +101,10 @@ export default function InformationPage() {
               </h2>
               <div className="alert alert-warning" style={{ marginBottom: '1.25rem' }}>
                 <div>
-                  <strong>Official College Payment Notice:</strong> Official payment instructions and accounts are communicated by Dr. A.P.J. Abdul Kalam Women&apos;s Institute of Technology (WIT) / LNMU. This website does not generate online payment gateways or QR codes.
+                  <strong>Official College Payment Notice:</strong> Official payment instructions and accounts are communicated by Dr. A.P.J. Abdul Kalam Women&apos;s Institute of Technology (WIT) / LNMU. 
                 </div>
               </div>
-              <OfficialPaymentDetails />
+              <OfficialPaymentDetails showAction={false} />
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', color: '#334155', lineHeight: '1.7', fontSize: '0.9rem' }}>
                 <p>
                   Participants must follow this workflow below to register and verify their registration fee payment. The registration fee must be transferred to the official bank account provided above.
@@ -115,6 +115,9 @@ export default function InformationPage() {
                   <li><strong>Submit Payment Report:</strong> Navigate to your <em>Participant Dashboard</em> and submit your <strong>Payer UPI ID</strong> and <strong>12-digit UPI UTR / Transaction ID</strong>.</li>
                   <li><strong>Administrative Verification:</strong> The organizing committee verifies the UPI transaction against bank records. Upon verification, your registration status is updated to <em>Confirmed</em> in your dashboard.</li>
                 </ol>
+                <Link href="/dashboard#payment-report" className="btn btn-primary" style={{ alignSelf: 'flex-start', marginTop: '0.5rem' }}>
+                  Submit Payment Report
+                </Link>
               </div>
             </div>
 
@@ -167,10 +170,6 @@ export default function InformationPage() {
                     <tr>
                       <td><strong>Sections</strong></td>
                       <td>Use the abstract and keyword sections provided in the template.</td>
-                    </tr>
-                    <tr>
-                      <td><strong>Allowed File Types</strong></td>
-                      <td><code>.docx</code>, <code>.doc</code>, <code>.pdf</code> (Up to 10 MB).</td>
                     </tr>
                   </tbody>
                 </table>
