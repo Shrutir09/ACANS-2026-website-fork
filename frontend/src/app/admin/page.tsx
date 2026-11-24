@@ -32,6 +32,7 @@ export default function AdminDashboardPage() {
   const [abstracts, setAbstracts] = useState<Abstract[]>([]);
   const [absSearch, setAbsSearch] = useState('');
   const [absStatusFilter, setAbsStatusFilter] = useState('');
+  const [viewingAbstract, setViewingAbstract] = useState<Abstract | null>(null);
 
   // Settings state
   const [settings, setSettings] = useState<EventSettings | null>(null);
@@ -246,7 +247,7 @@ export default function AdminDashboardPage() {
             </p>
           </div>
 
-          <div style={{ display: 'flex', gap: '0.75rem' }}>
+          <div className="admin-header-actions" style={{ display: 'flex', gap: '0.75rem' }}>
             <a
               href={api.getExportCsvUrl()}
               download="acans2026_participants.csv"
@@ -262,7 +263,7 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Navigation Tabs */}
-        <div style={{
+        <div className="admin-tabs" style={{
           display: 'flex',
           gap: '0.5rem',
           backgroundColor: 'var(--white)',
@@ -270,7 +271,6 @@ export default function AdminDashboardPage() {
           borderRadius: '10px',
           border: '1px solid var(--slate-200)',
           marginBottom: '2rem',
-          overflowX: 'auto',
         }}>
           <button
             onClick={() => setActiveTab('overview')}
@@ -402,13 +402,13 @@ export default function AdminDashboardPage() {
                   placeholder="Search name, email, ref..."
                   value={regSearch}
                   onChange={(e) => setRegSearch(e.target.value)}
-                  className="form-control"
+                  className="form-control admin-filter-control"
                   style={{ width: '220px', padding: '0.45rem 0.75rem', fontSize: '0.85rem' }}
                 />
                 <select
                   value={regStatusFilter}
                   onChange={(e) => setRegStatusFilter(e.target.value)}
-                  className="form-control"
+                  className="form-control admin-filter-status"
                   style={{ width: '150px', padding: '0.45rem 0.75rem', fontSize: '0.85rem' }}
                 >
                   <option value="">All Statuses</option>
@@ -478,13 +478,13 @@ export default function AdminDashboardPage() {
                   placeholder="Search ref, UPI ID, UTR..."
                   value={paySearch}
                   onChange={(e) => setPaySearch(e.target.value)}
-                  className="form-control"
+                  className="form-control admin-filter-control"
                   style={{ width: '220px', padding: '0.45rem 0.75rem', fontSize: '0.85rem' }}
                 />
                 <select
                   value={payStatusFilter}
                   onChange={(e) => setPayStatusFilter(e.target.value)}
-                  className="form-control"
+                  className="form-control admin-filter-status"
                   style={{ width: '150px', padding: '0.45rem 0.75rem', fontSize: '0.85rem' }}
                 >
                   <option value="">All Statuses</option>
@@ -585,13 +585,13 @@ export default function AdminDashboardPage() {
                   placeholder="Search title, author, ref..."
                   value={absSearch}
                   onChange={(e) => setAbsSearch(e.target.value)}
-                  className="form-control"
+                  className="form-control admin-filter-control"
                   style={{ width: '220px', padding: '0.45rem 0.75rem', fontSize: '0.85rem' }}
                 />
                 <select
                   value={absStatusFilter}
                   onChange={(e) => setAbsStatusFilter(e.target.value)}
-                  className="form-control"
+                  className="form-control admin-filter-status"
                   style={{ width: '150px', padding: '0.45rem 0.75rem', fontSize: '0.85rem' }}
                 >
                   <option value="">All Statuses</option>
@@ -631,19 +631,14 @@ export default function AdminDashboardPage() {
                       </td>
                       <td>{abs.wordCount} words</td>
                       <td>
-                        {abs.attachmentOriginalName ? (
-                          <a
-                            href={api.getAbstractAttachmentUrl(abs._id)}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="btn btn-sm btn-outline-teal"
-                            style={{ fontSize: '0.75rem', padding: '0.25rem 0.5rem' }}
-                          >
-                            📎 {abs.attachmentOriginalName}
-                          </a>
-                        ) : (
-                          <span style={{ color: 'var(--slate-400)', fontSize: '0.8rem' }}>None</span>
-                        )}
+                        <button
+                          type="button"
+                          onClick={() => setViewingAbstract(abs)}
+                          className="btn btn-sm btn-outline-teal"
+                          style={{ fontSize: '0.75rem', padding: '0.25rem 0.5rem' }}
+                        >
+                          View Abstract
+                        </button>
                       </td>
                       <td><StatusBadge status={abs.status} /></td>
                       <td>
@@ -816,9 +811,66 @@ export default function AdminDashboardPage() {
           </div>
         )}
 
+        {/* ABSTRACT TEXT MODAL */}
+        {viewingAbstract && (
+          <div style={{
+            position: 'fixed',
+            inset: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.6)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 10000,
+            padding: '1rem',
+          }}>
+            <div
+              className="card"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="abstract-view-title"
+              style={{
+                maxWidth: '720px',
+                width: '100%',
+                maxHeight: '85vh',
+                overflowY: 'auto',
+                padding: 'clamp(1.25rem, 4vw, 2rem)',
+              }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '1rem', marginBottom: '1rem' }}>
+                <div>
+                  <h3 id="abstract-view-title" style={{ fontSize: '1.25rem', color: 'var(--navy-900)', marginBottom: '0.35rem' }}>
+                    Submitted Abstract
+                  </h3>
+                  <div style={{ color: 'var(--slate-500)', fontSize: '0.875rem', overflowWrap: 'anywhere' }}>
+                    {viewingAbstract.title}
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setViewingAbstract(null)}
+                  className="btn btn-secondary btn-sm"
+                  aria-label="Close abstract"
+                >
+                  Close
+                </button>
+              </div>
+              <div style={{
+                color: 'var(--slate-700)',
+                fontSize: '0.95rem',
+                lineHeight: 1.75,
+                whiteSpace: 'pre-wrap',
+                overflowWrap: 'anywhere',
+                wordBreak: 'break-word',
+              }}>
+                {viewingAbstract.abstractText?.trim() || 'Abstract text is not available.'}
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* REJECTION / REVIEW MODAL */}
         {reviewingItem && (
-          <div style={{
+          <div className="admin-review-backdrop" style={{
             position: 'fixed',
             inset: 0,
             backgroundColor: 'rgba(0, 0, 0, 0.6)',
@@ -828,7 +880,7 @@ export default function AdminDashboardPage() {
             zIndex: 9999,
             padding: '1rem',
           }}>
-            <div className="card" style={{ maxWidth: '500px', width: '100%', padding: '2rem' }}>
+            <div className="card admin-review-modal" style={{ maxWidth: '500px', width: '100%', padding: '2rem' }}>
               <h3 style={{ fontSize: '1.25rem', color: 'var(--navy-900)', marginBottom: '1rem' }}>
                 {reviewingItem.type === 'payment' ? 'Reject Payment Submission' : 'Review Abstract'}
               </h3>
