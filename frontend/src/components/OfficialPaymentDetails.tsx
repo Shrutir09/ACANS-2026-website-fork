@@ -1,6 +1,5 @@
 'use client';
 
-import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { officialPaymentDetails, officialRegistrationFees } from '../lib/paymentDetails';
@@ -18,18 +17,6 @@ export default function OfficialPaymentDetails({
   actionLabel = 'Submit Payment Report',
   showAction = true,
 }: OfficialPaymentDetailsProps) {
-  const [copyMessage, setCopyMessage] = useState('');
-
-  const copyAccountNumber = async () => {
-    try {
-      if (!navigator.clipboard?.writeText) throw new Error('Clipboard access is unavailable.');
-      await navigator.clipboard.writeText(officialPaymentDetails.accountNumber);
-      setCopyMessage('Account number copied.');
-    } catch {
-      setCopyMessage('Copy is unavailable. Select the account number to copy it.');
-    }
-  };
-
   return (
     <section
       className="card"
@@ -81,12 +68,9 @@ export default function OfficialPaymentDetails({
             <div><strong>Account Number:</strong> {officialPaymentDetails.accountNumber}</div>
             <div><strong>IFSC Code:</strong> {officialPaymentDetails.ifscCode}</div>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap', marginTop: '0.75rem' }}>
-            <button type="button" onClick={copyAccountNumber} className="btn btn-primary" style={{ minHeight: '44px' }}>
-              Copy Account Number
-            </button>
-            <span role="status" aria-live="polite" style={{ color: '#475569', fontSize: '0.85rem' }}>{copyMessage}</span>
-          </div>
+          <Link href="/dashboard#payment-report" className="btn btn-primary" style={{ minHeight: '44px', display: 'inline-flex', alignItems: 'center', marginTop: '0.75rem' }}>
+            Submit Payment Report
+          </Link>
         </div>
       </div>
 
@@ -101,7 +85,7 @@ export default function OfficialPaymentDetails({
       <p style={{ color: '#475569', lineHeight: 1.6, marginBottom: '1rem' }}>
         After paying, sign in to your Participant Dashboard to report the payment and check its verification status. A QR scan or payment report does not itself confirm registration.
       </p>
-      {showAction && (
+      {showAction && actionHref !== '/dashboard#payment-report' && (
         <Link href={actionHref} className="btn btn-primary" style={{ minHeight: '44px', display: 'inline-flex', alignItems: 'center' }}>
           {actionLabel}
         </Link>

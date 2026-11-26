@@ -5,12 +5,13 @@ import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '../../context/AuthContext';
 import { api } from '../../lib/api';
-import { EventSettings, Registration } from '../../types';
+import { Abstract, EventSettings, Registration } from '../../types';
 import { officialThemes, officialThemeTitle } from '../../lib/officialThemes';
 import TemplateDownloadCard from '../../components/TemplateDownloadCard';
 import WordCounter from '../../components/WordCounter';
 import SuccessModal from '../../components/SuccessModal';
 import OfficialPaymentDetails from '../../components/OfficialPaymentDetails';
+import AbstractSummary from '../../components/AbstractSummary';
 
 function AbstractSubmissionContent() {
   const searchParams = useSearchParams();
@@ -18,6 +19,8 @@ function AbstractSubmissionContent() {
   const { user, loading: authLoading } = useAuth();
 
   const [registration, setRegistration] = useState<Registration | null>(null);
+  const [existingAbstract, setExistingAbstract] = useState<Abstract | null>(null);
+  const [abstractLoading, setAbstractLoading] = useState(true);
   const [accessLoading, setAccessLoading] = useState(true);
   const [accessError, setAccessError] = useState('');
   const [paymentConfirmation, setPaymentConfirmation] = useState<'yes' | 'no' | ''>('');
@@ -29,6 +32,7 @@ function AbstractSubmissionContent() {
 
   const [settings, setSettings] = useState<EventSettings | null>(null);
   const requestedTheme = officialThemeTitle(searchParams.get('theme'));
+  const editModeRequested = searchParams.get('mode') === 'edit';
   const initialTheme = officialThemes.some(theme => theme.title === requestedTheme)
     ? requestedTheme
     : officialThemes[0].title;
@@ -47,6 +51,8 @@ function AbstractSubmissionContent() {
 
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
+  const [updateSuccess, setUpdateSuccess] = useState(false);
+  const [editComplete, setEditComplete] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const submissionData = {
@@ -56,6 +62,7 @@ function AbstractSubmissionContent() {
     institution: formData.institution || user?.institution || '',
     department: formData.department || user?.department || '',
   };
+  const isEditing = Boolean(existingAbstract && editModeRequested && !editComplete);
 
   useEffect(() => {
     if (authLoading) return;
@@ -79,6 +86,44 @@ function AbstractSubmissionContent() {
       });
     return () => { active = false; };
   }, [authLoading, user, router]);
+
+  useEffect(() => {
+    if (authLoading) return;
+    if (!user) return;
+
+    let active = true;
+    api.getMyAbstract()
+      .then((res) => {
+        if (!active) return;
+
+        if (res.abstract) {
+          const abstract = res.abstract;
+          setExistingAbstract(abstract);
+          setFormData({
+            title: abstract.title || '',
+            abstractText: abstract.abstractText || '',
+            authorName: abstract.authorName || '',
+            coAuthors: abstract.coAuthors || '',
+            institution: abstract.institution || '',
+            department: abstract.department || '',
+            researchTheme: abstract.researchTheme || initialTheme,
+            keywords: abstract.keywords || '',
+            contactEmail: abstract.contactEmail || '',
+          });
+          setPaymentStepComplete(true);
+        }
+      })
+      .catch((err: unknown) => {
+        if (active) {
+          setAccessError(err instanceof Error ? err.message : 'Unable to load your existing abstract.');
+        }
+      })
+      .finally(() => {
+        if (active) setAbstractLoading(false);
+      });
+
+    return () => { active = false; };
+  }, [authLoading, user, initialTheme]);
 
   // Load event settings for the configured abstract word limit.
   useEffect(() => {
@@ -133,12 +178,18 @@ function AbstractSubmissionContent() {
     e.preventDefault();
     setError('');
     setPaymentError('');
+    setUpdateSuccess(false);
 
     if (!user || !registration || loading) {
       return;
     }
 
-    if (paymentConfirmation !== 'yes' || !paymentStepComplete || !payerUpiId.trim() || !transactionId.trim()) {
+    if (!existingAbstract && (
+      paymentConfirmation !== 'yes' ||
+      !paymentStepComplete ||
+      !payerUpiId.trim() ||
+      !transactionId.trim()
+    )) {
       setPaymentError('Complete the payment-details step before submitting your abstract.');
       return;
     }
@@ -161,9 +212,19 @@ function AbstractSubmissionContent() {
       formPayload.append('researchTheme', formData.researchTheme);
       formPayload.append('keywords', formData.keywords);
       formPayload.append('contactEmail', submissionData.contactEmail);
-      const res = await api.submitAbstract(formPayload);
+      const res = existingAbstract
+        ? await api.updateMyAbstract(existingAbstract._id, formPayload)
+        : await api.submitAbstract(formPayload);
+
       if (res.success) {
-        setSuccess(true);
+        setExistingAbstract(res.abstract);
+        if (existingAbstract) {
+          setEditComplete(true);
+          setUpdateSuccess(true);
+          router.replace('/abstract-submission');
+        } else {
+          setSuccess(true);
+        }
       } else {
         setError(res.message || 'Submission could not be confirmed. Please try again.');
       }
@@ -202,7 +263,7 @@ function AbstractSubmissionContent() {
 
       <section className="section" style={{ backgroundColor: '#ffffff' }}>
         <div className="container-narrow">
-          {paymentStepComplete && (
+          {paymentStepComplete && !existingAbstract && (
             <>
               <div style={{ marginBottom: '2.5rem' }}>
                 <TemplateDownloadCard />
@@ -224,19 +285,38 @@ function AbstractSubmissionContent() {
             </div>
           )}
           <div className="card" style={{ padding: '2.5rem' }}>
+            {existingAbstract && !isEditing ? (
+              <>
+                <h2 style={{ fontSize: '1.5rem', color: 'var(--navy-900)', marginBottom: '1.5rem', borderBottom: '1px solid var(--slate-100)', paddingBottom: '0.75rem' }}>
+                  Your Abstract
+                </h2>
+                <AbstractSummary abstract={existingAbstract} />
+              </>
+            ) : (
+              <>
             <h2 style={{ fontSize: '1.5rem', color: 'var(--navy-900)', marginBottom: '1.5rem', borderBottom: '1px solid var(--slate-100)', paddingBottom: '0.75rem' }}>
-              {paymentStepComplete ? 'Abstract Submission Form' : 'Payment Confirmation'}
+              {existingAbstract ? 'Edit Your Abstract' : paymentStepComplete ? 'Abstract Submission Form' : 'Payment Confirmation'}
             </h2>
-
-            {registration && !accessLoading && !accessError ? (
-            paymentStepComplete ? (
-            <form onSubmit={handleSubmit}>
-              <button type="button" className="btn btn-outline-navy btn-sm" style={{ marginBottom: '1.25rem' }} onClick={() => setPaymentStepComplete(false)}>
-                Back to Payment Confirmation
-              </button>
-              <div className="form-hint" style={{ marginBottom: '1.25rem' }}>
-                Payment details entered here are for this frontend submission flow only and do not verify payment.
+{abstractLoading && (
+              <div className="alert alert-info">
+                Checking your existing abstract...
               </div>
+            )}
+            {registration && !accessLoading && !abstractLoading && !accessError ? (
+              (paymentStepComplete || existingAbstract) ? (
+            <>
+            {updateSuccess && <div className="alert alert-success" role="status">Your abstract was updated successfully.</div>}
+            <form onSubmit={handleSubmit}>
+              {!existingAbstract && (
+                <>
+                  <button type="button" className="btn btn-outline-navy btn-sm" style={{ marginBottom: '1.25rem' }} onClick={() => setPaymentStepComplete(false)}>
+                    Back to Payment Confirmation
+                  </button>
+                  <div className="form-hint" style={{ marginBottom: '1.25rem' }}>
+                    Payment details entered here are for this frontend submission flow only and do not verify payment.
+                  </div>
+                </>
+              )}
               {/* Existing abstract submission fields and API flow remain unchanged. */}
               <div className="form-group">
                 <label className="form-label" htmlFor="abstract-title">Paper / Abstract Title *</label>
@@ -304,9 +384,10 @@ function AbstractSubmissionContent() {
               </div>
 
               <button type="submit" disabled={loading || success || !user || wordCount > wordLimit || !registration} className="btn btn-teal btn-lg" style={{ width: '100%', marginTop: '1rem' }} id="submit-abstract-btn">
-                {loading ? 'Submitting Abstract...' : 'Submit Abstract'}
+                {loading ? (existingAbstract ? 'Updating Abstract...' : 'Submitting Abstract...') : existingAbstract ? 'Update Abstract' : 'Submit Abstract'}
               </button>
             </form>
+            </>
             ) : (
             <section aria-labelledby="payment-confirmation-heading" style={{ padding: '1.25rem', border: '1px solid #bfdbfe', borderRadius: '8px', background: '#eff6ff' }}>
                 <fieldset style={{ border: 0, padding: 0, margin: 0 }}>
@@ -359,13 +440,20 @@ function AbstractSubmissionContent() {
               </section>
             )
             ) : null}
+              </>
+            )}
           </div>
         </div>
       </section>
-      {success && <SuccessModal
-        heading="Abstract submitted successfully"
-        message="Your abstract has been submitted successfully! You will receive an acknowledgement email after verification."
-        onClose={() => setSuccess(false)}
+      {(success || updateSuccess) && <SuccessModal
+        heading={updateSuccess ? 'Abstract Updated Successfully' : 'Abstract Submitted Successfully'}
+        message={updateSuccess
+          ? 'Your abstract has been updated successfully.'
+          : 'Your abstract has been submitted successfully. This is your submission acknowledgement.'}
+        onClose={() => {
+          setSuccess(false);
+          setUpdateSuccess(false);
+        }}
       />}
     </div>
   );

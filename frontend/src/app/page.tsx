@@ -104,6 +104,13 @@ export default function HomePage() {
       role: 'Treasurer, INS',
       affiliation: 'Chief Coordinator of the Seminar',
     },
+    {
+      name: 'Dr. Aruna Kaushik',
+      image: '/images/speakers/Dr Aruna Kaushik.png',
+      category: 'Key Speaker',
+      role: 'Scientist',
+      affiliation: 'INMAS (DRDO), New Delhi',
+    },
   ];
   const eventSchedule = [
     {
@@ -375,6 +382,7 @@ export default function HomePage() {
             {speakers.map((speaker) => (
               <article key={speaker.name} className="card speaker-card">
                 <ProfilePortrait src={speaker.image} name={speaker.name} shape="circle" objectPosition={speaker.objectPosition} />
+                {'category' in speaker && <p className="speaker-card-label">{speaker.category}</p>}
                 <h3>{speaker.name}</h3>
                 <p className="speaker-card-role">{speaker.role}</p>
                 <p className="speaker-card-affiliation">{speaker.affiliation}</p>
