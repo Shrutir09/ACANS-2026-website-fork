@@ -8,10 +8,10 @@ import { api } from '../../lib/api';
 import { Registration, Payment, Abstract, EventSettings } from '../../types';
 import { normalizeEventText } from '../../lib/eventText';
 import StatusBadge from '../../components/StatusBadge';
+import AbstractSummary from '../../components/AbstractSummary';
 import TemplateDownloadCard from '../../components/TemplateDownloadCard';
 import OfficialPaymentDetails from '../../components/OfficialPaymentDetails';
 import SuccessModal from '../../components/SuccessModal';
-import { officialThemeTitle } from '../../lib/officialThemes';
 
 export default function ParticipantDashboard() {
   const router = useRouter();
@@ -184,7 +184,7 @@ export default function ParticipantDashboard() {
             <TemplateDownloadCard compact />
             {!abstractData && (
               <Link href="/abstract-submission" className="btn btn-primary btn-sm">
-                + Submit Abstract
+                Submit Abstract
               </Link>
             )}
           </div>
@@ -446,34 +446,9 @@ export default function ParticipantDashboard() {
 
               {abstractData ? (
                 <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-                    <span style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--teal-600)' }}>
-                      Ref: {abstractData.abstractRef}
-                    </span>
-                    <StatusBadge status="submitted" />
-                  </div>
-
-                  <h3 style={{ fontSize: '1.1rem', color: 'var(--navy-900)', marginBottom: '0.5rem' }}>
-                    {abstractData.title}
-                  </h3>
-
-                  <div style={{ fontSize: '0.85rem', color: 'var(--slate-500)', marginBottom: '0.75rem' }}>
-                    Theme: <strong>{officialThemeTitle(abstractData.researchTheme)}</strong>
-                  </div>
-
-                  <p style={{ fontSize: '0.875rem', color: 'var(--slate-600)', lineHeight: '1.6', marginBottom: '1rem', backgroundColor: 'var(--slate-50)', padding: '0.75rem', borderRadius: '6px' }}>
-                    {abstractData.abstractText}
-                  </p>
-
-                  {abstractData.attachmentOriginalName && (
-                    <div style={{ fontSize: '0.85rem', color: 'var(--slate-600)', marginBottom: '1rem' }}>
-                      📎 Attachment: <strong>{abstractData.attachmentOriginalName}</strong>
-                    </div>
-                  )}
-
-
-                  <Link href="/abstract-submission" className="btn btn-outline-teal btn-sm">
-                    Edit / Resubmit Abstract
+                  <AbstractSummary abstract={abstractData} />
+                  <Link href="/abstract-submission?mode=edit" className="btn btn-outline-teal btn-sm">
+                    Edit Abstract
                   </Link>
                 </div>
               ) : (

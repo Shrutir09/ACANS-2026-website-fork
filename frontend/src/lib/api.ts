@@ -152,8 +152,8 @@ export const api = {
     return fetchJson(`${API_BASE}/abstracts/my`);
   },
 
-  async updateMyAbstract(formData: FormData): Promise<{ success: boolean; message: string; abstract: Abstract }> {
-    return fetchJson(`${API_BASE}/abstracts/my`, {
+  async updateMyAbstract(abstractId: string, formData: FormData): Promise<{ success: boolean; message: string; abstract: Abstract }> {
+    return fetchJson(`${API_BASE}/abstracts/${abstractId}`, {
       method: 'PUT',
       body: formData,
     });
